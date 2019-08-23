@@ -16,38 +16,58 @@
                 </div>
             </li>
             @*<li class="@Html.IsSelected(controller: "Home", action: "Main")">
-                <a href="@Url.Action("Main", "Home")"><i class="fa fa-diamond"></i> <span class="nav-label">Main</span> <span class="label label-primary float-right">Main</span></a>
-            </li>
-            <li class="@Html.IsSelected(controller: "Home", action: "Minor")">
-                <a href="@Url.Action("Minor", "Home")"><i class="fa fa-server"></i> <span class="nav-label">Minor</span></a>
-            </li>
-            <li class="@Html.IsSelected(controller: "Home", action: "Minor")">
-                <a href="@Url.Action("Minor", "Home")"><i class="fa fa-address-card-o"></i> <span class="nav-label">Paciente</span></a>
-            </li>
-            <li class="@Html.IsSelected(controller: "Home", action: "Minor")">
-                <a href="@Url.Action("Minor", "Home")"><i class="fa fa-cog"></i> <span class="nav-label">Configuración</span></a>
-            </li>
+            <a href="@Url.Action("Main", "Home")"><i class="fa fa-diamond"></i> <span class="nav-label">Main</span> <span class="label label-primary float-right">Main</span></a>
+        </li>
+        <li class="@Html.IsSelected(controller: "Home", action: "Minor")">
+            <a href="@Url.Action("Minor", "Home")"><i class="fa fa-server"></i> <span class="nav-label">Minor</span></a>
+        </li>
+        <li class="@Html.IsSelected(controller: "Home", action: "Minor")">
+            <a href="@Url.Action("Minor", "Home")"><i class="fa fa-address-card-o"></i> <span class="nav-label">Paciente</span></a>
+        </li>
+        <li class="@Html.IsSelected(controller: "Home", action: "Minor")">
+            <a href="@Url.Action("Minor", "Home")"><i class="fa fa-cog"></i> <span class="nav-label">Configuración</span></a>
+        </li>
 
-            <li class="@Html.IsSelected(controller: "Home")">
+        <li class="@Html.IsSelected(controller: "Home")">
 
-                <a href="@Url.Action("Index", "Home", new {area="Seguridad"})"><i class="fa fa fa-cog"></i> <span class="nav-label" data-i18n="nav.dashboard">Seguridad</span> <span class="fa arrow"></span></a>
-                <ul class="nav nav-second-level collapse @Html.IsSelected(controller: "Home", cssClass: "in")">
+            <a href="@Url.Action("Index", "Home", new {area="Seguridad"})"><i class="fa fa fa-cog"></i> <span class="nav-label" data-i18n="nav.dashboard">Seguridad</span> <span class="fa arrow"></span></a>
+            <ul class="nav nav-second-level collapse @Html.IsSelected(controller: "Home", cssClass: "in")">
 
-                    <li class="@Html.IsSelected(controller: "Menu",action: "Index")"><a href="@Url.Action("Index", "Menu", new { area= "Seguridad" })"><i class="fa fa-check-square"></i>Registro Menu</a></li>
-                    <li class="@Html.IsSelected(controller: "Aplicaciones",action: "Index")"><a href="@Url.Action("Index", "Aplicaciones", new { area= "Seguridad" })"><i class="fa fa-check-square"></i>Registro Aplicaciones</a></li>
+                <li class="@Html.IsSelected(controller: "Menu",action: "Index")"><a href="@Url.Action("Index", "Menu", new { area= "Seguridad" })"><i class="fa fa-check-square"></i>Registro Menu</a></li>
+                <li class="@Html.IsSelected(controller: "Aplicaciones",action: "Index")"><a href="@Url.Action("Index", "Aplicaciones", new { area= "Seguridad" })"><i class="fa fa-check-square"></i>Registro Aplicaciones</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="@Url.Action("Index", "Home", new {area="Reporte"})"><i class="fa fa-book"></i> <span class="nav-label" data-i18n="nav.dashboard">Reporte</span> <span class="fa arrow"></span></a>
+            <ul class="nav nav-second-level collapse @Html.IsSelected(controller: "Reporte", cssClass: "in")">
+
+                <li class="@Html.IsSelected(controller: "Menu",action: "Index")"><a href="@Url.Action("Index", "Menu", new { area= "Reporte" })"><i class="fa fa-check-square"></i>Pacientes</a></li>
+            </ul>
+
+        </li>*@
+
+            <li>
+                <a href="@Url.Action("Index", "Home", new {area="Configuracion"})"><i class="glyphicon glyphicon-cog" ></i> <span class="nav-label" data-i18n="nav.dashboard">Configuracion</span> <span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level collapse @Html.IsSelected(controller: "Configuracion", cssClass: "in")">
+
+                    <li class="@Html.IsSelected(controller: "Distrito",action: "Index")"><a href="@Url.Action("Index", "Distrito", new { area= "Configuracion" })"><i class="fa fa-plus"></i>Distrito</a></li>
+                    
                 </ul>
             </li>
-            <li>
-                <a href="@Url.Action("Index", "Home", new {area="Reporte"})"><i class="fa fa-book"></i> <span class="nav-label" data-i18n="nav.dashboard">Reporte</span> <span class="fa arrow"></span></a>
-                <ul class="nav nav-second-level collapse @Html.IsSelected(controller: "Reporte", cssClass: "in")">
 
-                    <li class="@Html.IsSelected(controller: "Menu",action: "Index")"><a href="@Url.Action("Index", "Menu", new { area= "Reporte" })"><i class="fa fa-check-square"></i>Pacientes</a></li>
+            <li>
+                <a href="@Url.Action("Index", "Home", new {area="Agentes"})"><i class="fa fa-pencil-square-o" ></i> <span class="nav-label" data-i18n="nav.dashboard">Mantenimiento</span> <span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level collapse @Html.IsSelected(controller: "Agentes", cssClass: "in")">
+
+                    <li class="@Html.IsSelected(controller: "Termico",action: "Index")"><a href="@Url.Action("Index", "Termico", new { area= "Agentes" })"><i class="fa fa-plus"></i>Termico</a></li>
+                    <li class="@Html.IsSelected(controller: "Electrofisico",action: "Index")"><a href="@Url.Action("Index", "Electrofisico", new { area= "Agentes" })"><i class="fa fa-plus"></i>Electrofisico</a></li>
+                    <li class="@Html.IsSelected(controller: "Terapeuticas",action: "Index")"><a href="@Url.Action("Index", "Terapeuticas", new { area= "Agentes" })"><i class="fa fa-plus"></i>M. Terapeuticas</a></li>
                 </ul>
 
-            </li>*@
+            </li>
 
             <li>
-                <a href="@Url.Action("Index", "Home", new {area="Mantenimiento"})"><i class="fa fa-pencil"></i> <span class="nav-label" data-i18n="nav.dashboard">Mantenimiento</span> <span class="fa arrow"></span></a>
+                <a href="@Url.Action("Index", "Home", new {area="Mantenimiento"})"><i class="fa fa-pencil" aria-hidden="true"></i> <span class="nav-label" data-i18n="nav.dashboard">Mantenimiento</span> <span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse @Html.IsSelected(controller: "Mantenimiento", cssClass: "in")">
 
                     <li class="@Html.IsSelected(controller: "Persona",action: "Index")"><a href="@Url.Action("Index", "Persona", new { area= "Mantenimiento" })"><i class="fa fa-address-card-o"></i>Pacientes</a></li>

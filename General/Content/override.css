@@ -46,5 +46,10 @@ label{
 
 body.mini-navbar .nav-header {
     padding: 0;
-    background-color: #6A5ACD;
+    background-color: #2F4050;
+}
+
+.nav > li.active {
+    border-left: 4px solid #6A5ACD;
+    background: #293846;
 }
