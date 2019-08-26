@@ -10,5 +10,6 @@ namespace Domain.Entities.General
     {
         public int? page { get; set; }
         public int? countrow { get; set; }
+        
     }
 }

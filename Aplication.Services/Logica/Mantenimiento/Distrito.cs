@@ -7,6 +7,8 @@
     using Repository.UnitOfWork;
     using System.Collections.Generic;
     using System.Linq;
+    using System;
+    
     public class Distrito : IDistrito
     {
         private readonly UnitOfWork oUnitOfWork;
@@ -36,14 +38,14 @@
 
         }
 
-        public IPagedList<EDistrito> DistritoGrillaToPageList(Grilla pag)
+        public IPagedList<EDistritoView> DistritoGrillaToPageList(Grilla pag)
         {
 
             pag.page = (pag.page ?? 1);
             var distrito = oUnitOfWork.DistritoRepository.Queryable();
 
             var result = (from d in distrito
-                         select new EDistrito
+                         select new EDistritoView
                          {
                              Nombre = d.Nombre,
                              DistritoId = d.DistritoId,
@@ -51,14 +53,25 @@
                          }).OrderBy(d => d.DepartamentoId)
                          .ThenBy(d => d.Nombre);
             var _result = result.ToPagedList((int)pag.page, (int)pag.countrow);
-            //var result = distrito.Select(d => new EDistrito {
-            //            Nombre = d.Nombre,
-            //            DepartamentoId = 1 }).ToList();
-
+            
             return _result;
 
         }
 
+        public string CreateDistrito(EDistrito registro)
+        {
+
+            Repository.Distrito d = new Repository.Distrito();
+            d.Nombre = registro.Nombre;
+            d.DepartamentoId = registro.DepartamentoId;
+
+            oUnitOfWork.DistritoRepository.Insert(d);
+            oUnitOfWork.Save();
+
+            
+            return "OK";
+
+        }
 
 
     }

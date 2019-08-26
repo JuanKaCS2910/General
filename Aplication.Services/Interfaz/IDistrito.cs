@@ -8,7 +8,7 @@ namespace Aplication.Services.Interfaz
     public interface IDistrito
     {
         List<EDistrito> DistritoGrilla();
-        IPagedList<EDistrito> DistritoGrillaToPageList(Grilla pag);
-
+        IPagedList<EDistritoView> DistritoGrillaToPageList(Grilla pag);
+        string CreateDistrito(EDistrito registro);
     }
 }
