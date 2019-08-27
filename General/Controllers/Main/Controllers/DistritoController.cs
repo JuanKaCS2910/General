@@ -16,50 +16,52 @@ namespace General.Controllers.Main.Controllers
         {
             this.oDistrito = new Distrito();
         }
-        [HttpPost]
-        public ActionResult Grabar(EDistrito view)
+
+        public JsonResult Grabar(EDistrito view)
         {
+            string sResultado = string.Empty;
             if (ModelState.IsValid)
             {
-
                 try
                 {
                     oDistrito.CreateDistrito(view);
+                    sResultado = "OK";
                 }
                 catch (Exception ex)
                 {
-                    string error = string.Empty;
-
                     if (ex.InnerException != null &&
                         ex.InnerException.InnerException != null &&
                         ex.InnerException.InnerException.Message.Contains("Index"))
                     {
-                        error = "El campo ya se encuentra registrado";
-                        
+                        sResultado = "El campo ya se encuentra registrado";
+
                     }
                     else
                     {
-                        error = ex.Message;
+                        sResultado = ex.Message;
                     }
-                    return RedirectToAction("Index");//, new { message = error });
                 }
             }
-            return RedirectToAction("Index");
-            //return View(result);
+
+            return Json(new { Resultado = sResultado }, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult Delete(int distritoId)
+        {
+            string sResultado = string.Empty;
+            sResultado = oDistrito.EliminarDistrito(distritoId);
+
+            return Json(new { Resultado = sResultado }, JsonRequestBehavior.AllowGet);
         }
 
         // GET: Distrito
-        public ActionResult Index(Grilla paginacion)//, string message)
+        public ActionResult Index(Grilla paginacion)
         {
-            //ModelState.AddModelError(string.Empty, "Error");
-            //if (!string.IsNullOrEmpty(message))
-            //{
-            //    ViewBag.Error = message;
-            //    //ModelState.AddModelError(string.Empty, "Error Fail");
-            //}
+            if (paginacion.countrow == null)
+                paginacion.countrow = int.Parse(WebConfigurationManager.AppSettings["CountRow"]);
 
-            paginacion.countrow = int.Parse(WebConfigurationManager.AppSettings["CountRow"]);
-            
+            ViewBag.Cantidad = paginacion.countrow;
+
             var result = oDistrito.DistritoGrillaToPageList(paginacion);
             
             return View(result);

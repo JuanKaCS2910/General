@@ -92,137 +92,178 @@
                                 <div class="col-xs-12 col-md-12">
 
                                     <table class="table">
-                                        <tr style="color: #000000;background-color: #eee">
-                                            <th>
+                                        <tr class="GrillaPage">
+                                            <th class="col-xs-12 col-md-6">
+                                                <div class="row">
+                                                    <div class="col-xs-12 col-md-2">Mostrar</div>
+                                                    <div class="col-xs-12 col-md-5">
+                                                        <select name="ChangeRow" id="ChangeRow" style="height:40px;width:150px;" class="form-control ">
+                                                            <option value="10" selected>10</option>
+                                                            <option value="25">25</option>
+                                                            <option value="50">50</option>
+                                                            <option value="100">100</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-xs-12 col-md-5"></div>
+                                                </div>
+                                            </th>
+                                            <th class="col-xs-12 col-md-2"></th>
+                                            <th class="col-xs-12 col-md-3">
+                                            </th>
+                                            <th class="col-xs-12 col-md-1">
+                                                <a href="@Url.Action("Index", "Distrito")" class="btn btn-success">
+                                                    <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
+                                                </a>
+                                            </th>
+                                        </tr>
+                                        <tr class="EstiloCabecera">
+                                            <th class="col-xs-12 col-md-4">
                                                 @Html.DisplayNameFor(model => Model.FirstOrDefault().Nombre)
                                             </th>
-                                            <th></th>
+                                            <th class="col-xs-12 col-md-3"></th>
+                                            <th class="col-xs-12 col-md-4"></th>
+                                            <th class="col-xs-12 col-md-1"></th>
                                         </tr>
 
                                         @foreach (var item in Model)
                                         {
                                             <tr>
-                                                <td>
+                                                <td class="col-xs-12 col-md-6">
                                                     @Html.DisplayFor(modelItem => item.Nombre)
                                                 </td>
-                                                <td>
-                                                    @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }, new { @class = "btn btn-info" })
-                                                    @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }, new { @class = "btn btn-warning" })
-                                                    @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ }, new { @class = "btn btn-danger" })
+                                                <td class="col-xs-12 col-md-3">
+                                                    @Html.ActionLink("Edit", "Edit", new { distritoId = item.DistritoId, departamentoId = item.DepartamentoId }, new { @class = "btn btn-info" })
+
+                                                    <input type="button" onclick="Delete(this)" id="btnDelete"
+                                                           data-assigned-id="@item.DistritoId" class="btn btn-danger" value="Delete" />
                                                 </td>
+                                                <td class="col-xs-12 col-md-2"></td>
+                                                <td class="col-xs-12 col-md-1"></td>
                                             </tr>
                                         }
 
-                                        <tr style="color: #000000;background-color: #eee">
-                                            <th>
-                                                @Html.DisplayNameFor(model => model.FirstOrDefault().Nombre)
+                                        <tr class="EstiloCabecera">
+
+                                            <th class="col-xs-12 col-md-6">
+                                                Página: @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) de: @Model.PageCount
+                                                @Html.PagedListPager(Model, page => Url.Action("Index", new
+                                                {
+                                                    page,
+                                                    sortOrder = ViewBag.CurrentSort,
+                                                    currentFilter = ViewBag.CurrentFilter
+                                                }))
+                                                Cantidad de Registros: @Model.TotalItemCount
+                                                @*View: @ViewBag.Cantidad*@
                                             </th>
-                                            <th></th>
+                                            <th class="col-xs-12 col-md-3">
+                                            </th>
+                                            <th class="col-xs-12 col-md-2">
+                                            </th>
+                                            <th class="col-xs-12 col-md-1">
+                                                <a href="@Url.Action("Index", "Distrito")" class="btn btn-success">
+                                                    <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
+                                                </a>
+                                            </th>
                                         </tr>
 
                                     </table>
-
-                                    Página: @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) de: @Model.PageCount
-                                    @Html.PagedListPager(Model, page => Url.Action("Index", new
-                                    {
-                                        page,
-                                        sortOrder = ViewBag.CurrentSort,
-                                        currentFilter = ViewBag.CurrentFilter
-                                    }))
                                 </div>
                             </div>
+
                         </div>
+                        @*< !--Model Popup starts Correct-- >*@
 
-                    </div>
-                </div>
+                        <div class="container">
+                            <div class="row">
+                                <div class="modal fade" id="success" role="dialog">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="" id="btncancelar"><span>×</span></button>
+                                            </div>
 
-            </div>
+                                            <div class="modal-body">
 
-
-            <!--Model Popup starts Correct-->
-            <div class="container">
-                <div class="row">
-                        
-                    <div class="modal fade" id="success" role="dialog">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal" aria-label=""><span>×</span></button>
-                                    </div>
-					
-                                <div class="modal-body">
-                       
-						            <div class="thank-you-pop" >
-                                        <div class="row">
-                                            <img style="align-content:center" src="http://goactionstations.co.uk/wp-content/uploads/2017/03/Green-Round-Tick.png" alt="">
+                                                <div class="thank-you-pop">
+                                                    <div class="row">
+                                                        <img style="align-content:center" src="http://goactionstations.co.uk/wp-content/uploads/2017/03/Green-Round-Tick.png" alt="">
+                                                    </div>
+                                                    <h1>
+                                                        <span id="SuccessResult"></span>
+                                                    </h1>
+                                                </div>
+                                            </div>
                                         </div>
-							            
-							            <h1>El registro se grabo exitosamente</h1>
-							            @*<p>Your submission is received and we will contact you soon</p>
-							            <h3 class="cupon-pop">Your Id: <span>12345</span></h3>*@
-							
- 						            </div>
-                         
-                                </div>
-					
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!--Model Popup ends-->
-
-            <!--Model Popup starts Correct-->
-            <div class="container">
-                <div class="row">
-                        
-                    <div class="modal fade" id="error" role="dialog">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal" aria-label=""><span>×</span></button>
                                     </div>
-					
-                                <div class="modal-body">
-                       
-						            <div class="thank-you-pop" >
-                                        <div class="row">
-                                            <img src="~/Content/Iconos/error.png" alt="">
-                                        </div>
-							            
-							            <h1>Ocurrió un error al momento de registrar</h1>
-							            @*<p>Your submission is received and we will contact you soon</p>
-							            <h3 class="cupon-pop">Your Id: <span>12345</span></h3>*@
-							
- 						            </div>
-                         
                                 </div>
-					
                             </div>
                         </div>
+                        <!--Model Popup ends-->
+
+                        <!--Model Popup starts Incorrecto-->
+                        <div class="container">
+                            <div class="row">
+                                <div class="modal fade" id="error" role="dialog">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-label=""><span>×</span></button>
+                                            </div>
+
+                                            <div class="modal-body">
+
+                                                <div class="thank-you-pop">
+                                                    <div class="row">
+                                                        <img src="~/Content/Iconos/error.png" alt="">
+                                                    </div>
+
+                                                    <h1>Ocurrió un error al momento de registrar</h1>
+                                                    <h3 class="cupon-pop">
+                                                        Error : <span id="ErrorResult"></span>
+                                                    </h3>
+
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Model Popup ends-->
+
                     </div>
                 </div>
-            </div>
-            <!--Model Popup ends-->
 
+            </div>
         </div>
     </div>
-
 </div>
-
 @section Scripts
 {
     <script type="text/javascript">
 
+        
+
         $(document).ready(function () {
-            //document.getElementById("modal-form").style.display = "none";
+
+            $("#ChangeRow").change(function () {
+
+                CargarGrilla();
+ 
+            });
+
             $("#btnCreate").click(function () {
-                //$("#ignismyModal").modal('show');
-                
-                
+
                 var EDistrito = {
                     Nombre: $("#RegistroNombre").val(),
                     DepartamentoId: 1
+                };
+
+                var Grilla = {
+                    page: 0,
+                    countrow: 0
                 };
 
                 $.ajax({
@@ -232,25 +273,107 @@
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
                     success: function (data) {
-                        $("#success").modal('show');
-                        //$("#modal-form")
-
-                        //$("#modal-form").click(function () {
-                            
-                        //});
                         //aqui redireccionas
+                        if (data != null) {
+                            if (data.Resultado == "OK") {
+                                //window.location = "/Distrito/Index/";
+                                $("#success").modal('show');
+                                $("#SuccessResult").text('El registro se grabo exitosamente');
+                                //$.ajax({
+                                //    url: "../Distrito/Index",
+                                //    data: JSON.stringify(Grilla),
+                                //    type: 'GET',
+                                //    success: function (result) {
+                                //        do the necessary updations
+                                //    },
+                                //    error: function (result) {
+
+                                //    }
+                                //});
+
+                            }
+                            else {
+                                $("#ErrorResult").text(data.Resultado);
+                                $("#error").modal('show');
+
+                            }
+                        }
+
                     },
                     error: function (request, status, error) {
+
                         $("#error").modal('show');
-                        debugger;
+                        $("#ErrorResult").text();
+                        //debugger;
                         //alert(request.responseText);
                     },
 
                 });
                 
-                //alert("dddd" + $("#Nombre").val());
             });
         });
+        
+        function Delete(id) {
+            var resultado = {
+                distritoId: $(id).data('assigned-id')
+            };
+
+            $.ajax({
+                url: '../Distrito/Delete',
+                type: 'POST',
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify(resultado),
+                success: function (data) {
+                    //aqui redireccionas
+                    if (data != null) {
+                        if (data.Resultado == "OK") {
+                            $("#success").modal('show');
+                            $("#SuccessResult").text('Se elimino satisfactoriamente el registro');
+                            CargarGrilla();
+                        }
+                        else {
+                            $("#ErrorResult").text(data.Resultado);
+                            $("#error").modal('show');
+                        }
+                    }
+                },
+                error: function (request, status, error) {
+                    debugger;
+                    $("#error").modal('show');
+                    $("#ErrorResult").text();
+                    debugger;
+                    //alert(request.responseText);
+                },
+
+            });
+
+        }
+
+        function CargarGrilla() {
+            var paginacion = {
+                countrow: $("#ChangeRow").val()
+            };
+
+            $.ajax({
+                url: '../Distrito/Index',
+                type: 'POST',
+                data: JSON.stringify(paginacion),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (data) {
+                    alert(data);
+                },
+                error: function (request, status, error) {
+                    //debugger;
+                    //alert("request : " + request);
+                    //alert("status : " + status);
+                    //alert("error : " + error);
+                    //alert("error");
+                },
+            });
+        }
+
     </script>
 
 

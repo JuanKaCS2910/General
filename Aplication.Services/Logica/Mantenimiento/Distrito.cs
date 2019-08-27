@@ -73,6 +73,25 @@
 
         }
 
+        public string EliminarDistrito(int? distritoId)
+        {
+            string Resultado = string.Empty;
+            var distrito = oUnitOfWork.DistritoRepository.GetByID(distritoId);
+
+            if (distrito == null)
+            {
+                Resultado = "Distrito no existe";
+            }
+            else
+            {
+                oUnitOfWork.DistritoRepository.Delete(distritoId);
+                oUnitOfWork.Save();
+                Resultado = "OK";
+            }
+
+            return Resultado;
+
+        }
 
     }
 }

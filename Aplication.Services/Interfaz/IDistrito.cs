@@ -10,5 +10,6 @@ namespace Aplication.Services.Interfaz
         List<EDistrito> DistritoGrilla();
         IPagedList<EDistritoView> DistritoGrillaToPageList(Grilla pag);
         string CreateDistrito(EDistrito registro);
+        string EliminarDistrito(int? distritoId);
     }
 }
