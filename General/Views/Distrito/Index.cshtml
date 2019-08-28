@@ -54,7 +54,7 @@
 
                                     <div class="col-xs-12 col-md-6">
                                         <div>
-                                            <input id="btnCreate" value="Create" class="btn btn-primary" />
+                                            <input id="btnCreate" value="Grabar" class="btn btn-primary" />
                                         </div>
                                     </div>
 
@@ -74,7 +74,6 @@
                                     <div class="col-xs-12 col-md-3">
                                         <div>
                                             @Html.EditorFor(model => Model.FirstOrDefault().FiltroNombre, new { htmlAttributes = new { @class = "form-control col-xs-12 col-md-3" } })
-                                            @*@Html.EditorFor(model => model.FirstOrDefault().Nombre, new { htmlAttributes = new { @class = "form-control" } })*@
                                         </div>
                                     </div>
 
@@ -108,8 +107,7 @@
                                                 </div>
                                             </th>
                                             <th class="col-xs-12 col-md-2"></th>
-                                            <th class="col-xs-12 col-md-3">
-                                            </th>
+                                            <th class="col-xs-12 col-md-3"></th>
                                             <th class="col-xs-12 col-md-1">
                                                 <a href="@Url.Action("Index", "Distrito")" class="btn btn-success">
                                                     <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
@@ -132,7 +130,8 @@
                                                     @Html.DisplayFor(modelItem => item.Nombre)
                                                 </td>
                                                 <td class="col-xs-12 col-md-3">
-                                                    @Html.ActionLink("Edit", "Edit", new { distritoId = item.DistritoId, departamentoId = item.DepartamentoId }, new { @class = "btn btn-info" })
+                                                    <input type="button" onclick="Edit(this)" id="btnEdit"
+                                                           data-assigned-id="@item.DistritoId" class="btn btn-info" value="Modificar" />
 
                                                     <input type="button" onclick="Delete(this)" id="btnDelete"
                                                            data-assigned-id="@item.DistritoId" class="btn btn-danger" value="Delete" />
@@ -172,13 +171,12 @@
 
                         </div>
                         @*< !--Model Popup starts Correct-- >*@
-
                         <div class="container">
                             <div class="row">
                                 <div class="modal fade" id="success" role="dialog">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
-                                            <div class="modal-header">
+                                            <div class="modal-header succes-modal">
                                                 <button type="button" class="close" data-dismiss="modal" aria-label="" id="btncancelar"><span>×</span></button>
                                             </div>
 
@@ -206,12 +204,11 @@
                                 <div class="modal fade" id="error" role="dialog">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
-                                            <div class="modal-header">
+                                            <div class="modal-header fail-modal">
                                                 <button type="button" class="close" data-dismiss="modal" aria-label=""><span>×</span></button>
                                             </div>
 
                                             <div class="modal-body">
-
                                                 <div class="thank-you-pop">
                                                     <div class="row">
                                                         <img src="~/Content/Iconos/error.png" alt="">
@@ -223,7 +220,6 @@
                                                     </h3>
 
                                                 </div>
-
                                             </div>
 
                                         </div>
@@ -233,149 +229,68 @@
                         </div>
                         <!--Model Popup ends-->
 
+                        <!--Model Actualizar-->
+                        <div class="container">
+                            <div class="row">
+                                <div class="modal fade" id="dvActualizar" role="dialog">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header update-modal">
+                                                <button type="button" class="close" data-dismiss="modal" aria-label=""><span>×</span></button>
+                                                <h4 class="modal-title">Actualización de Distrito</h4>
+                                            </div>
+
+                                            <div class="modal-body">
+                                                <div class="row">
+                                                    <div class="col-xs-12 col-md-12">
+                                                        <div class="col-xs-12 col-md-2">
+                                                            @Html.LabelFor(model => Model.FirstOrDefault().Nombre, htmlAttributes: new { @class = "control-label" })
+                                                        </div>
+                                                        <input type="hidden" id="hdistritoId" value="" />
+                                                        <input type="hidden" id="hdepartamentoId" value="" />
+                                                        <div class="col-xs-12 col-md-8">
+                                                            <input class="form-control col-xs-12 col-md-3 text-box single-line" id="ActualizarNombre" name="ActualizarNombre" type="text" value="">
+                                                        </div>
+                                                        <div class="col-xs-12 col-md-2">
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="modal-footer">
+                                                <div class="row">
+                                                    <div class="col-xs-12 col-md-12">
+                                                        <div class="col-xs-12 col-md-3">
+                                                            <div>
+                                                                <div class="col-xs-12 col-md-3"></div>
+                                                                <div class="col-xs-12 col-md-6">
+                                                                    @*@Html.ActionLink("Actualizar", "Actualizar", new { DistritoId =  $("#hmunicipalityId").val() }, new { @class = "btn btn-primary" })*@
+                                                                    <input id="btnActualizar" value="Actualizar" class="btn btn-primary" />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--Model Actualizar ends-->
+
+                            </div>
+                        </div>
+                        <!--Model Actualizar ends-->
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
 </div>
 @section Scripts
 {
-    <script type="text/javascript">
-
-        
-
-        $(document).ready(function () {
-
-            $("#ChangeRow").change(function () {
-
-                CargarGrilla();
- 
-            });
-
-            $("#btnCreate").click(function () {
-
-                var EDistrito = {
-                    Nombre: $("#RegistroNombre").val(),
-                    DepartamentoId: 1
-                };
-
-                var Grilla = {
-                    page: 0,
-                    countrow: 0
-                };
-
-                $.ajax({
-                    url: '../Distrito/Grabar',
-                    type: 'POST',
-                    data: JSON.stringify(EDistrito),
-                    contentType: "application/json; charset=utf-8",
-                    dataType: "json",
-                    success: function (data) {
-                        //aqui redireccionas
-                        if (data != null) {
-                            if (data.Resultado == "OK") {
-                                //window.location = "/Distrito/Index/";
-                                $("#success").modal('show');
-                                $("#SuccessResult").text('El registro se grabo exitosamente');
-                                //$.ajax({
-                                //    url: "../Distrito/Index",
-                                //    data: JSON.stringify(Grilla),
-                                //    type: 'GET',
-                                //    success: function (result) {
-                                //        do the necessary updations
-                                //    },
-                                //    error: function (result) {
-
-                                //    }
-                                //});
-
-                            }
-                            else {
-                                $("#ErrorResult").text(data.Resultado);
-                                $("#error").modal('show');
-
-                            }
-                        }
-
-                    },
-                    error: function (request, status, error) {
-
-                        $("#error").modal('show');
-                        $("#ErrorResult").text();
-                        //debugger;
-                        //alert(request.responseText);
-                    },
-
-                });
-                
-            });
-        });
-        
-        function Delete(id) {
-            var resultado = {
-                distritoId: $(id).data('assigned-id')
-            };
-
-            $.ajax({
-                url: '../Distrito/Delete',
-                type: 'POST',
-                dataType: "json",
-                contentType: "application/json; charset=utf-8",
-                data: JSON.stringify(resultado),
-                success: function (data) {
-                    //aqui redireccionas
-                    if (data != null) {
-                        if (data.Resultado == "OK") {
-                            $("#success").modal('show');
-                            $("#SuccessResult").text('Se elimino satisfactoriamente el registro');
-                            CargarGrilla();
-                        }
-                        else {
-                            $("#ErrorResult").text(data.Resultado);
-                            $("#error").modal('show');
-                        }
-                    }
-                },
-                error: function (request, status, error) {
-                    debugger;
-                    $("#error").modal('show');
-                    $("#ErrorResult").text();
-                    debugger;
-                    //alert(request.responseText);
-                },
-
-            });
-
-        }
-
-        function CargarGrilla() {
-            var paginacion = {
-                countrow: $("#ChangeRow").val()
-            };
-
-            $.ajax({
-                url: '../Distrito/Index',
-                type: 'POST',
-                data: JSON.stringify(paginacion),
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-                success: function (data) {
-                    alert(data);
-                },
-                error: function (request, status, error) {
-                    //debugger;
-                    //alert("request : " + request);
-                    //alert("status : " + status);
-                    //alert("error : " + error);
-                    //alert("error");
-                },
-            });
-        }
-
-    </script>
-
+    <script src="~/Controllers/Main/Script/JDistrito.js"></script>
 
 }
 

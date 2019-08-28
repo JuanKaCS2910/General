@@ -164,6 +164,7 @@
     <Content Include="Content\override.css" />
     <Content Include="Content\PagedList.css" />
     <Content Include="Content\style.css" />
+    <Content Include="Controllers\Main\Script\JDistrito.js" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\font-awesome\css\font-awesome.css" />
     <Content Include="fonts\font-awesome\css\font-awesome.min.css" />

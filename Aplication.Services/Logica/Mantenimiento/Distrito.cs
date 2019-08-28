@@ -8,7 +8,8 @@
     using System.Collections.Generic;
     using System.Linq;
     using System;
-    
+    using System.Threading.Tasks;
+
     public class Distrito : IDistrito
     {
         private readonly UnitOfWork oUnitOfWork;
@@ -18,11 +19,12 @@
             this.oUnitOfWork = new UnitOfWork();
         }
 
-        public List<EDistrito> DistritoGrilla()
+        public List<EDistrito> DistritoGrilla(int? distritoId)
         {
             var distrito = oUnitOfWork.DistritoRepository.Queryable();
 
             var result = from d in distrito
+                         where d.DistritoId == distritoId
                          select new EDistrito
                          {
                              Nombre = d.Nombre,
@@ -30,14 +32,9 @@
                              DepartamentoId = d.DepartamentoId
                          };
             var _result = result.ToList();
-            //var result = distrito.Select(d => new EDistrito {
-            //            Nombre = d.Nombre,
-            //            DepartamentoId = 1 }).ToList();
-
             return _result;
-
         }
-
+        
         public IPagedList<EDistritoView> DistritoGrillaToPageList(Grilla pag)
         {
 
@@ -60,7 +57,6 @@
 
         public string CreateDistrito(EDistrito registro)
         {
-
             Repository.Distrito d = new Repository.Distrito();
             d.Nombre = registro.Nombre;
             d.DepartamentoId = registro.DepartamentoId;
@@ -68,9 +64,20 @@
             oUnitOfWork.DistritoRepository.Insert(d);
             oUnitOfWork.Save();
 
-            
             return "OK";
+        }
 
+        public string UpdateDistrito(EDistrito registro)
+        {
+            Repository.Distrito d = new Repository.Distrito();
+            d.Nombre = registro.Nombre;
+            d.DepartamentoId = registro.DepartamentoId;
+            d.DistritoId = registro.DistritoId;
+
+            oUnitOfWork.DistritoRepository.Update(d);
+            oUnitOfWork.Save();
+
+            return "OK";
         }
 
         public string EliminarDistrito(int? distritoId)

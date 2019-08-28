@@ -4,17 +4,25 @@ using Domain.Entities.Mantenimiento;
 using System.Web.Configuration;
 using System.Web.Mvc;
 using System;
-
+using Aplication.Services.Interfaz;
+using System.Threading.Tasks;
 
 namespace General.Controllers.Main.Controllers
 {
     public class DistritoController : Controller
     {
-        private Distrito oDistrito;
+        private IDistrito oDistrito;
 
         public DistritoController()
         {
             this.oDistrito = new Distrito();
+        }
+
+        public JsonResult Edit(int distritoId)
+        {
+            var result = oDistrito.DistritoGrilla(distritoId);
+
+            return Json(new { Resultado = result }, JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult Grabar(EDistrito view)
@@ -52,6 +60,15 @@ namespace General.Controllers.Main.Controllers
             sResultado = oDistrito.EliminarDistrito(distritoId);
 
             return Json(new { Resultado = sResultado }, JsonRequestBehavior.AllowGet);
+        }
+
+        public async Task<JsonResult> Actualizar(EDistrito view)
+        {
+            string sResultado = string.Empty;
+            await Task.Delay(1);
+            sResultado = oDistrito.UpdateDistrito(view);
+            return Json(new { Resultado = sResultado }, JsonRequestBehavior.AllowGet);
+            //return RedirectToAction("Index");
         }
 
         // GET: Distrito
