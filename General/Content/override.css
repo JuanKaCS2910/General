@@ -193,8 +193,8 @@ body.mini-navbar .nav-header {
 }
 
 .input-sm {
-    height: 30px;
-    line-height: 30px;
+    height: 250px;
+    line-height: 250px;
 }
 
 /*Paginación Grilla*/
@@ -210,6 +210,26 @@ body.mini-navbar .nav-header {
     position: absolute;
     padding: 100px 2px 10px 50px ;
     
+}
+
+.dataTables_length > select
+{
+    height:30px;
+    font-size:12px;
+}
+
+.input-sm {
+    height: 30px;
+    padding: 5px 10px;
+    font-size: 12px;
+    line-height: 1.5;
+    border-radius: 3px;
+}
+
+select.form-control-sm {
+    height: 30px;
+    font-size: 8px;
+    padding-top:1px;
 }
 
 /*Modal*/

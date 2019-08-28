@@ -163,6 +163,7 @@
     <Content Include="Content\Iconos\Green-Round-Tick.png" />
     <Content Include="Content\override.css" />
     <Content Include="Content\PagedList.css" />
+    <Content Include="Content\plugins\dataTables\datatables.min.css" />
     <Content Include="Content\style.css" />
     <Content Include="Controllers\Main\Script\JDistrito.js" />
     <Content Include="favicon.ico" />
@@ -216,6 +217,8 @@
     <Content Include="Scripts\jquery-3.3.1.slim.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.js" />
     <None Include="Scripts\plugins\validate\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\plugins\dataTables\dataTables.bootstrap4.min.js" />
+    <Content Include="Scripts\plugins\dataTables\datatables.min.js" />
     <Content Include="Scripts\plugins\metisMenu\jquery.metisMenu.js" />
     <Content Include="Scripts\plugins\pace\pace.min.js" />
     <Content Include="Scripts\plugins\slimscroll\jquery.slimscroll.min.js" />

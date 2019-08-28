@@ -64,6 +64,11 @@
                         <div class="ibox-content-change">
                             <div class="row">
                                 <div class="ibox-title">
+                                    <h5>Listado de Distrito</h5>
+                                </div>
+                            </div>
+                            @*<div class="row">
+                                <div class="ibox-title">
                                     <h5>Filtros</h5>
 
                                 </div>
@@ -83,88 +88,89 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div>*@
 
                             <br />
 
                             <div class="row">
                                 <div class="col-xs-12 col-md-12">
 
-                                    <table class="table">
-                                        <tr class="GrillaPage">
-                                            <th class="col-xs-12 col-md-6">
-                                                <div class="row">
-                                                    <div class="col-xs-12 col-md-2">Mostrar</div>
-                                                    <div class="col-xs-12 col-md-5">
-                                                        <select name="ChangeRow" id="ChangeRow" style="height:40px;width:150px;" class="form-control ">
-                                                            <option value="10" selected>10</option>
-                                                            <option value="25">25</option>
-                                                            <option value="50">50</option>
-                                                            <option value="100">100</option>
-                                                        </select>
+                                    <table id="tblGrilla" class="table table-striped table-bordered table-hover dataTables-example">
+                                        @*<tr class="GrillaPage">
+                                                <th class="col-xs-12 col-md-6">
+                                                    <div class="row">
+                                                        <div class="col-xs-12 col-md-2">Mostrar</div>
+                                                        <div class="col-xs-12 col-md-5">
+                                                            <select name="ChangeRow" id="ChangeRow" style="height:40px;width:150px;" class="form-control ">
+                                                                <option value="10" selected>10</option>
+                                                                <option value="25">25</option>
+                                                                <option value="50">50</option>
+                                                                <option value="100">100</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-xs-12 col-md-5"></div>
                                                     </div>
-                                                    <div class="col-xs-12 col-md-5"></div>
-                                                </div>
-                                            </th>
-                                            <th class="col-xs-12 col-md-2"></th>
-                                            <th class="col-xs-12 col-md-3"></th>
-                                            <th class="col-xs-12 col-md-1">
-                                                <a href="@Url.Action("Index", "Distrito")" class="btn btn-success">
-                                                    <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
-                                                </a>
-                                            </th>
-                                        </tr>
-                                        <tr class="EstiloCabecera">
-                                            <th class="col-xs-12 col-md-4">
-                                                @Html.DisplayNameFor(model => Model.FirstOrDefault().Nombre)
-                                            </th>
-                                            <th class="col-xs-12 col-md-3"></th>
-                                            <th class="col-xs-12 col-md-4"></th>
-                                            <th class="col-xs-12 col-md-1"></th>
-                                        </tr>
-
-                                        @foreach (var item in Model)
-                                        {
-                                            <tr>
-                                                <td class="col-xs-12 col-md-6">
-                                                    @Html.DisplayFor(modelItem => item.Nombre)
-                                                </td>
-                                                <td class="col-xs-12 col-md-3">
-                                                    <input type="button" onclick="Edit(this)" id="btnEdit"
-                                                           data-assigned-id="@item.DistritoId" class="btn btn-info" value="Modificar" />
-
-                                                    <input type="button" onclick="Delete(this)" id="btnDelete"
-                                                           data-assigned-id="@item.DistritoId" class="btn btn-danger" value="Delete" />
-                                                </td>
-                                                <td class="col-xs-12 col-md-2"></td>
-                                                <td class="col-xs-12 col-md-1"></td>
+                                                </th>
+                                                <th class="col-xs-12 col-md-2"></th>
+                                                <th class="col-xs-12 col-md-3"></th>
+                                                <th class="col-xs-12 col-md-1">
+                                                    <a href="@Url.Action("Index", "Distrito")" class="btn btn-success">
+                                                        <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
+                                                    </a>
+                                                </th>
+                                            </tr>*@
+                                        <thead>
+                                            <tr class="EstiloCabecera">
+                                                <th class="col-xs-12 col-md-4">
+                                                    @Html.DisplayNameFor(model => Model.FirstOrDefault().Nombre)
+                                                </th>
+                                                <th class="col-xs-12 col-md-3"></th>
+                                                <th class="col-xs-12 col-md-4"></th>
+                                                <th class="col-xs-12 col-md-1"></th>
                                             </tr>
-                                        }
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var item in Model)
+                                            {
+                                                <tr>
+                                                    <td class="col-xs-12 col-md-6">
+                                                        @Html.DisplayFor(modelItem => item.Nombre)
+                                                    </td>
+                                                    <td class="col-xs-12 col-md-3">
+                                                        <input type="button" onclick="Edit(this)" id="btnEdit"
+                                                               data-assigned-id="@item.DistritoId" class="btn btn-info" value="Modificar" />
 
-                                        <tr class="EstiloCabecera">
+                                                        <input type="button" onclick="Delete(this)" id="btnDelete"
+                                                               data-assigned-id="@item.DistritoId" class="btn btn-danger" value="Delete" />
+                                                    </td>
+                                                    <td class="col-xs-12 col-md-2"></td>
+                                                    <td class="col-xs-12 col-md-1"></td>
+                                                </tr>
+                                            }
 
-                                            <th class="col-xs-12 col-md-6">
-                                                Página: @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) de: @Model.PageCount
-                                                @Html.PagedListPager(Model, page => Url.Action("Index", new
-                                                {
-                                                    page,
-                                                    sortOrder = ViewBag.CurrentSort,
-                                                    currentFilter = ViewBag.CurrentFilter
-                                                }))
-                                                Cantidad de Registros: @Model.TotalItemCount
-                                                @*View: @ViewBag.Cantidad*@
-                                            </th>
-                                            <th class="col-xs-12 col-md-3">
-                                            </th>
-                                            <th class="col-xs-12 col-md-2">
-                                            </th>
-                                            <th class="col-xs-12 col-md-1">
-                                                <a href="@Url.Action("Index", "Distrito")" class="btn btn-success">
-                                                    <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
-                                                </a>
-                                            </th>
-                                        </tr>
+                                            @*<tr class="EstiloCabecera">
 
+                                                <th class="col-xs-12 col-md-6">
+                                                    Página: @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) de: @Model.PageCount
+                                                    @Html.PagedListPager(Model, page => Url.Action("Index", new
+                                                    {
+                                                        page,
+                                                        sortOrder = ViewBag.CurrentSort,
+                                                        currentFilter = ViewBag.CurrentFilter
+                                                    }))
+                                                    Cantidad de Registros: @Model.TotalItemCount
+                                                </th>
+                                                <th class="col-xs-12 col-md-3">
+                                                </th>
+                                                <th class="col-xs-12 col-md-2">
+                                                </th>
+                                                <th class="col-xs-12 col-md-1">
+                                                    <a href="@Url.Action("Index", "Distrito")" class="btn btn-success">
+                                                        <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
+                                                    </a>
+                                                </th>
+                                            </tr>*@
+                                        </tbody>
                                     </table>
                                 </div>
                             </div>
@@ -197,7 +203,6 @@
                             </div>
                         </div>
                         <!--Model Popup ends-->
-
                         <!--Model Popup starts Incorrecto-->
                         <div class="container">
                             <div class="row">
@@ -228,7 +233,6 @@
                             </div>
                         </div>
                         <!--Model Popup ends-->
-
                         <!--Model Actualizar-->
                         <div class="container">
                             <div class="row">
@@ -265,7 +269,6 @@
                                                             <div>
                                                                 <div class="col-xs-12 col-md-3"></div>
                                                                 <div class="col-xs-12 col-md-6">
-                                                                    @*@Html.ActionLink("Actualizar", "Actualizar", new { DistritoId =  $("#hmunicipalityId").val() }, new { @class = "btn btn-primary" })*@
                                                                     <input id="btnActualizar" value="Actualizar" class="btn btn-primary" />
                                                                 </div>
                                                             </div>
@@ -288,8 +291,12 @@
         </div>
     </div>
 </div>
+@section Styles {
+    @Styles.Render("~/Content/plugins/dataTables/dataTablesStyles")
+}
 @section Scripts
 {
+    @Scripts.Render("~/plugins/dataTables")
     <script src="~/Controllers/Main/Script/JDistrito.js"></script>
 
 }

@@ -71,6 +71,18 @@ namespace General.Controllers.Main.Controllers
             //return RedirectToAction("Index");
         }
 
+        public JsonResult CargarGrilla(Grilla paginacion)
+        {
+            if (paginacion.countrow == null)
+                paginacion.countrow = int.Parse(WebConfigurationManager.AppSettings["CountRow"]);
+
+            ViewBag.Cantidad = paginacion.countrow;
+
+            var result = oDistrito.DistritoGrillaToPageList(paginacion);
+
+            return Json(new { Resultado = result }, JsonRequestBehavior.AllowGet);
+        }
+
         // GET: Distrito
         public ActionResult Index(Grilla paginacion)
         {

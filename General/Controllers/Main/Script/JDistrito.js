@@ -1,5 +1,53 @@
 ﻿$(document).ready(function () {
 
+    $('.dataTables-example').DataTable({
+        pageLength: 25,
+        dom: '<"html5buttons"B>lTfgitp',
+        buttons: [
+            { extend: 'copy' },
+            { extend: 'csv' },
+            { extend: 'excel', title: 'ExampleFile' },
+            { extend: 'pdf', title: 'ExampleFile' },
+
+            {
+                extend: 'print',
+                customize: function (win) {
+                    $(win.document.body).addClass('white-bg');
+                    $(win.document.body).css('font-size', '10px');
+
+                    $(win.document.body).find('table')
+                        .addClass('compact')
+                        .css('font-size', 'inherit');
+                }
+            }
+        ],
+        "language": {
+            "decimal": "",
+            "emptyTable": "No se encontraron registros.",
+            "info": "Mostrando _START_ a _END_ de _TOTAL_ registros",
+            "infoEmpty": "Mostrando 0 a 0 de 0 registros",
+            "infoFiltered": "(filtrado de _MAX_ total registros)",
+            "infoPostFix": "",
+            "thousands": ",",
+            "lengthMenu": "Mostrar:&nbsp;  _MENU_  registros",
+            "loadingRecords": "Cargando...",
+            "processing": "Procesando...",
+            "search": "Buscar: ",
+            "zeroRecords": "No se encontraron registros",
+            "paginate": {
+                "first": "Primera",
+                "last": "Última",
+                "next": "Siguiente",
+                "previous": "Anterior"
+            },
+            "aria": {
+                "sortAscending": ": activar para ordernar columna de forma ascendente",
+                "sortDescending": ": activar para ordenar de forma descendente"
+            }
+        }
+
+    });
+
     $("#btnActualizar").click(function () {
 
         var registro = {
@@ -16,16 +64,14 @@
             data: JSON.stringify(registro),
             async: true,
             success: function (data) {
-
+                debugger;
                 //aqui redireccionas
                 if (data != null) {
-                    if (data.Resultado = "OK") {
+                    if (data.Resultado == "OK") {
                         $("#dvActualizar").modal("hide");
-                        //window.location.href = "http://localhost:2672/Distrito/Index";
-                        CargarGrilla();
+                        ViewGrilla();
                     }
                 }
-
             },
             error: function (request, status, error) {
                 //$("#dvActualizar").modal("hide");
@@ -35,22 +81,20 @@
 
         });
     });
+
+    $("#tblGrilla_length").change(function () {
+        ViewGrilla()
+    });
+
     $("#ChangeRow").change(function () {
-
         CargarGrilla();
-
     });
 
     $("#btnCreate").click(function () {
-        
+
         var EDistrito = {
             Nombre: $("#RegistroNombre").val(),
             DepartamentoId: 1
-        };
-
-        var Grilla = {
-            page: 0,
-            countrow: 0
         };
 
         $.ajax({
@@ -63,42 +107,63 @@
                 //aqui redireccionas
                 if (data != null) {
                     if (data.Resultado == "OK") {
-                        //window.location = "/Distrito/Index/";
                         $("#success").modal('show');
                         $("#SuccessResult").text('El registro se grabo exitosamente');
-                        //$.ajax({
-                        //    url: "../Distrito/Index",
-                        //    data: JSON.stringify(Grilla),
-                        //    type: 'GET',
-                        //    success: function (result) {
-                        //        do the necessary updations
-                        //    },
-                        //    error: function (result) {
-
-                        //    }
-                        //});
-
+                        ViewGrilla();
                     }
                     else {
                         $("#ErrorResult").text(data.Resultado);
                         $("#error").modal('show');
-
                     }
                 }
-
             },
             error: function (request, status, error) {
-
                 $("#error").modal('show');
                 $("#ErrorResult").text();
-                //debugger;
-                //alert(request.responseText);
             },
 
         });
 
     });
 });
+
+function ViewGrilla()
+{
+    var paginacion = {
+        countrow: $("#tblGrilla_length option:selected").text()
+    };
+
+    $.ajax({
+        url: '../Distrito/CargarGrilla',
+        type: 'POST',
+        data: JSON.stringify(paginacion),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (data) {
+            debugger;
+            if (data != null) {
+                if (data.Resultado.length > 1) {
+                    var table = $('#tblGrilla');
+                    table.find("tbody tr").remove();
+                    data.Resultado.forEach(function (result) {
+                        table.append("<tr><td class='col-xs-12 col-md-6'>" + result.Nombre + "</td>" +
+                            "<td class='col-xs-12 col-md-3'>" +
+                            " <input type='button' onclick='Edit(this)' id='btnEdit' data-assigned-id=" +
+                            result.DistritoId + " class='btn btn-info' value='Modificar' />" +
+                            " <input type='button' onclick='Delete(this)' id='btnDelete' data-assigned-id=" +
+                            result.DistritoId + " class='btn btn-danger' value='Delete' /></td>" +
+                            "<td class='col-xs-12 col-md-2'></td><td class='col-xs-12 col-md-1'></td></tr>");
+                    });
+                }
+            }
+
+        },
+        error: function (request, status, error) {
+            alert("dd");
+        },
+    });
+
+}
 
 function Delete(id) {
     var resultado = {
@@ -117,7 +182,7 @@ function Delete(id) {
                 if (data.Resultado == "OK") {
                     $("#success").modal('show');
                     $("#SuccessResult").text('Se elimino satisfactoriamente el registro');
-                    CargarGrilla();
+                    ViewGrilla();
                 }
                 else {
                     $("#ErrorResult").text(data.Resultado);
@@ -138,7 +203,7 @@ function Delete(id) {
 }
 
 function Edit(id) {
-    
+
     var resultado = {
         distritoId: $(id).data('assigned-id')
     };
@@ -150,7 +215,7 @@ function Edit(id) {
         contentType: "application/json; charset=utf-8",
         data: JSON.stringify(resultado),
         success: function (data) {
-            
+
             //aqui redireccionas
             if (data != null) {
                 if (data.Resultado.length > 0) {
@@ -163,10 +228,10 @@ function Edit(id) {
                     $("#hdistritoId").val(distrito);
                 }
             }
-            
+
         },
         error: function (request, status, error) {
-            
+
         },
 
 
