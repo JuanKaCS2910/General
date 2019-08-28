@@ -46,6 +46,16 @@ namespace General
             bundles.Add(new ScriptBundle("~/plugins/validate").Include(
                       "~/Scripts/plugins/validate/jquery.validate.min.js"));
 
+            //DataTables
+            // dataTables css styles
+            bundles.Add(new StyleBundle("~/Content/plugins/dataTables/dataTablesStyles").Include(
+                      "~/Content/plugins/dataTables/datatables.min.css"));
+
+            // dataTables 
+            bundles.Add(new ScriptBundle("~/plugins/dataTables").Include(
+                      "~/Scripts/plugins/dataTables/datatables.min.js",
+                      "~/Scripts/plugins/dataTables/dataTables.bootstrap4.min.js"));
+
             //bundles.Add(new StyleBundle("~/Content/css").Include(
             //         "~/Content/animate.css",
             //         "~/Content/style.css",
