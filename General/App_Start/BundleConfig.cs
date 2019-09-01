@@ -56,6 +56,14 @@ namespace General
                       "~/Scripts/plugins/dataTables/datatables.min.js",
                       "~/Scripts/plugins/dataTables/dataTables.bootstrap4.min.js"));
 
+            // dataPicker styles
+            bundles.Add(new StyleBundle("~/plugins/dataPickerStyles").Include(
+                      "~/Content/plugins/datapicker/datepicker3.css"));
+
+            // dataPicker 
+            bundles.Add(new ScriptBundle("~/plugins/dataPicker").Include(
+                      "~/Scripts/plugins/datapicker/bootstrap-datepicker.js"));
+
             //bundles.Add(new StyleBundle("~/Content/css").Include(
             //         "~/Content/animate.css",
             //         "~/Content/style.css",
@@ -76,6 +84,7 @@ namespace General
             //bundles.Add(new StyleBundle("~/Content/css").Include(
             //          "~/Content/bootstrap.css",
             //          "~/Content/site.css"));
+            BundleTable.EnableOptimizations = true;
         }
     }
 }

@@ -12,20 +12,18 @@ namespace Repository
     using System;
     using System.Collections.Generic;
     
-    public partial class Distrito
+    public partial class Departamento
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Distrito()
+        public Departamento()
         {
-            this.Persona = new HashSet<Persona>();
+            this.Distrito = new HashSet<Distrito>();
         }
     
-        public int DistritoId { get; set; }
         public int DepartamentoId { get; set; }
         public string Nombre { get; set; }
     
-        public virtual Departamento Departamento { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Persona> Persona { get; set; }
+        public virtual ICollection<Distrito> Distrito { get; set; }
     }
 }

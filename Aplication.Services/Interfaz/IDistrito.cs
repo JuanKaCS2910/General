@@ -12,5 +12,6 @@ namespace Aplication.Services.Interfaz
         string CreateDistrito(EDistrito registro);
         string UpdateDistrito(EDistrito registro);
         string EliminarDistrito(int? distritoId);
+        List<EDistrito> BusquedaDistrito(FiltroDistritoPersona filtro);
     }
 }

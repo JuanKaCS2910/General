@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="DBFisioterapiaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="DBFisioterapiaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AgenteElectrofisico">
           <Key>
             <PropertyRef Name="AgenteElectrofisicoId" />
@@ -34,6 +34,13 @@
           <Property Name="AntecedentesId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Descripcion" Type="nvarchar" MaxLength="250" Nullable="false" />
         </EntityType>
+        <EntityType Name="Departamento">
+          <Key>
+            <PropertyRef Name="DepartamentoId" />
+          </Key>
+          <Property Name="DepartamentoId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
         <EntityType Name="Distrito">
           <Key>
             <PropertyRef Name="DistritoId" />
@@ -41,6 +48,14 @@
           <Property Name="DistritoId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="DepartamentoId" Type="int" Nullable="false" />
           <Property Name="Nombre" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Estadocivil">
+          <Key>
+            <PropertyRef Name="EstadocivilId" />
+          </Key>
+          <Property Name="EstadocivilId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Codigo" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="Descripcion" Type="nvarchar" MaxLength="100" Nullable="false" />
         </EntityType>
         <EntityType Name="Frecuencia">
           <Key>
@@ -66,7 +81,7 @@
             <PropertyRef Name="PersonaId" />
           </Key>
           <Property Name="PersonaId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Tipodocumento" Type="char" MaxLength="3" Nullable="false" />
+          <Property Name="TipodocumentoId" Type="int" Nullable="false" />
           <Property Name="Nrodocumento" Type="nvarchar" MaxLength="30" Nullable="false" />
           <Property Name="Nombre" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Apellidopaterno" Type="nvarchar" MaxLength="50" Nullable="false" />
@@ -90,6 +105,26 @@
           <Property Name="Codigo" Type="char" MaxLength="1" Nullable="false" />
           <Property Name="Descripcion" Type="nvarchar" MaxLength="100" Nullable="false" />
         </EntityType>
+        <EntityType Name="Tipodocumento">
+          <Key>
+            <PropertyRef Name="TipodocumentoId" />
+          </Key>
+          <Property Name="TipodocumentoId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Codigo" Type="char" MaxLength="3" Nullable="false" />
+          <Property Name="Descripcion" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_dbo_Distrito_dbo_Departamento_DepartamentoId">
+          <End Role="Departamento" Type="Self.Departamento" Multiplicity="1" />
+          <End Role="Distrito" Type="Self.Distrito" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Departamento">
+              <PropertyRef Name="DepartamentoId" />
+            </Principal>
+            <Dependent Role="Distrito">
+              <PropertyRef Name="DepartamentoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_dbo_Persona_dbo_Distrito_DistritoId">
           <End Role="Distrito" Type="Self.Distrito" Multiplicity="1" />
           <End Role="Persona" Type="Self.Persona" Multiplicity="*" />
@@ -114,15 +149,34 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_dbo_Persona_dbo_Tipodocumento_TipodocumentoId">
+          <End Role="Tipodocumento" Type="Self.Tipodocumento" Multiplicity="1" />
+          <End Role="Persona" Type="Self.Persona" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tipodocumento">
+              <PropertyRef Name="TipodocumentoId" />
+            </Principal>
+            <Dependent Role="Persona">
+              <PropertyRef Name="TipodocumentoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="DBFisioterapiaModelStoreContainer">
           <EntitySet Name="AgenteElectrofisico" EntityType="Self.AgenteElectrofisico" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AgenteTermico" EntityType="Self.AgenteTermico" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Antecedentes" EntityType="Self.Antecedentes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Departamento" EntityType="Self.Departamento" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Distrito" EntityType="Self.Distrito" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Estadocivil" EntityType="Self.Estadocivil" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Frecuencia" EntityType="Self.Frecuencia" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ManiobraTerapeutica" EntityType="Self.ManiobraTerapeutica" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Persona" EntityType="Self.Persona" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sexo" EntityType="Self.Sexo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tipodocumento" EntityType="Self.Tipodocumento" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_dbo_Distrito_dbo_Departamento_DepartamentoId" Association="Self.FK_dbo_Distrito_dbo_Departamento_DepartamentoId">
+            <End Role="Departamento" EntitySet="Departamento" />
+            <End Role="Distrito" EntitySet="Distrito" />
+          </AssociationSet>
           <AssociationSet Name="FK_dbo_Persona_dbo_Distrito_DistritoId" Association="Self.FK_dbo_Persona_dbo_Distrito_DistritoId">
             <End Role="Distrito" EntitySet="Distrito" />
             <End Role="Persona" EntitySet="Persona" />
@@ -131,19 +185,51 @@
             <End Role="Sexo" EntitySet="Sexo" />
             <End Role="Persona" EntitySet="Persona" />
           </AssociationSet>
+          <AssociationSet Name="FK_dbo_Persona_dbo_Tipodocumento_TipodocumentoId" Association="Self.FK_dbo_Persona_dbo_Tipodocumento_TipodocumentoId">
+            <End Role="Tipodocumento" EntitySet="Tipodocumento" />
+            <End Role="Persona" EntitySet="Persona" />
+          </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="DBFisioterapiaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="DBFisioterapiaEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AgenteElectrofisico" EntityType="DBFisioterapiaModel.AgenteElectrofisico" />
+          <EntitySet Name="AgenteTermico" EntityType="DBFisioterapiaModel.AgenteTermico" />
+          <EntitySet Name="Antecedentes" EntityType="DBFisioterapiaModel.Antecedentes" />
+          <EntitySet Name="Departamento" EntityType="DBFisioterapiaModel.Departamento" />
+          <EntitySet Name="Distrito" EntityType="DBFisioterapiaModel.Distrito" />
+          <EntitySet Name="Estadocivil" EntityType="DBFisioterapiaModel.Estadocivil" />
+          <EntitySet Name="Frecuencia" EntityType="DBFisioterapiaModel.Frecuencia" />
+          <EntitySet Name="ManiobraTerapeutica" EntityType="DBFisioterapiaModel.ManiobraTerapeutica" />
+          <EntitySet Name="Persona" EntityType="DBFisioterapiaModel.Persona" />
+          <EntitySet Name="Sexo" EntityType="DBFisioterapiaModel.Sexo" />
+          <EntitySet Name="Tipodocumento" EntityType="DBFisioterapiaModel.Tipodocumento" />
+          <AssociationSet Name="FK_dbo_Distrito_dbo_Departamento_DepartamentoId" Association="DBFisioterapiaModel.FK_dbo_Distrito_dbo_Departamento_DepartamentoId">
+            <End Role="Departamento" EntitySet="Departamento" />
+            <End Role="Distrito" EntitySet="Distrito" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Persona_dbo_Distrito_DistritoId" Association="DBFisioterapiaModel.FK_dbo_Persona_dbo_Distrito_DistritoId">
+            <End Role="Distrito" EntitySet="Distrito" />
+            <End Role="Persona" EntitySet="Persona" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Persona_dbo_Sexo_SexoId" Association="DBFisioterapiaModel.FK_dbo_Persona_dbo_Sexo_SexoId">
+            <End Role="Sexo" EntitySet="Sexo" />
+            <End Role="Persona" EntitySet="Persona" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Persona_dbo_Tipodocumento_TipodocumentoId" Association="DBFisioterapiaModel.FK_dbo_Persona_dbo_Tipodocumento_TipodocumentoId">
+            <End Role="Tipodocumento" EntitySet="Tipodocumento" />
+            <End Role="Persona" EntitySet="Persona" />
+          </AssociationSet>
+        </EntityContainer>
         <EntityType Name="AgenteElectrofisico">
           <Key>
             <PropertyRef Name="AgenteElectrofisicoId" />
           </Key>
           <Property Name="AgenteElectrofisicoId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Nombre" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Usuariocreacion" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Usuariocreacion" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="Fechacreacion" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Usuariomodificacion" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="Fechamodificacion" Type="DateTime" Precision="3" />
@@ -153,8 +239,8 @@
             <PropertyRef Name="AgenteTermicoId" />
           </Key>
           <Property Name="AgenteTermicoId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Nombre" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Usuariocreacion" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Usuariocreacion" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="Fechacreacion" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Usuariomodificacion" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="Fechamodificacion" Type="DateTime" Precision="3" />
@@ -164,7 +250,15 @@
             <PropertyRef Name="AntecedentesId" />
           </Key>
           <Property Name="AntecedentesId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Descripcion" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Departamento">
+          <Key>
+            <PropertyRef Name="DepartamentoId" />
+          </Key>
+          <Property Name="DepartamentoId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Distrito" Relationship="DBFisioterapiaModel.FK_dbo_Distrito_dbo_Departamento_DepartamentoId" FromRole="Departamento" ToRole="Distrito" />
         </EntityType>
         <EntityType Name="Distrito">
           <Key>
@@ -172,24 +266,33 @@
           </Key>
           <Property Name="DistritoId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="DepartamentoId" Type="Int32" Nullable="false" />
-          <Property Name="Nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Persona" Relationship="Self.FK_dbo_Persona_dbo_Distrito_DistritoId" FromRole="Distrito" ToRole="Persona" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Departamento" Relationship="DBFisioterapiaModel.FK_dbo_Distrito_dbo_Departamento_DepartamentoId" FromRole="Distrito" ToRole="Departamento" />
+          <NavigationProperty Name="Persona" Relationship="DBFisioterapiaModel.FK_dbo_Persona_dbo_Distrito_DistritoId" FromRole="Distrito" ToRole="Persona" />
+        </EntityType>
+        <EntityType Name="Estadocivil">
+          <Key>
+            <PropertyRef Name="EstadocivilId" />
+          </Key>
+          <Property Name="EstadocivilId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Codigo" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Frecuencia">
           <Key>
             <PropertyRef Name="FrecuenciaId" />
           </Key>
           <Property Name="FrecuenciaId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Codigo" Type="String" MaxLength="2" FixedLength="true" Unicode="false" Nullable="false" />
-          <Property Name="Descripcion" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Codigo" Type="String" Nullable="false" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="ManiobraTerapeutica">
           <Key>
             <PropertyRef Name="ManiobraTerapeuticaId" />
           </Key>
           <Property Name="ManiobraTerapeuticaId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Nombre" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Usuariocreacion" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Usuariocreacion" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="Fechacreacion" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Usuariomodificacion" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="Fechamodificacion" Type="DateTime" Precision="3" />
@@ -199,36 +302,58 @@
             <PropertyRef Name="PersonaId" />
           </Key>
           <Property Name="PersonaId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Tipodocumento" Type="String" MaxLength="3" FixedLength="true" Unicode="false" Nullable="false" />
-          <Property Name="Nrodocumento" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Apellidopaterno" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Apellidomaterno" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="TipodocumentoId" Type="Int32" Nullable="false" />
+          <Property Name="Nrodocumento" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Apellidopaterno" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Apellidomaterno" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Nrotelefono" Type="String" MaxLength="12" FixedLength="false" Unicode="true" />
           <Property Name="Fecnacimiento" Type="DateTime" Precision="3" />
           <Property Name="DistritoId" Type="Int32" Nullable="false" />
-          <Property Name="Direccion" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Direccion" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="Ocupacion" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="SexoId" Type="Int32" Nullable="false" />
-          <Property Name="Usuariocreacion" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Usuariocreacion" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="Fechacreacion" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Usuariomodificacion" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="Fechamodificacion" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="Distrito" Relationship="Self.FK_dbo_Persona_dbo_Distrito_DistritoId" FromRole="Persona" ToRole="Distrito" />
-          <NavigationProperty Name="Sexo" Relationship="Self.FK_dbo_Persona_dbo_Sexo_SexoId" FromRole="Persona" ToRole="Sexo" />
+          <NavigationProperty Name="Distrito" Relationship="DBFisioterapiaModel.FK_dbo_Persona_dbo_Distrito_DistritoId" FromRole="Persona" ToRole="Distrito" />
+          <NavigationProperty Name="Sexo" Relationship="DBFisioterapiaModel.FK_dbo_Persona_dbo_Sexo_SexoId" FromRole="Persona" ToRole="Sexo" />
+          <NavigationProperty Name="Tipodocumento" Relationship="DBFisioterapiaModel.FK_dbo_Persona_dbo_Tipodocumento_TipodocumentoId" FromRole="Persona" ToRole="Tipodocumento" />
         </EntityType>
         <EntityType Name="Sexo">
           <Key>
             <PropertyRef Name="SexoId" />
           </Key>
           <Property Name="SexoId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Codigo" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
-          <Property Name="Descripcion" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Persona" Relationship="Self.FK_dbo_Persona_dbo_Sexo_SexoId" FromRole="Sexo" ToRole="Persona" />
+          <Property Name="Codigo" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Persona" Relationship="DBFisioterapiaModel.FK_dbo_Persona_dbo_Sexo_SexoId" FromRole="Sexo" ToRole="Persona" />
         </EntityType>
+        <EntityType Name="Tipodocumento">
+          <Key>
+            <PropertyRef Name="TipodocumentoId" />
+          </Key>
+          <Property Name="TipodocumentoId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Codigo" Type="String" Nullable="false" MaxLength="3" FixedLength="true" Unicode="false" />
+          <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Persona" Relationship="DBFisioterapiaModel.FK_dbo_Persona_dbo_Tipodocumento_TipodocumentoId" FromRole="Tipodocumento" ToRole="Persona" />
+        </EntityType>
+        <Association Name="FK_dbo_Distrito_dbo_Departamento_DepartamentoId">
+          <End Type="DBFisioterapiaModel.Departamento" Role="Departamento" Multiplicity="1" />
+          <End Type="DBFisioterapiaModel.Distrito" Role="Distrito" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Departamento">
+              <PropertyRef Name="DepartamentoId" />
+            </Principal>
+            <Dependent Role="Distrito">
+              <PropertyRef Name="DepartamentoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_dbo_Persona_dbo_Distrito_DistritoId">
-          <End Role="Distrito" Type="Self.Distrito" Multiplicity="1" />
-          <End Role="Persona" Type="Self.Persona" Multiplicity="*" />
+          <End Type="DBFisioterapiaModel.Distrito" Role="Distrito" Multiplicity="1" />
+          <End Type="DBFisioterapiaModel.Persona" Role="Persona" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Distrito">
               <PropertyRef Name="DistritoId" />
@@ -239,8 +364,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_dbo_Persona_dbo_Sexo_SexoId">
-          <End Role="Sexo" Type="Self.Sexo" Multiplicity="1" />
-          <End Role="Persona" Type="Self.Persona" Multiplicity="*" />
+          <End Type="DBFisioterapiaModel.Sexo" Role="Sexo" Multiplicity="1" />
+          <End Type="DBFisioterapiaModel.Persona" Role="Persona" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Sexo">
               <PropertyRef Name="SexoId" />
@@ -250,24 +375,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="DBFisioterapiaEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="AgenteElectrofisico" EntityType="Self.AgenteElectrofisico" />
-          <EntitySet Name="AgenteTermico" EntityType="Self.AgenteTermico" />
-          <EntitySet Name="Antecedentes" EntityType="Self.Antecedentes" />
-          <EntitySet Name="Distrito" EntityType="Self.Distrito" />
-          <EntitySet Name="Frecuencia" EntityType="Self.Frecuencia" />
-          <EntitySet Name="ManiobraTerapeutica" EntityType="Self.ManiobraTerapeutica" />
-          <EntitySet Name="Persona" EntityType="Self.Persona" />
-          <EntitySet Name="Sexo" EntityType="Self.Sexo" />
-          <AssociationSet Name="FK_dbo_Persona_dbo_Distrito_DistritoId" Association="Self.FK_dbo_Persona_dbo_Distrito_DistritoId">
-            <End Role="Distrito" EntitySet="Distrito" />
-            <End Role="Persona" EntitySet="Persona" />
-          </AssociationSet>
-          <AssociationSet Name="FK_dbo_Persona_dbo_Sexo_SexoId" Association="Self.FK_dbo_Persona_dbo_Sexo_SexoId">
-            <End Role="Sexo" EntitySet="Sexo" />
-            <End Role="Persona" EntitySet="Persona" />
-          </AssociationSet>
-        </EntityContainer>
+        <Association Name="FK_dbo_Persona_dbo_Tipodocumento_TipodocumentoId">
+          <End Type="DBFisioterapiaModel.Tipodocumento" Role="Tipodocumento" Multiplicity="1" />
+          <End Type="DBFisioterapiaModel.Persona" Role="Persona" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tipodocumento">
+              <PropertyRef Name="TipodocumentoId" />
+            </Principal>
+            <Dependent Role="Persona">
+              <PropertyRef Name="TipodocumentoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -277,93 +396,119 @@
           <EntitySetMapping Name="AgenteElectrofisico">
             <EntityTypeMapping TypeName="DBFisioterapiaModel.AgenteElectrofisico">
               <MappingFragment StoreEntitySet="AgenteElectrofisico">
-                <ScalarProperty Name="AgenteElectrofisicoId" ColumnName="AgenteElectrofisicoId" />
-                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
-                <ScalarProperty Name="Usuariocreacion" ColumnName="Usuariocreacion" />
-                <ScalarProperty Name="Fechacreacion" ColumnName="Fechacreacion" />
-                <ScalarProperty Name="Usuariomodificacion" ColumnName="Usuariomodificacion" />
                 <ScalarProperty Name="Fechamodificacion" ColumnName="Fechamodificacion" />
+                <ScalarProperty Name="Usuariomodificacion" ColumnName="Usuariomodificacion" />
+                <ScalarProperty Name="Fechacreacion" ColumnName="Fechacreacion" />
+                <ScalarProperty Name="Usuariocreacion" ColumnName="Usuariocreacion" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="AgenteElectrofisicoId" ColumnName="AgenteElectrofisicoId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="AgenteTermico">
             <EntityTypeMapping TypeName="DBFisioterapiaModel.AgenteTermico">
               <MappingFragment StoreEntitySet="AgenteTermico">
-                <ScalarProperty Name="AgenteTermicoId" ColumnName="AgenteTermicoId" />
-                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
-                <ScalarProperty Name="Usuariocreacion" ColumnName="Usuariocreacion" />
-                <ScalarProperty Name="Fechacreacion" ColumnName="Fechacreacion" />
-                <ScalarProperty Name="Usuariomodificacion" ColumnName="Usuariomodificacion" />
                 <ScalarProperty Name="Fechamodificacion" ColumnName="Fechamodificacion" />
+                <ScalarProperty Name="Usuariomodificacion" ColumnName="Usuariomodificacion" />
+                <ScalarProperty Name="Fechacreacion" ColumnName="Fechacreacion" />
+                <ScalarProperty Name="Usuariocreacion" ColumnName="Usuariocreacion" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="AgenteTermicoId" ColumnName="AgenteTermicoId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Antecedentes">
             <EntityTypeMapping TypeName="DBFisioterapiaModel.Antecedentes">
               <MappingFragment StoreEntitySet="Antecedentes">
-                <ScalarProperty Name="AntecedentesId" ColumnName="AntecedentesId" />
                 <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="AntecedentesId" ColumnName="AntecedentesId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Departamento">
+            <EntityTypeMapping TypeName="DBFisioterapiaModel.Departamento">
+              <MappingFragment StoreEntitySet="Departamento">
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="DepartamentoId" ColumnName="DepartamentoId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Distrito">
             <EntityTypeMapping TypeName="DBFisioterapiaModel.Distrito">
               <MappingFragment StoreEntitySet="Distrito">
-                <ScalarProperty Name="DistritoId" ColumnName="DistritoId" />
-                <ScalarProperty Name="DepartamentoId" ColumnName="DepartamentoId" />
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="DepartamentoId" ColumnName="DepartamentoId" />
+                <ScalarProperty Name="DistritoId" ColumnName="DistritoId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Estadocivil">
+            <EntityTypeMapping TypeName="DBFisioterapiaModel.Estadocivil">
+              <MappingFragment StoreEntitySet="Estadocivil">
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+                <ScalarProperty Name="EstadocivilId" ColumnName="EstadocivilId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Frecuencia">
             <EntityTypeMapping TypeName="DBFisioterapiaModel.Frecuencia">
               <MappingFragment StoreEntitySet="Frecuencia">
-                <ScalarProperty Name="FrecuenciaId" ColumnName="FrecuenciaId" />
-                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
                 <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+                <ScalarProperty Name="FrecuenciaId" ColumnName="FrecuenciaId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ManiobraTerapeutica">
             <EntityTypeMapping TypeName="DBFisioterapiaModel.ManiobraTerapeutica">
               <MappingFragment StoreEntitySet="ManiobraTerapeutica">
-                <ScalarProperty Name="ManiobraTerapeuticaId" ColumnName="ManiobraTerapeuticaId" />
-                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
-                <ScalarProperty Name="Usuariocreacion" ColumnName="Usuariocreacion" />
-                <ScalarProperty Name="Fechacreacion" ColumnName="Fechacreacion" />
-                <ScalarProperty Name="Usuariomodificacion" ColumnName="Usuariomodificacion" />
                 <ScalarProperty Name="Fechamodificacion" ColumnName="Fechamodificacion" />
+                <ScalarProperty Name="Usuariomodificacion" ColumnName="Usuariomodificacion" />
+                <ScalarProperty Name="Fechacreacion" ColumnName="Fechacreacion" />
+                <ScalarProperty Name="Usuariocreacion" ColumnName="Usuariocreacion" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="ManiobraTerapeuticaId" ColumnName="ManiobraTerapeuticaId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Persona">
             <EntityTypeMapping TypeName="DBFisioterapiaModel.Persona">
               <MappingFragment StoreEntitySet="Persona">
-                <ScalarProperty Name="PersonaId" ColumnName="PersonaId" />
-                <ScalarProperty Name="Tipodocumento" ColumnName="Tipodocumento" />
-                <ScalarProperty Name="Nrodocumento" ColumnName="Nrodocumento" />
-                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
-                <ScalarProperty Name="Apellidopaterno" ColumnName="Apellidopaterno" />
-                <ScalarProperty Name="Apellidomaterno" ColumnName="Apellidomaterno" />
-                <ScalarProperty Name="Nrotelefono" ColumnName="Nrotelefono" />
-                <ScalarProperty Name="Fecnacimiento" ColumnName="Fecnacimiento" />
-                <ScalarProperty Name="DistritoId" ColumnName="DistritoId" />
-                <ScalarProperty Name="Direccion" ColumnName="Direccion" />
-                <ScalarProperty Name="Ocupacion" ColumnName="Ocupacion" />
-                <ScalarProperty Name="SexoId" ColumnName="SexoId" />
-                <ScalarProperty Name="Usuariocreacion" ColumnName="Usuariocreacion" />
-                <ScalarProperty Name="Fechacreacion" ColumnName="Fechacreacion" />
-                <ScalarProperty Name="Usuariomodificacion" ColumnName="Usuariomodificacion" />
                 <ScalarProperty Name="Fechamodificacion" ColumnName="Fechamodificacion" />
+                <ScalarProperty Name="Usuariomodificacion" ColumnName="Usuariomodificacion" />
+                <ScalarProperty Name="Fechacreacion" ColumnName="Fechacreacion" />
+                <ScalarProperty Name="Usuariocreacion" ColumnName="Usuariocreacion" />
+                <ScalarProperty Name="SexoId" ColumnName="SexoId" />
+                <ScalarProperty Name="Ocupacion" ColumnName="Ocupacion" />
+                <ScalarProperty Name="Direccion" ColumnName="Direccion" />
+                <ScalarProperty Name="DistritoId" ColumnName="DistritoId" />
+                <ScalarProperty Name="Fecnacimiento" ColumnName="Fecnacimiento" />
+                <ScalarProperty Name="Nrotelefono" ColumnName="Nrotelefono" />
+                <ScalarProperty Name="Apellidomaterno" ColumnName="Apellidomaterno" />
+                <ScalarProperty Name="Apellidopaterno" ColumnName="Apellidopaterno" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Nrodocumento" ColumnName="Nrodocumento" />
+                <ScalarProperty Name="TipodocumentoId" ColumnName="TipodocumentoId" />
+                <ScalarProperty Name="PersonaId" ColumnName="PersonaId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Sexo">
             <EntityTypeMapping TypeName="DBFisioterapiaModel.Sexo">
               <MappingFragment StoreEntitySet="Sexo">
-                <ScalarProperty Name="SexoId" ColumnName="SexoId" />
-                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
                 <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+                <ScalarProperty Name="SexoId" ColumnName="SexoId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tipodocumento">
+            <EntityTypeMapping TypeName="DBFisioterapiaModel.Tipodocumento">
+              <MappingFragment StoreEntitySet="Tipodocumento">
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+                <ScalarProperty Name="TipodocumentoId" ColumnName="TipodocumentoId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

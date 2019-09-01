@@ -15,17 +15,11 @@ namespace Repository
     
     public partial class DBFisioterapiaEntities : DbContext
     {
-        //public DBFisioterapiaEntities()
-        //    : base("name=DBFisioterapiaEntities")
-        //{
-        //}
-
         public DBFisioterapiaEntities(string name)
             : base(name)
         {
-
         }
-
+    
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             throw new UnintentionalCodeFirstException();
@@ -34,10 +28,13 @@ namespace Repository
         public virtual DbSet<AgenteElectrofisico> AgenteElectrofisico { get; set; }
         public virtual DbSet<AgenteTermico> AgenteTermico { get; set; }
         public virtual DbSet<Antecedentes> Antecedentes { get; set; }
+        public virtual DbSet<Departamento> Departamento { get; set; }
         public virtual DbSet<Distrito> Distrito { get; set; }
+        public virtual DbSet<Estadocivil> Estadocivil { get; set; }
         public virtual DbSet<Frecuencia> Frecuencia { get; set; }
         public virtual DbSet<ManiobraTerapeutica> ManiobraTerapeutica { get; set; }
         public virtual DbSet<Persona> Persona { get; set; }
         public virtual DbSet<Sexo> Sexo { get; set; }
+        public virtual DbSet<Tipodocumento> Tipodocumento { get; set; }
     }
 }

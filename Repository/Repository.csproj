@@ -74,7 +74,13 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DataModelFisioterapia.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Departamento.cs">
+      <DependentUpon>DataModelFisioterapia.tt</DependentUpon>
+    </Compile>
     <Compile Include="Distrito.cs">
+      <DependentUpon>DataModelFisioterapia.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Estadocivil.cs">
       <DependentUpon>DataModelFisioterapia.tt</DependentUpon>
     </Compile>
     <Compile Include="Frecuencia.cs">
@@ -88,6 +94,9 @@
       <DependentUpon>DataModelFisioterapia.tt</DependentUpon>
     </Compile>
     <Compile Include="Sexo.cs">
+      <DependentUpon>DataModelFisioterapia.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Tipodocumento.cs">
       <DependentUpon>DataModelFisioterapia.tt</DependentUpon>
     </Compile>
     <Compile Include="UnitOfWork\UnitOfWorkReference.cs" />

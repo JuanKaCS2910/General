@@ -5,16 +5,21 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="6d0404dd7abf42ad853a7492104f6ce8" Name="Diagram1">
-        <EntityTypeShape EntityType="DBFisioterapiaModel.AgenteElectrofisico" Width="1.5" PointX="5.75" PointY="2.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="DBFisioterapiaModel.AgenteTermico" Width="1.5" PointX="5.75" PointY="5.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="DBFisioterapiaModel.Antecedentes" Width="1.5" PointX="0.75" PointY="8.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="DBFisioterapiaModel.Distrito" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="DBFisioterapiaModel.Frecuencia" Width="1.5" PointX="2.75" PointY="8.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="DBFisioterapiaModel.ManiobraTerapeutica" Width="1.5" PointX="4.75" PointY="8.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="DBFisioterapiaModel.Persona" Width="1.5" PointX="3" PointY="2.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="DBFisioterapiaModel.Sexo" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <AssociationConnector Association="DBFisioterapiaModel.FK_dbo_Persona_dbo_Distrito_DistritoId" ManuallyRouted="false" />
-        <AssociationConnector Association="DBFisioterapiaModel.FK_dbo_Persona_dbo_Sexo_SexoId" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="DBFisioterapiaModel.AgenteElectrofisico" Width="1.5" PointX="5.75" PointY="8.25" />
+        <EntityTypeShape EntityType="DBFisioterapiaModel.AgenteTermico" Width="1.5" PointX="7.75" PointY="2.25" />
+        <EntityTypeShape EntityType="DBFisioterapiaModel.Antecedentes" Width="1.5" PointX="7.75" PointY="5.25" />
+        <EntityTypeShape EntityType="DBFisioterapiaModel.Departamento" Width="1.5" PointX="0.75" PointY="4.125" />
+        <EntityTypeShape EntityType="DBFisioterapiaModel.Distrito" Width="1.5" PointX="3" PointY="3.875" />
+        <EntityTypeShape EntityType="DBFisioterapiaModel.Estadocivil" Width="1.5" PointX="7.75" PointY="8.25" />
+        <EntityTypeShape EntityType="DBFisioterapiaModel.Frecuencia" Width="1.5" PointX="0.75" PointY="10.25" />
+        <EntityTypeShape EntityType="DBFisioterapiaModel.ManiobraTerapeutica" Width="1.5" PointX="2.75" PointY="10.25" />
+        <EntityTypeShape EntityType="DBFisioterapiaModel.Persona" Width="1.5" PointX="5.25" PointY="2.625" />
+        <EntityTypeShape EntityType="DBFisioterapiaModel.Sexo" Width="1.5" PointX="3" PointY="0.75" />
+        <EntityTypeShape EntityType="DBFisioterapiaModel.Tipodocumento" Width="1.5" PointX="3" PointY="7.25" />
+        <AssociationConnector Association="DBFisioterapiaModel.FK_dbo_Distrito_dbo_Departamento_DepartamentoId" />
+        <AssociationConnector Association="DBFisioterapiaModel.FK_dbo_Persona_dbo_Distrito_DistritoId" />
+        <AssociationConnector Association="DBFisioterapiaModel.FK_dbo_Persona_dbo_Sexo_SexoId" />
+        <AssociationConnector Association="DBFisioterapiaModel.FK_dbo_Persona_dbo_Tipodocumento_TipodocumentoId" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

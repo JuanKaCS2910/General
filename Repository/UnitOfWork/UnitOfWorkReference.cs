@@ -10,6 +10,8 @@
         private GenericRepository<AgenteElectrofisico> agenteelectrofisicoRepository;
         private GenericRepository<Distrito> distritoRepository;
         private GenericRepository<Persona> personaRepository;
+        private GenericRepository<Tipodocumento> tipodocumentoRepository;
+        private GenericRepository<Sexo> sexoRepository;
         #endregion
 
         #region Public
@@ -51,6 +53,31 @@
                 return personaRepository;
             }
         }
+
+        public GenericRepository<Tipodocumento> TipoDocumentoRepository
+        {
+            get
+            {
+                if (this.tipodocumentoRepository == null)
+                {
+                    this.tipodocumentoRepository = new GenericRepository<Tipodocumento>(context);
+                }
+                return tipodocumentoRepository;
+            }
+        }
+
+        public GenericRepository<Sexo> SexoRepository
+        {
+            get
+            {
+                if (this.sexoRepository == null)
+                {
+                    this.sexoRepository = new GenericRepository<Sexo>(context);
+                }
+                return sexoRepository;
+            }
+        }
+
         #endregion
 
     }

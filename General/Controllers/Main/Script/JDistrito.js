@@ -39,10 +39,6 @@
                 "last": "Última",
                 "next": "Siguiente",
                 "previous": "Anterior"
-            },
-            "aria": {
-                "sortAscending": ": activar para ordernar columna de forma ascendente",
-                "sortDescending": ": activar para ordenar de forma descendente"
             }
         }
 
@@ -140,9 +136,8 @@ function ViewGrilla()
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (data) {
-            debugger;
             if (data != null) {
-                if (data.Resultado.length > 1) {
+                if (data.Resultado.length > 0) {
                     var table = $('#tblGrilla');
                     table.find("tbody tr").remove();
                     data.Resultado.forEach(function (result) {

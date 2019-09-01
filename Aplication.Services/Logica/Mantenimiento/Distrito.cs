@@ -34,7 +34,35 @@
             var _result = result.ToList();
             return _result;
         }
-        
+
+        public List<EDistrito> BusquedaDistrito(FiltroDistritoPersona filtro)
+        {
+            var distrito = oUnitOfWork.DistritoRepository.Queryable();
+            var result = new List<EDistrito>();
+
+            if (!string.IsNullOrEmpty(filtro.FDistrito))
+            {
+                result = (distrito.Where(d => d.Nombre.Contains(filtro.FDistrito))
+                            .Select(a => new EDistrito
+                            {
+                                Nombre = a.Nombre,
+                                DistritoId = a.DistritoId,
+                                DepartamentoId = a.DepartamentoId
+                            })).OrderBy(d => d.Nombre).Take(filtro.rows).ToList();
+            }
+            else
+            {
+                result = (distrito.Select(a => new EDistrito
+                            {
+                                Nombre = a.Nombre,
+                                DistritoId = a.DistritoId,
+                                DepartamentoId = a.DepartamentoId
+                            })).OrderBy(d => d.Nombre).Take(filtro.rows).ToList();
+            }
+
+            return result;
+        }
+
         public IPagedList<EDistritoView> DistritoGrillaToPageList(Grilla pag)
         {
 

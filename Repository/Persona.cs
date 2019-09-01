@@ -15,7 +15,7 @@ namespace Repository
     public partial class Persona
     {
         public int PersonaId { get; set; }
-        public string Tipodocumento { get; set; }
+        public int TipodocumentoId { get; set; }
         public string Nrodocumento { get; set; }
         public string Nombre { get; set; }
         public string Apellidopaterno { get; set; }
@@ -33,5 +33,6 @@ namespace Repository
     
         public virtual Distrito Distrito { get; set; }
         public virtual Sexo Sexo { get; set; }
+        public virtual Tipodocumento Tipodocumento { get; set; }
     }
 }

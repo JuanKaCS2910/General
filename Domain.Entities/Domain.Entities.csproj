@@ -45,6 +45,9 @@
     <Compile Include="General\Grilla.cs" />
     <Compile Include="General\SendEmail.cs" />
     <Compile Include="Mantenimiento\EDistrito.cs" />
+    <Compile Include="Mantenimiento\EPersona.cs" />
+    <Compile Include="Mantenimiento\ESexo.cs" />
+    <Compile Include="Mantenimiento\ETipodocumento.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
