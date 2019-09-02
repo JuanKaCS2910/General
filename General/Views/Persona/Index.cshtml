@@ -1,0 +1,377 @@
+﻿@model PagedList.IPagedList<Domain.Entities.Mantenimiento.EPersona>
+@using PagedList.Mvc
+@{
+    ViewBag.Title = "Persona";
+}
+
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>Persona</h2>
+    </div>
+    <div class="col-lg-2">
+
+    </div>
+</div>
+
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+
+            <div class="tabs-container">
+                <ul class="nav nav-tabs">
+                    <li class="active">
+                        <a class="nav-link active" data-toggle="tab" href="#tab-1">Lista</a>
+                    </li>
+                    <li><a class="nav-link" data-toggle="tab" href="#tab-2">Detalle</a></li>
+                </ul>
+            </div>
+
+            <div class="tab-content">
+                <div id="tab-1" class="tab-pane active">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>Listado <small>De Personas</small></h5>
+                            <div class="ibox-tools">
+                                <a class="collapse-link">
+                                    <i class="fa fa-chevron-up"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="ibox-content">
+                            @*Grilla*@
+                        </div>
+                    </div>
+                </div>
+                <div id="tab-2" class="tab-pane">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>Registro <small>De Personas</small></h5>
+                            <div class="ibox-tools">
+                                <a class="collapse-link">
+                                    <i class="fa fa-chevron-up"></i>
+                                </a>
+                            </div>
+                        </div>
+                        @*Grabar|Editar|Eliminar*@
+                        <div class="ibox-title">
+
+                            <div class="row">
+                                <div class="col-xs-12 col-md-1 div-btn-img">
+                                    <button class="btn-img">
+                                        <img src="~/Content/Iconos/new.png" class="img-button" id="btnNew" title="Nuevo">
+                                    </button>
+                                </div>
+                                <div class="col-xs-12 col-md-1 div-btn-img">
+                                    <button class="btn-img">
+                                        <img src="~/Content/Iconos/save.png" class="img-button" id="btnSave" title="Grabar">
+                                    </button>
+                                </div>
+                                <div class="col-xs-12 col-md-1 div-btn-img">
+                                    <button class="btn-img">
+                                        <img src="~/Content/Iconos/edit.png" class="img-button" id="btnEdit" title="Editar">
+                                    </button>
+                                </div>
+                                <div class="col-xs-12 col-md-1 div-btn-img">
+                                    <button class="btn-img">
+                                        <img src="~/Content/Iconos/delete.png" class="img-button" id="btnDelete" title="Eliminar">
+                                    </button>
+                                </div>
+                                <div class="col-xs-12 col-md-8">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="ibox-content">
+                            <div class="row">
+                                <div class="col-xs-12 col-md-3">
+                                    @Html.LabelFor(model => Model.FirstOrDefault().Apellidopaterno, htmlAttributes: new { @class = "control-label input-style" })
+                                </div>
+                                <div class="col-xs-12 col-md-3">
+                                    <div class="form-group">
+                                        @*<input type="text" class="form-control" value="">*@
+                                        @Html.EditorFor(model => Model.FirstOrDefault().Apellidopaterno, new { htmlAttributes = new { @class = "form-control" } })
+                                    </div>
+
+                                </div>
+
+                                <div class="col-xs-12 col-md-3">
+                                    @Html.LabelFor(model => Model.FirstOrDefault().Apellidomaterno, htmlAttributes: new { @class = "control-label input-style" })
+                                </div>
+                                <div class="col-xs-12 col-md-3">
+                                    <div class="form-group">
+                                        @Html.EditorFor(model => Model.FirstOrDefault().Apellidomaterno, new { htmlAttributes = new { @class = "form-control" } })
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-xs-12 col-md-3">
+                                    @Html.LabelFor(model => Model.FirstOrDefault().Nombre, htmlAttributes: new { @class = "control-label input-style" })
+                                </div>
+                                <div class="col-xs-12 col-md-3">
+                                    <div class="form-group">
+                                        @Html.EditorFor(model => Model.FirstOrDefault().Nombre, new { htmlAttributes = new { @class = "form-control" } })
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-12 col-md-3">
+                                    @Html.LabelFor(model => Model.FirstOrDefault().SexoId, htmlAttributes: new { @class = "control-label input-style" })
+                                </div>
+                                <div class="col-xs-12 col-md-3">
+                                    <div class="form-group">
+                                        @Html.DropDownList("SexoId", null, htmlAttributes: new { @class = "form-control-formulario" })
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-xs-12 col-md-3">
+                                    @Html.LabelFor(model => Model.FirstOrDefault().TipodocumentoId, htmlAttributes: new { @class = "control-label input-style" })
+                                </div>
+                                <div class="col-xs-12 col-md-3">
+                                    <div class="form-group">
+                                        @Html.DropDownList("DocumentypeId", null, htmlAttributes: new { @class = "form-control-formulario" })
+
+                                    </div>
+
+                                </div>
+
+                                <div class="col-xs-12 col-md-3">
+                                    @Html.LabelFor(model => Model.FirstOrDefault().Nrodocumento, htmlAttributes: new { @class = "control-label input-style" })
+                                </div>
+                                <div class="col-xs-12 col-md-3">
+                                    <div class="form-group">
+                                        @Html.EditorFor(model => Model.FirstOrDefault().Nrodocumento, new { htmlAttributes = new { @class = "form-control" } })
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-xs-12 col-md-3">
+
+                                    @Html.LabelFor(model => Model.FirstOrDefault().Fecnacimiento, htmlAttributes: new { @class = "control-label input-style" })
+                                </div>
+                                <div class="col-xs-12 col-md-3">
+                                    <div class="form-group" id="date_1">
+                                        <div class="input-group date">
+                                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="text" class="form-control" value="03/04/2014" id="FechaNacimiento">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-12 col-md-3">
+                                    @Html.LabelFor(model => Model.FirstOrDefault().DistritoId, htmlAttributes: new { @class = "control-label input-style" })
+                                </div>
+                                <div class="col-xs-12 col-md-3">
+                                    <div class="form-group">
+                                        <div class="row">
+
+                                            <div class="col-xs-12 col-md-8 input-search">
+                                                <input type="text" id="Namedistrito" disabled="disabled" class="form-control" />
+                                            </div>
+                                            <div class="col-xs-12 col-md-2 button-search">
+                                                <button class="btn btn-primary" id="btnDistrito"> buscar</button>
+                                            </div>
+                                            <div class="col-xs-12 col-md-2">
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-12 col-md-3">
+                                    @Html.LabelFor(model => Model.FirstOrDefault().Direccion, htmlAttributes: new { @class = "control-label input-style" })
+                                </div>
+                                <div class="col-xs-12 col-md-9">
+                                    <div class="form-group">
+                                        @Html.EditorFor(model => Model.FirstOrDefault().Direccion, new { htmlAttributes = new { @class = "form-control" } })
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-xs-12 col-md-3">
+                                    @Html.LabelFor(model => Model.FirstOrDefault().Nrotelefono, htmlAttributes: new { @class = "control-label input-style" })
+                                </div>
+                                <div class="col-xs-12 col-md-3">
+                                    <div class="form-group">
+                                        @Html.EditorFor(model => Model.FirstOrDefault().Nrotelefono, new { htmlAttributes = new { @class = "form-control" } })
+                                    </div>
+
+                                </div>
+
+                                <div class="col-xs-12 col-md-3">
+                                    @Html.LabelFor(model => Model.FirstOrDefault().Ocupacion, htmlAttributes: new { @class = "control-label input-style" })
+                                </div>
+                                <div class="col-xs-12 col-md-3">
+                                    <div class="form-group">
+                                        @Html.EditorFor(model => Model.FirstOrDefault().Ocupacion, new { htmlAttributes = new { @class = "form-control" } })
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        @*< !--Model Popup Distrito-- >*@
+                        <div class="container">
+                            <div class="row">
+                                <div class="modal fade" id="modalDistrito" role="dialog">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header update-modal">
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="" id="btncancelar"><span>×</span></button>
+                                                <h4 class="modal-title">Listado de Distrito</h4>
+                                            </div>
+
+                                            <div class="modal-body">
+                                                <div class="row">
+                                                    <div class="col-xs-12 col-md-12">
+                                                        <div class="col-xs-12 col-md-3">
+                                                            <label class="control-label input-style" for="NombreFiltro">Descripción</label>
+                                                        </div>
+                                                        <div class="col-xs-12 col-md-6">
+                                                            <input class="form-control text-box single-line" data-val="true" id="Descripcionfiltro" name="Descripcionfiltro" type="text" value="">
+                                                        </div>
+                                                        <div class="col-xs-12 col-md-3">
+                                                            <button class="btn btn-primary" id="btnFiltro">Buscar</button>
+                                                        </div>
+                                                    </div>
+                                                    <br />
+                                                    <hr />
+                                                    <input type="hidden" id="hdistritoId" value="" />
+                                                    <div class="col-xs-12 col-md-12">
+                                                        <table id="tblFiltro" class="table table-striped table-bordered table-hover dataTables-example">
+                                                            <thead>
+                                                                <tr class="EstiloCabecera">
+
+                                                                    <th class="col-xs-12 col-md-1"></th>
+                                                                    <th class="col-xs-12 col-md-11">
+                                                                        @Html.DisplayNameFor(model => Model.FirstOrDefault().Nombre)
+                                                                    </th>
+                                                                    @*<th class="col-xs-12 col-md-4"></th>
+                                                    <th class="col-xs-12 col-md-1"></th>*@
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody></tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Model Popup ends-->
+
+                        @*Model Popup Validacion de Campos Obligatorios*@
+                        <div class="container">
+                            <div class="row">
+                                <div class="modal fade" id="modalObligatorios" role="dialog">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header update-modal">
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="" id="btncancelar"><span>×</span></button>
+                                                <h4 class="modal-title">Campos Obligatorios</h4>
+                                            </div>
+
+                                            <div class="modal-body">
+                                                <div class="row">
+                                                    <div class="col-xs-12 col-md-12">
+                                                        <ul id="ulCamposObligatorios" style="list-style-type:square;">
+
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+
+                                            </div>
+                                        </div>
+                                        
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Model Popup ends-->
+
+                        @*< !--Model Popup starts Correct-- >*@
+                        <div class="container">
+                            <div class="row">
+                                <div class="modal fade" id="success" role="dialog">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header succes-modal">
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="" id="btncancelar"><span>×</span></button>
+                                            </div>
+
+                                            <div class="modal-body">
+
+                                                <div class="thank-you-pop">
+                                                    <div class="row">
+                                                        <img style="align-content:center" src="~/Content/Iconos/success.png" alt="">
+                                                    </div>
+                                                    <h1>
+                                                        <span id="SuccessResult"></span>
+                                                    </h1>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Model Popup ends-->
+
+                        <!--Model Popup starts Incorrecto-->
+                        <div class="container">
+                            <div class="row">
+                                <div class="modal fade" id="error" role="dialog">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header fail-modal">
+                                                <button type="button" class="close" data-dismiss="modal" aria-label=""><span>×</span></button>
+                                            </div>
+
+                                            <div class="modal-body">
+                                                <div class="thank-you-pop">
+                                                    <div class="row">
+                                                        <img src="~/Content/Iconos/error.png" alt="">
+                                                    </div>
+
+                                                    <h1>Ocurrió un error al momento de registrar</h1>
+                                                    <h3 class="cupon-pop">
+                                                        Error : <span id="ErrorResult"></span>
+                                                    </h3>
+
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Model Popup ends-->
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+@section Styles {
+    @Styles.Render("~/plugins/dataPickerStyles")
+}
+
+@section Scripts
+{
+    @Scripts.Render("~/plugins/dataTables")
+    @Scripts.Render("~/plugins/dataPicker")
+    <script src="~/Controllers/Main/Script/JPersona.js"></script>
+}
+

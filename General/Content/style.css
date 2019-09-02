@@ -999,9 +999,9 @@ h5 {
   font-size: 12px;
 }
 .nav-header {
-  padding: 33px 25px;
-  background-color: #2f4050;
-  background-image: url("patterns/header-profile.png");
+    padding: 33px 25px;
+    background-color: #2f4050;
+    background-image: url("Iconos/header-profile.png");
 }
 .caret {
   display: inline-block;
