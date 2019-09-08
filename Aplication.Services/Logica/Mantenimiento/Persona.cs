@@ -1,4 +1,5 @@
 ﻿using Aplication.Services.Interfaz;
+using AutoMapper;
 using Domain.Entities.General;
 using Domain.Entities.Mantenimiento;
 using PagedList;
@@ -18,6 +19,28 @@ namespace Aplication.Services.Logica.Mantenimiento
         public Persona()
         {
             this.oUnitOfWork = new UnitOfWork();
+        }
+
+        public List<EPersona> PersonaGrilla()
+        {
+            var lPersona = new List<EPersona>();
+            var persona = oUnitOfWork.PersonaRepository.Queryable();
+
+            var result = (from p in persona
+                           select new EPersona
+                           {
+                               Apellidomaterno = p.Apellidomaterno,
+                               Apellidopaterno = p.Apellidopaterno,
+                               Direccion = p.Direccion,
+                               DistritoId = p.DistritoId,
+                               Fecnacimiento = p.Fecnacimiento,
+                               Nombre = p.Nombre,
+                               Nrodocumento = p.Nrodocumento
+                           });
+
+            lPersona = result.ToList();
+
+            return lPersona; 
         }
 
         public IPagedList<EPersona> PersonaGrillaToPageList(Grilla pag)

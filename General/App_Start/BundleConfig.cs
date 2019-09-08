@@ -84,7 +84,8 @@ namespace General
             //bundles.Add(new StyleBundle("~/Content/css").Include(
             //          "~/Content/bootstrap.css",
             //          "~/Content/site.css"));
-            BundleTable.EnableOptimizations = true;
+
+            //BundleTable.EnableOptimizations = false;
         }
     }
 }

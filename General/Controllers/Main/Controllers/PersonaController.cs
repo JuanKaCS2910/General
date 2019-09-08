@@ -57,7 +57,13 @@ namespace General.Controllers.Main.Controllers
             ViewBag.SexoId = new SelectList(oSexo.Cargarsexo(),
                 "SexoId", "Descripcion");
 
-            var result = oPersona.PersonaGrillaToPageList(paginacion);
+            var result = new ViewModelPerson
+            {
+                PersonaGrilla = oPersona.PersonaGrillaToPageList(paginacion),
+                Person = new EPersona()
+            };
+
+            //var result = oPersona.PersonaGrillaToPageList(paginacion);
 
             return View(result);
         }

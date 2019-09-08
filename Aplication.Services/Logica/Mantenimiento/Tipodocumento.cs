@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.UI.WebControls;
+
 
 namespace Aplication.Services.Logica.Mantenimiento
 {
@@ -19,6 +21,7 @@ namespace Aplication.Services.Logica.Mantenimiento
 
         public List<ETipodocumento> Cargardocumento()
         {
+            
             var documento = oUnitOfWork.TipoDocumentoRepository.Queryable();
             var resultado = (from d in documento
                              select new ETipodocumento

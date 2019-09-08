@@ -71,18 +71,18 @@
 });
 
 function LimpiarCampos() {
-    document.getElementById("Apellidopaterno").value = "";
-    document.getElementById("Apellidomaterno").value = "";
-    document.getElementById("Nombre").value = "";
+    document.getElementById("Person_Apellidopaterno").value = "";
+    document.getElementById("Person_Apellidomaterno").value = "";
+    document.getElementById("Person_Nombre").value = "";
     document.getElementById("SexoId").value = "";
     document.getElementById("DocumentypeId").value = "";
-    document.getElementById("Nrodocumento").value = "";
+    document.getElementById("Person_Nrodocumento").value = "";
     document.getElementById("FechaNacimiento").value = "";
     document.getElementById("hdistritoId").value = "";
     document.getElementById("Namedistrito").value = "";
-    document.getElementById("Direccion").value = "";
-    document.getElementById("Nrotelefono").value = "";
-    document.getElementById("Ocupacion").value = "";
+    document.getElementById("Person_Direccion").value = "";
+    document.getElementById("Person_Nrotelefono").value = "";
+    document.getElementById("Person_Ocupacion").value = "";
 }
 
 function NewPerson() {
@@ -91,17 +91,17 @@ function NewPerson() {
 
 function SavePerson() {
 
-    var apPaternoGrabar = document.getElementById("Apellidopaterno");
-    var apMaternoGrabar = document.getElementById("Apellidomaterno");
-    var nombre = document.getElementById("Nombre");
+    var apPaternoGrabar = document.getElementById("Person_Apellidopaterno");
+    var apMaternoGrabar = document.getElementById("Person_Apellidomaterno");
+    var nombre = document.getElementById("Person_Nombre");
     var sexo = document.getElementById("SexoId");
     var documento = document.getElementById("DocumentypeId");
-    var nroDocumento = document.getElementById("Nrodocumento");
+    var nroDocumento = document.getElementById("Person_Nrodocumento");
     var fecNacimiento = document.getElementById("FechaNacimiento");
     var distrito = document.getElementById("hdistritoId");
-    var direccion = document.getElementById("Direccion");
-    var nroTelefono = document.getElementById("Nrotelefono");
-    var ocupacion = document.getElementById("Ocupacion");
+    var direccion = document.getElementById("Person_Direccion");
+    var nroTelefono = document.getElementById("Person_Nrotelefono");
+    var ocupacion = document.getElementById("Person_Ocupacion");
 
     var campos = "";
 

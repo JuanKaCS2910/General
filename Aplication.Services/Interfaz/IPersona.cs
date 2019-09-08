@@ -13,5 +13,6 @@ namespace Aplication.Services.Interfaz
     {
         IPagedList<EPersona> PersonaGrillaToPageList(Grilla pag);
         string CreatePerson(EPersona registro);
+        List<EPersona> PersonaGrilla();
     }
 }

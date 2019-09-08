@@ -1,5 +1,6 @@
-﻿@model PagedList.IPagedList<Domain.Entities.Mantenimiento.EPersona>
-@using PagedList.Mvc
+﻿@model Domain.Entities.Mantenimiento.ViewModelPerson
+@*//PagedList.IPagedList<Domain.Entities.Mantenimiento.EPersona>
+    @using PagedList.Mvc*@
 @{
     ViewBag.Title = "Persona";
 }
@@ -39,6 +40,59 @@
                         </div>
                         <div class="ibox-content">
                             @*Grilla*@
+                            <div class="row">
+                                <div class="ibox-title">
+                                    <h5>Listado de Personas</h5>
+                                </div>
+                            </div>
+                            <br/>
+                            <div class="row">
+                                <div class="cols-xs-12 col-md-12">
+                                    <table id="tblPersonGrid" class="table table-striped table-bordered table-hover dataTables-example">
+                                        <thead>
+                                            <tr class="EstiloCabecera">
+                                                <th class="col-xs-12 col-md-2">
+                                                    @Html.DisplayNameFor(model => Model.PersonaGrilla.FirstOrDefault().Apellidopaterno)
+                                                </th>
+                                                <th class="col-xs-12 col-md-2">
+                                                    @Html.DisplayNameFor(model => Model.PersonaGrilla.FirstOrDefault().Nombre)
+                                                </th>
+                                                <th class="col-xs-12 col-md-2">
+                                                    @Html.DisplayNameFor(model => Model.PersonaGrilla.FirstOrDefault().Nrodocumento)
+                                                </th>
+                                                <th class="col-xs-12 col-md-2">
+                                                    @Html.DisplayNameFor(model => Model.PersonaGrilla.FirstOrDefault().Nrotelefono)
+                                                </th>
+                                                <th class="col-xs-12 col-md-4">
+                                                    @Html.DisplayNameFor(model => Model.PersonaGrilla.FirstOrDefault().Direccion)
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var person in Model.PersonaGrilla)
+                                            {
+                                            <tr>
+                                                <td class="col-xs-12 col-md-2">
+                                                    @Html.DisplayFor(model => person.Apellidopaterno)
+                                                </td>
+                                                <td class="col-xs-12 col-md-2">
+                                                    @Html.DisplayFor(model => person.Nombre)
+                                                </td>
+                                                <td class="col-xs-12 col-md-2">
+                                                    @Html.DisplayFor(model => person.Nrodocumento)
+                                                </td>
+                                                <td class="col-xs-12 col-md-2">
+                                                    @Html.DisplayFor(model => person.Nrotelefono)
+                                                </td>
+                                                <td class="col-xs-12 col-md-4">
+                                                    @Html.DisplayFor(model => person.Direccion)
+                                                </td>
+                                            </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -84,22 +138,22 @@
                         <div class="ibox-content">
                             <div class="row">
                                 <div class="col-xs-12 col-md-3">
-                                    @Html.LabelFor(model => Model.FirstOrDefault().Apellidopaterno, htmlAttributes: new { @class = "control-label input-style" })
+                                    @Html.LabelFor(model => Model.Person.Apellidopaterno, htmlAttributes: new { @class = "control-label input-style" })
                                 </div>
                                 <div class="col-xs-12 col-md-3">
                                     <div class="form-group">
                                         @*<input type="text" class="form-control" value="">*@
-                                        @Html.EditorFor(model => Model.FirstOrDefault().Apellidopaterno, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.EditorFor(model => Model.Person.Apellidopaterno, new { htmlAttributes = new { @class = "form-control" } })
                                     </div>
 
                                 </div>
 
                                 <div class="col-xs-12 col-md-3">
-                                    @Html.LabelFor(model => Model.FirstOrDefault().Apellidomaterno, htmlAttributes: new { @class = "control-label input-style" })
+                                    @Html.LabelFor(model => Model.Person.Apellidomaterno, htmlAttributes: new { @class = "control-label input-style" })
                                 </div>
                                 <div class="col-xs-12 col-md-3">
                                     <div class="form-group">
-                                        @Html.EditorFor(model => Model.FirstOrDefault().Apellidomaterno, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.EditorFor(model => Model.Person.Apellidomaterno, new { htmlAttributes = new { @class = "form-control" } })
                                     </div>
 
                                 </div>
@@ -107,16 +161,16 @@
 
                             <div class="row">
                                 <div class="col-xs-12 col-md-3">
-                                    @Html.LabelFor(model => Model.FirstOrDefault().Nombre, htmlAttributes: new { @class = "control-label input-style" })
+                                    @Html.LabelFor(model => Model.Person.Nombre, htmlAttributes: new { @class = "control-label input-style" })
                                 </div>
                                 <div class="col-xs-12 col-md-3">
                                     <div class="form-group">
-                                        @Html.EditorFor(model => Model.FirstOrDefault().Nombre, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.EditorFor(model => Model.Person.Nombre, new { htmlAttributes = new { @class = "form-control" } })
                                     </div>
                                 </div>
 
                                 <div class="col-xs-12 col-md-3">
-                                    @Html.LabelFor(model => Model.FirstOrDefault().SexoId, htmlAttributes: new { @class = "control-label input-style" })
+                                    @Html.LabelFor(model => Model.Person.SexoId, htmlAttributes: new { @class = "control-label input-style" })
                                 </div>
                                 <div class="col-xs-12 col-md-3">
                                     <div class="form-group">
@@ -127,7 +181,7 @@
 
                             <div class="row">
                                 <div class="col-xs-12 col-md-3">
-                                    @Html.LabelFor(model => Model.FirstOrDefault().TipodocumentoId, htmlAttributes: new { @class = "control-label input-style" })
+                                    @Html.LabelFor(model => Model.Person.TipodocumentoId, htmlAttributes: new { @class = "control-label input-style" })
                                 </div>
                                 <div class="col-xs-12 col-md-3">
                                     <div class="form-group">
@@ -138,11 +192,11 @@
                                 </div>
 
                                 <div class="col-xs-12 col-md-3">
-                                    @Html.LabelFor(model => Model.FirstOrDefault().Nrodocumento, htmlAttributes: new { @class = "control-label input-style" })
+                                    @Html.LabelFor(model => Model.Person.Nrodocumento, htmlAttributes: new { @class = "control-label input-style" })
                                 </div>
                                 <div class="col-xs-12 col-md-3">
                                     <div class="form-group">
-                                        @Html.EditorFor(model => Model.FirstOrDefault().Nrodocumento, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.EditorFor(model => Model.Person.Nrodocumento, new { htmlAttributes = new { @class = "form-control" } })
                                     </div>
                                 </div>
                             </div>
@@ -150,7 +204,7 @@
                             <div class="row">
                                 <div class="col-xs-12 col-md-3">
 
-                                    @Html.LabelFor(model => Model.FirstOrDefault().Fecnacimiento, htmlAttributes: new { @class = "control-label input-style" })
+                                    @Html.LabelFor(model => Model.Person.Fecnacimiento, htmlAttributes: new { @class = "control-label input-style" })
                                 </div>
                                 <div class="col-xs-12 col-md-3">
                                     <div class="form-group" id="date_1">
@@ -161,7 +215,7 @@
                                 </div>
 
                                 <div class="col-xs-12 col-md-3">
-                                    @Html.LabelFor(model => Model.FirstOrDefault().DistritoId, htmlAttributes: new { @class = "control-label input-style" })
+                                    @Html.LabelFor(model => Model.Person.DistritoId, htmlAttributes: new { @class = "control-label input-style" })
                                 </div>
                                 <div class="col-xs-12 col-md-3">
                                     <div class="form-group">
@@ -182,32 +236,32 @@
                             </div>
                             <div class="row">
                                 <div class="col-xs-12 col-md-3">
-                                    @Html.LabelFor(model => Model.FirstOrDefault().Direccion, htmlAttributes: new { @class = "control-label input-style" })
+                                    @Html.LabelFor(model => Model.Person.Direccion, htmlAttributes: new { @class = "control-label input-style" })
                                 </div>
                                 <div class="col-xs-12 col-md-9">
                                     <div class="form-group">
-                                        @Html.EditorFor(model => Model.FirstOrDefault().Direccion, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.EditorFor(model => Model.Person.Direccion, new { htmlAttributes = new { @class = "form-control" } })
                                     </div>
                                 </div>
                             </div>
 
                             <div class="row">
                                 <div class="col-xs-12 col-md-3">
-                                    @Html.LabelFor(model => Model.FirstOrDefault().Nrotelefono, htmlAttributes: new { @class = "control-label input-style" })
+                                    @Html.LabelFor(model => Model.Person.Nrotelefono, htmlAttributes: new { @class = "control-label input-style" })
                                 </div>
                                 <div class="col-xs-12 col-md-3">
                                     <div class="form-group">
-                                        @Html.EditorFor(model => Model.FirstOrDefault().Nrotelefono, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.EditorFor(model => Model.Person.Nrotelefono, new { htmlAttributes = new { @class = "form-control" } })
                                     </div>
 
                                 </div>
 
                                 <div class="col-xs-12 col-md-3">
-                                    @Html.LabelFor(model => Model.FirstOrDefault().Ocupacion, htmlAttributes: new { @class = "control-label input-style" })
+                                    @Html.LabelFor(model => Model.Person.Ocupacion, htmlAttributes: new { @class = "control-label input-style" })
                                 </div>
                                 <div class="col-xs-12 col-md-3">
                                     <div class="form-group">
-                                        @Html.EditorFor(model => Model.FirstOrDefault().Ocupacion, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.EditorFor(model => Model.Person.Ocupacion, new { htmlAttributes = new { @class = "form-control" } })
                                     </div>
                                 </div>
                             </div>
@@ -248,10 +302,10 @@
 
                                                                     <th class="col-xs-12 col-md-1"></th>
                                                                     <th class="col-xs-12 col-md-11">
-                                                                        @Html.DisplayNameFor(model => Model.FirstOrDefault().Nombre)
+                                                                        @Html.DisplayNameFor(model => Model.Person.Nombre)
                                                                     </th>
                                                                     @*<th class="col-xs-12 col-md-4"></th>
-                                                    <th class="col-xs-12 col-md-1"></th>*@
+                                                                        <th class="col-xs-12 col-md-1"></th>*@
                                                                 </tr>
                                                             </thead>
                                                             <tbody></tbody>
@@ -265,7 +319,6 @@
                             </div>
                         </div>
                         <!--Model Popup ends-->
-
                         @*Model Popup Validacion de Campos Obligatorios*@
                         <div class="container">
                             <div class="row">
@@ -280,9 +333,7 @@
                                             <div class="modal-body">
                                                 <div class="row">
                                                     <div class="col-xs-12 col-md-12">
-                                                        <ul id="ulCamposObligatorios" style="list-style-type:square;">
-
-                                                        </ul>
+                                                        <ul id="ulCamposObligatorios" style="list-style-type:square;"></ul>
                                                     </div>
                                                 </div>
                                             </div>
@@ -290,14 +341,13 @@
 
                                             </div>
                                         </div>
-                                        
+
 
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <!--Model Popup ends-->
-
                         @*< !--Model Popup starts Correct-- >*@
                         <div class="container">
                             <div class="row">
@@ -325,7 +375,6 @@
                             </div>
                         </div>
                         <!--Model Popup ends-->
-
                         <!--Model Popup starts Incorrecto-->
                         <div class="container">
                             <div class="row">

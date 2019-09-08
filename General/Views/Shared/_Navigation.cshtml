@@ -47,10 +47,10 @@
         </li>*@
 
             <li>
-                <a href="@Url.Action("Index", "Home", new {area="Configuracion"})"><i class="glyphicon glyphicon-cog" ></i> <span class="nav-label" data-i18n="nav.dashboard">Configuracion</span> <span class="glyphicon glyphicon-chevron-left"></span></a>
+                <a href="@Url.Action("Index", "Home", new {area="Configuracion"})"><i class="fa fa-cog" ></i> <span class="nav-label" data-i18n="nav.dashboard">Configuracion</span> <span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse @Html.IsSelected(controller: "Configuracion", cssClass: "in")">
 
-                    <li class="@Html.IsSelected(controller: "Distrito",action: "Index")"><a href="@Url.Action("Index", "Distrito", new { area= "Configuracion" })"><i class="glyphicon glyphicon-plus"></i>Distrito</a></li>
+                    <li class="@Html.IsSelected(controller: "Distrito",action: "Index")"><a href="@Url.Action("Index", "Distrito", new { area= "Configuracion" })"><i class="fa fa-circle-o text-aqua"></i>Distrito</a></li>
                     
                 </ul>
             </li>
@@ -59,9 +59,9 @@
                 <a href="@Url.Action("Index", "Home", new {area="Agentes"})"><i class="glyphicon glyphicon-edit" ></i> <span class="nav-label" data-i18n="nav.dashboard">Mantenimiento</span> <span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse @Html.IsSelected(controller: "Agentes", cssClass: "in")">
 
-                    <li class="@Html.IsSelected(controller: "Termico",action: "Index")"><a href="@Url.Action("Index", "Termico", new { area= "Agentes" })"><i class="glyphicon glyphicon-plus"></i>Termico</a></li>
-                    <li class="@Html.IsSelected(controller: "Electrofisico",action: "Index")"><a href="@Url.Action("Index", "Electrofisico", new { area= "Agentes" })"><i class="glyphicon glyphicon-plus"></i>Electrofisico</a></li>
-                    <li class="@Html.IsSelected(controller: "Terapeuticas",action: "Index")"><a href="@Url.Action("Index", "Terapeuticas", new { area= "Agentes" })"><i class="glyphicon glyphicon-plus"></i>M. Terapeuticas</a></li>
+                    <li class="@Html.IsSelected(controller: "Termico",action: "Index")"><a href="@Url.Action("Index", "Termico", new { area= "Agentes" })"><i class="fa fa-circle-o text-aqua"></i>Termico</a></li>
+                    <li class="@Html.IsSelected(controller: "Electrofisico",action: "Index")"><a href="@Url.Action("Index", "Electrofisico", new { area= "Agentes" })"><i class="fa fa-circle-o text-aqua"></i>Electrofisico</a></li>
+                    <li class="@Html.IsSelected(controller: "Terapeuticas",action: "Index")"><a href="@Url.Action("Index", "Terapeuticas", new { area= "Agentes" })"><i class="fa fa-circle-o text-aqua"></i>M. Terapeuticas</a></li>
                 </ul>
 
             </li>
@@ -70,7 +70,7 @@
                 <a href="@Url.Action("Index", "Home", new {area="Mantenimiento"})"><i class="glyphicon glyphicon-pencil" aria-hidden="true"></i> <span class="nav-label" data-i18n="nav.dashboard">Mantenimiento</span> <span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse @Html.IsSelected(controller: "Mantenimiento", cssClass: "in")">
 
-                    <li class="@Html.IsSelected(controller: "Persona",action: "Index")"><a href="@Url.Action("Index", "Persona", new { area= "Mantenimiento" })"><i class="fa fa-address-card-o"></i>Pacientes</a></li>
+                    <li class="@Html.IsSelected(controller: "Persona",action: "Index")"><a href="@Url.Action("Index", "Persona", new { area= "Mantenimiento" })"><i class="fa fa-circle-o text-aqua"></i>Personas</a></li>
                     <li class="@Html.IsSelected(controller: "Historial",action: "Index")"><a href="@Url.Action("Index", "Historial", new { area= "Mantenimiento" })"><i class="fa fa-address-card-o"></i>Historial</a></li>
                 </ul>
 
