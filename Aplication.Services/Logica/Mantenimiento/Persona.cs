@@ -21,26 +21,52 @@ namespace Aplication.Services.Logica.Mantenimiento
             this.oUnitOfWork = new UnitOfWork();
         }
 
-        public List<EPersona> PersonaGrilla()
+        public List<EPersona> PersonaGrilla(int? personId)
         {
-            var lPersona = new List<EPersona>();
             var persona = oUnitOfWork.PersonaRepository.Queryable();
+            var result = new List<EPersona>();
 
-            var result = (from p in persona
-                           select new EPersona
-                           {
-                               Apellidomaterno = p.Apellidomaterno,
-                               Apellidopaterno = p.Apellidopaterno,
-                               Direccion = p.Direccion,
-                               DistritoId = p.DistritoId,
-                               Fecnacimiento = p.Fecnacimiento,
-                               Nombre = p.Nombre,
-                               Nrodocumento = p.Nrodocumento
-                           });
-
-            lPersona = result.ToList();
-
-            return lPersona; 
+            if (personId == null)
+            {
+                result = (from p in persona
+                          select new EPersona
+                          {
+                              Apellidomaterno = p.Apellidomaterno,
+                              Apellidopaterno = p.Apellidopaterno,
+                              Direccion = p.Direccion,
+                              DistritoId = p.DistritoId,
+                              Fecnacimiento = p.Fecnacimiento,
+                              Nombre = p.Nombre,
+                              Nrodocumento = p.Nrodocumento,
+                              Nrotelefono = p.Nrotelefono,
+                              Ocupacion = p.Ocupacion,
+                              PersonaId = p.PersonaId,
+                              SexoId = p.SexoId,
+                              TipodocumentoId = p.TipodocumentoId
+                          }).ToList();
+            }
+            else
+            {
+                result = (from p in persona
+                          where p.PersonaId == personId
+                          select new EPersona
+                          {
+                              Apellidomaterno = p.Apellidomaterno,
+                              Apellidopaterno = p.Apellidopaterno,
+                              Direccion = p.Direccion,
+                              DistritoId = p.DistritoId,
+                              Fecnacimiento = p.Fecnacimiento,
+                              Nombre = p.Nombre,
+                              Nrodocumento = p.Nrodocumento,
+                              Nrotelefono = p.Nrotelefono,
+                              Ocupacion = p.Ocupacion,
+                              PersonaId = p.PersonaId,
+                              SexoId = p.SexoId,
+                              TipodocumentoId = p.TipodocumentoId
+                          }).ToList();
+            }
+            
+            return result; 
         }
 
         public IPagedList<EPersona> PersonaGrillaToPageList(Grilla pag)
@@ -100,10 +126,61 @@ namespace Aplication.Services.Logica.Mantenimiento
             catch (Exception ex)
             {
                 //string mensaje = string.Empty;
-                mensaje = "error";
-                //throw;
+                //Nrodocumento_Index
+                if (ex.InnerException != null &&
+                    ex.InnerException.InnerException != null &&
+                    ex.InnerException.InnerException.Message.Contains("Nrodocumento_Index"))
+                {
+                    mensaje = "El Nro. Documento ya se encuentra registrado";
+                }
+                else 
+                {
+                    mensaje = ex.Message;
+                }
             }
             
+            return mensaje;
+        }
+
+        public string EditPerson(EPersona registro)
+        {
+            string mensaje = string.Empty;
+            Repository.Persona pers = new Repository.Persona();
+            pers.PersonaId = registro.PersonaId;
+            pers.Apellidopaterno = registro.Apellidopaterno;
+            pers.Apellidomaterno = registro.Apellidopaterno;
+            pers.Nombre = registro.Nombre;
+            pers.SexoId = registro.SexoId;
+            pers.TipodocumentoId = registro.TipodocumentoId;
+            pers.Nrodocumento = registro.Nrodocumento;
+            pers.Fecnacimiento = DateTime.Now;// registro.Fecnacimiento;
+            pers.DistritoId = registro.DistritoId;
+            pers.Direccion = registro.Direccion;
+            pers.Nrotelefono = registro.Nrotelefono;
+            pers.Ocupacion = registro.Ocupacion;
+            pers.Fechacreacion = DateTime.Now;
+            pers.Usuariocreacion = "JUCASTRO";
+            pers.Fechamodificacion = DateTime.Now;
+            pers.Usuariomodificacion = "JUCASTRO";
+            oUnitOfWork.PersonaRepository.Update(pers);
+            try
+            {
+                oUnitOfWork.Save();
+                mensaje = "OK";
+            }
+            catch (Exception ex)
+            {
+                if (ex.InnerException != null &&
+                    ex.InnerException.InnerException != null &&
+                    ex.InnerException.InnerException.Message.Contains("Nrodocumento_Index"))
+                {
+                    mensaje = "El Nro. Documento ya se encuentra registrado";
+                }
+                else
+                {
+                    mensaje = ex.Message;
+                }
+            }
 
             return mensaje;
         }

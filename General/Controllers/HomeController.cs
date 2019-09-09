@@ -22,7 +22,7 @@ namespace General.Controllers
         {
             var Main = new HMain()
             {
-                Personas = oIPersona.PersonaGrilla().Count()
+                Personas = oIPersona.PersonaGrilla(null).Count()
             };
 
             return View(Main);

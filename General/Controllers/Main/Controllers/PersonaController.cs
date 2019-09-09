@@ -34,6 +34,20 @@ namespace General.Controllers.Main.Controllers
         }
 
         [HttpPost]
+        public JsonResult EditPerson(EPersona registro)
+        {
+            var result = oPersona.EditPerson(registro);
+            return Json(new { Resultado = result }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public JsonResult CargarPerson(int? personaId)
+        {
+            var result = oPersona.PersonaGrilla(personaId);
+            return Json(new { Resultado = result }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
         public JsonResult CargarFiltro(FiltroDistritoPersona filtro)
         {
             //if (paginacion.countrow == null)
@@ -45,6 +59,20 @@ namespace General.Controllers.Main.Controllers
 
             return Json(new { Resultado = result }, JsonRequestBehavior.AllowGet);
         }
+
+        [HttpPost]
+        public JsonResult CargarGrilla(Grilla paginacion)
+        {
+            if (paginacion.countrow == null)
+                paginacion.countrow = int.Parse(WebConfigurationManager.AppSettings["CountRow"]);
+
+            ViewBag.Cantidad = paginacion.countrow;
+
+            var result = oPersona.PersonaGrillaToPageList(paginacion);
+
+            return Json(new { Resultado = result }, JsonRequestBehavior.AllowGet);
+        }
+
         // GET: Persona
         public ActionResult Index(Grilla paginacion)
         {
