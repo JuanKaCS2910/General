@@ -26,6 +26,7 @@ namespace General.Controllers.Main.Controllers
             this.oDistrito = new Distrito();
         }
 
+        #region Save,Edit,Delete
         [HttpPost]
         public JsonResult SavePerson(EPersona registro)
         {
@@ -41,9 +42,23 @@ namespace General.Controllers.Main.Controllers
         }
 
         [HttpPost]
+        public JsonResult DeletePerson(EPersona registro)
+        {
+            var result = oPersona.DeletePerson(registro);
+            return Json(new { Resultado = result }, JsonRequestBehavior.AllowGet);
+        }
+
+        #endregion
+
+
+        [HttpPost]
         public JsonResult CargarPerson(int? personaId)
         {
             var result = oPersona.PersonaGrilla(personaId);
+            ViewBag.DocumentypeId = new SelectList(oTipodocumento.Cargardocumento(),
+                "TipodocumentoId", "Descripcion",result.FirstOrDefault().TipodocumentoId);
+            ViewBag.SexoId = new SelectList(oSexo.Cargarsexo(),
+                "SexoId", "Descripcion",result.FirstOrDefault().SexoId);
             return Json(new { Resultado = result }, JsonRequestBehavior.AllowGet);
         }
 

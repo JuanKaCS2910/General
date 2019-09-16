@@ -35,12 +35,13 @@ namespace Domain.Entities.Mantenimiento
         public string Apellidopaterno { get; set; }
         [Display(Name = "Ap. Materno")]
         public string Apellidomaterno { get; set; }
-        [Display(Name ="Nro. Teléfono")]
+        [Display(Name ="Teléfono")]
         public string Nrotelefono { get; set; }
         [Display(Name ="F. Nacimiento")]
         public DateTime? Fecnacimiento { get; set; }
         [Display(Name = "Distrito")]
         public int DistritoId { get; set; }
+        public string NombreDistrito { get; set; }
         public string Direccion { get; set; }
         public string Ocupacion { get; set; }
         [Display(Name ="Sexo")]
@@ -49,5 +50,6 @@ namespace Domain.Entities.Mantenimiento
         public DateTime Fechacreacion { get; set; }
         public string Usuariomodificacion { get; set; }
         public DateTime? Fechamodificacion { get; set; }
+        
     }
 }

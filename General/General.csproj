@@ -238,6 +238,7 @@
     <Content Include="Scripts\jquery-3.3.1.slim.min.js" />
     <None Include="Scripts\plugins\validate\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\plugins\datapicker\bootstrap-datepicker.js" />
+    <Content Include="Scripts\plugins\datapicker\JDateFormat.js" />
     <Content Include="Scripts\plugins\dataTables\dataTables.bootstrap4.min.js" />
     <Content Include="Scripts\plugins\dataTables\datatables.min.js" />
     <Content Include="Scripts\plugins\metisMenu\jquery.metisMenu.js" />

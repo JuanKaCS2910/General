@@ -14,6 +14,7 @@ namespace Aplication.Services.Interfaz
         IPagedList<EPersona> PersonaGrillaToPageList(Grilla pag);
         string CreatePerson(EPersona registro);
         string EditPerson(EPersona registro);
+        string DeletePerson(EPersona registro);
         List<EPersona> PersonaGrilla(int? personId);
     }
 }

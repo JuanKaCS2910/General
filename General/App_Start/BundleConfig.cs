@@ -62,7 +62,9 @@ namespace General
 
             // dataPicker 
             bundles.Add(new ScriptBundle("~/plugins/dataPicker").Include(
-                      "~/Scripts/plugins/datapicker/bootstrap-datepicker.js"));
+                      "~/Scripts/plugins/datapicker/bootstrap-datepicker.js",
+                      "~/Scripts/plugins/datapicker/JDateFormat.js"
+                      ));
 
             //bundles.Add(new StyleBundle("~/Content/css").Include(
             //         "~/Content/animate.css",

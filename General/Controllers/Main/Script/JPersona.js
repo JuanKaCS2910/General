@@ -6,8 +6,8 @@
     var edit = document.getElementById("btnUpdate");
     edit.addEventListener("click", EditPerson, "");
 
-    var eliminar = document.getElementById("btnDelete");
-    eliminar.addEventListener("click", DeletePerson, "");
+    //var eliminar = document.getElementById("btnDelete");
+    //eliminar.addEventListener("click", DeletePerson, "");
 
     var nuevo = document.getElementById("btnNew");
     nuevo.addEventListener("click", NewPerson, "");
@@ -69,6 +69,19 @@
     });
 
 });
+
+function parseJsonDate(jsonDateString) {
+    if (!jsonDateString) {
+        return "";
+    }
+    //var completedDate = new Date(parseInt(jsonDateString.replace("/Date(", "").replace(")/")));
+    //var result = completedDate.toDateString();
+    //return result;
+    var nowDate = new Date(parseInt(jsonDateString.substr(6)));
+    var result = nowDate.format("mm/dd/yyyy");
+    return result;
+    //return new Date(parseInt(jsonDateString.replace('/Date(', '')));
+}
 
 function LimpiarCampos() {
     document.getElementById("Person_Apellidopaterno").value = "";
@@ -203,17 +216,28 @@ function ViewGrid()
         success: function (data) {
             if (data != null) {
                 if (data.Resultado.length > 0) {
+
+                    var mostrar = "Mostrando 1 a " + data.Resultado.length + " de " + data.Resultado.length  +" registros";
+                    $("#tblPersonGrid_info").html(mostrar);
                     var table = $('#tblPersonGrid');
                     table.find("tbody tr").remove();
                     data.Resultado.forEach(function (result) {
-                        table.append("<tr><td class='col-xs-12 col-md-1'> <button type='button' onclick='PersonSelect(this)' "+
-                            "id ='btnEdit' data-assigned-id=" + result.PersonaId +
-                            " class='btn btn-primary'> <i class='fa fa-search'></i></button></td> " +
+            
+                        table.append("<tr><td class='col-xs-12 col-md-1'>" +
+                            "<div><table><tr><td class='col-xs-12 col-md-6'> " +
+                            "<a class='fa fa-search' onclick='PersonSelect(this)' id ='btnEdit' "+
+                            " style='color: #6A5ACD' data-assigned-id=" + result.PersonaId +
+                            " </a></td> " +
+                            "<td class='col-xs-12 col-md-6'> " +
+                            "<a class='fa fa-minus-circle' onclick='DeletePerson(this)' id ='btnElimPerson' " +
+                            " style='color:red' data-assigned-id=" + result.PersonaId +
+                            " </a></td></tr></table></div></td>" +
                             "<td class='col-xs-12 col-md-2'>" + result.Apellidopaterno + "</td>" +
                             "<td class='col-xs-12 col-md-2'>" + result.Nombre + "</td>" +
                             "<td class='col-xs-12 col-md-2'>" + result.Nrodocumento + "</td>" +
-                            "<td class='col-xs-12 col-md-2'>" + result.Nrotelefono + "</td>" +
-                            "<td class='col-xs-12 col-md-4'>" + result.Direccion + "</td></tr>");
+                            "<td class='col-xs-12 col-md-1'>" + result.Nrotelefono + "</td>" +
+                            "<td class='col-xs-12 col-md-2'>" + result.Direccion + "</td>" +
+                            "<td class='col-xs-12 col-md-2'>" + parseJsonDate(result.Fecnacimiento) + "</td></tr>");
                     });
                 }
             }
@@ -225,13 +249,7 @@ function ViewGrid()
     });
 }
 
-function Validar()
-{
-
-}
-
 function EditPerson() {
-    alert("Actualizar");
     var apPaternoGrabar = document.getElementById("Person_Apellidopaterno");
     var apMaternoGrabar = document.getElementById("Person_Apellidomaterno");
     var nombre = document.getElementById("Person_Nombre");
@@ -328,11 +346,39 @@ function EditPerson() {
         });
     }
 
-    //alert("Editar");
 }
 
-function DeletePerson() {
-    alert("Eliminar");
+function DeletePerson(id)
+{
+    var resultado = {
+        personaId: $(id).data('assigned-id')
+    };
+
+    $.ajax({
+        url: '../Persona/DeletePerson',
+        type: 'POST',
+        data: JSON.stringify(resultado),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (data) {
+            if (data != null) {
+                if (data.Resultado == "OK") {
+                    $("#SuccessResult").text('El registro se eliminó exitosamente');
+                    $("#success").modal('show');
+                    ViewGrid();
+                }
+                else {
+                    $("#ErrorResult").text(data.Resultado);
+                    $("#error").modal('show');
+                }
+            }
+
+        },
+        error: function (request, status, error) {
+            alert("dd");
+        },
+    });
+
 }
 
 function PersonSelect(id)
@@ -365,7 +411,7 @@ function PersonSelect(id)
                     var apPaterno = data.Resultado[0].Apellidopaterno;
                     var direccion = data.Resultado[0].Direccion;
                     var distritoId = data.Resultado[0].DistritoId;
-                    var fecNacimiento = data.Resultado[0].Fecnacimiento;
+                    var fecNacimiento = parseJsonDate(data.Resultado[0].Fecnacimiento);
                     var nombre = data.Resultado[0].Nombre;
                     var nroDocumento = data.Resultado[0].Nrodocumento;
                     var nroTelefono = data.Resultado[0].Nrotelefono;
@@ -373,6 +419,7 @@ function PersonSelect(id)
                     var personaId = data.Resultado[0].PersonaId;
                     var sexoId = data.Resultado[0].SexoId;
                     var tipodocumentoId = data.Resultado[0].TipodocumentoId;
+                    var nombreDistrito = data.Resultado[0].NombreDistrito;
                     
                     $("#Person_Nombre").val(nombre);
                     $("#Person_Apellidopaterno").val(apPaterno);
@@ -385,10 +432,13 @@ function PersonSelect(id)
                     $("#Person_Nrodocumento").val(nroDocumento);
                     $("#Person_PersonaId").val(personaId);
 
-                    //$("#btnSave").addClass('enabled');
-//                    $("#btnSave").attr('disabled', 'disabled');
-                    $("#btnSave").prop("disabled", true);
+                    $("#SexoId").val(sexoId);
+                    $("#DocumentypeId").val(tipodocumentoId);
+                    $("#Namedistrito").val(nombreDistrito);
 
+                    //$("#btnSave").prop("disabled", true);
+                    $("#btnSave").addClass("disabled");
+                    
                 }
             }
 

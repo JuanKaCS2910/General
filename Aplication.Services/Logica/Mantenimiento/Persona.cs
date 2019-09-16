@@ -24,11 +24,14 @@ namespace Aplication.Services.Logica.Mantenimiento
         public List<EPersona> PersonaGrilla(int? personId)
         {
             var persona = oUnitOfWork.PersonaRepository.Queryable();
+            var distrito = oUnitOfWork.DistritoRepository.Queryable();
             var result = new List<EPersona>();
 
             if (personId == null)
             {
                 result = (from p in persona
+                          join d in distrito
+                          on p.DistritoId equals d.DistritoId
                           select new EPersona
                           {
                               Apellidomaterno = p.Apellidomaterno,
@@ -42,12 +45,15 @@ namespace Aplication.Services.Logica.Mantenimiento
                               Ocupacion = p.Ocupacion,
                               PersonaId = p.PersonaId,
                               SexoId = p.SexoId,
-                              TipodocumentoId = p.TipodocumentoId
+                              TipodocumentoId = p.TipodocumentoId,
+                              NombreDistrito = d.Nombre
                           }).ToList();
             }
             else
             {
                 result = (from p in persona
+                          join d in distrito
+                          on p.DistritoId equals d.DistritoId
                           where p.PersonaId == personId
                           select new EPersona
                           {
@@ -62,7 +68,8 @@ namespace Aplication.Services.Logica.Mantenimiento
                               Ocupacion = p.Ocupacion,
                               PersonaId = p.PersonaId,
                               SexoId = p.SexoId,
-                              TipodocumentoId = p.TipodocumentoId
+                              TipodocumentoId = p.TipodocumentoId,
+                              NombreDistrito = d.Nombre
                           }).ToList();
             }
             
@@ -110,7 +117,7 @@ namespace Aplication.Services.Logica.Mantenimiento
             pers.SexoId = registro.SexoId;
             pers.TipodocumentoId = registro.TipodocumentoId;
             pers.Nrodocumento = registro.Nrodocumento;
-            pers.Fecnacimiento = DateTime.Now;// registro.Fecnacimiento;
+            pers.Fecnacimiento = registro.Fecnacimiento;
             pers.DistritoId = registro.DistritoId;
             pers.Direccion = registro.Direccion;
             pers.Nrotelefono = registro.Nrotelefono;
@@ -183,6 +190,23 @@ namespace Aplication.Services.Logica.Mantenimiento
             }
 
             return mensaje;
+        }
+
+        public string DeletePerson(EPersona registro)
+        {
+            string mensaje = string.Empty;
+            try
+            {
+                oUnitOfWork.PersonaRepository.Delete(registro.PersonaId);
+                oUnitOfWork.Save();
+                mensaje = "OK";
+            }
+            catch (Exception ex)
+            {
+                mensaje = ex.Message;
+            }
+            return mensaje;
+
         }
 
         #endregion
