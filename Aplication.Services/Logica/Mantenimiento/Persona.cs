@@ -160,7 +160,7 @@ namespace Aplication.Services.Logica.Mantenimiento
             pers.SexoId = registro.SexoId;
             pers.TipodocumentoId = registro.TipodocumentoId;
             pers.Nrodocumento = registro.Nrodocumento;
-            pers.Fecnacimiento = DateTime.Now;// registro.Fecnacimiento;
+            pers.Fecnacimiento = registro.Fecnacimiento;
             pers.DistritoId = registro.DistritoId;
             pers.Direccion = registro.Direccion;
             pers.Nrotelefono = registro.Nrotelefono;

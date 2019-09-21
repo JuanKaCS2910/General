@@ -78,7 +78,7 @@ function parseJsonDate(jsonDateString) {
     //var result = completedDate.toDateString();
     //return result;
     var nowDate = new Date(parseInt(jsonDateString.substr(6)));
-    var result = nowDate.format("mm/dd/yyyy");
+    var result = nowDate.format("dd/mm/yyyy");
     return result;
     //return new Date(parseInt(jsonDateString.replace('/Date(', '')));
 }

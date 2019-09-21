@@ -78,6 +78,8 @@
 }();
 
 // Some common format strings
+//Ingles
+/*
 dateFormat.masks = {
     "default": "ddd mmm dd yyyy HH:MM:ss",
     shortDate: "m/d/yy",
@@ -104,8 +106,51 @@ dateFormat.i18n = {
         "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"
     ]
 };
+*/
+//Español
+
+dateFormat.masks = {
+    "default": "ddd mmm dd yyyy HH:MM:ss",
+    shortDate: "d/m/yy",
+    mediumDate: "ddd m, yyyy",
+    longDate: "ddd m, yyyy",
+    fullDate: "dddd, mmmm d, yyyy",
+    shortTime: "h:MM TT",
+    mediumTime: "h:MM:ss TT",
+    longTime: "h:MM:ss TT Z",
+    isoDate: "dd-mm-yyyy",
+    isoTime: "HH:MM:ss",
+    isoDateTime: "dd-mm-yyyy'T'HH:MM:ss",
+    isoUtcDateTime: "UTC:dd-mm-yyyy'T'HH:MM:ss'Z'"
+};
+dateFormat.i18n = {
+    dayNames: [
+        "Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa",
+        "Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"
+    ],
+    monthNames: [
+        "Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic",
+        "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
+    ]
+};
+
 
 // For convenience...
 Date.prototype.format = function (mask, utc) {
     return dateFormat(this, mask, utc);
 };
+
+//; (function ($) {
+//    $.fn.datepicker.dates['es'] = {
+//        days: ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"],
+//        daysShort: ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb"],
+//        daysMin: ["Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa"],
+//        months: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
+//        monthsShort: ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"],
+//        today: "Hoy",
+//        monthsTitle: "Meses",
+//        clear: "Borrar",
+//        weekStart: 1,
+//        format: "dd/mm/yyyy"
+//    };
+//}(jQuery));
