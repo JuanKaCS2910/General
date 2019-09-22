@@ -38,6 +38,7 @@ namespace Domain.Entities.Mantenimiento
         [Display(Name ="Teléfono")]
         public string Nrotelefono { get; set; }
         [Display(Name ="F. Nacimiento")]
+        //[DisplayFormat(DataFormatString = "{0:dd/mm/yyyy}")]
         public DateTime? Fecnacimiento { get; set; }
         [Display(Name = "Distrito")]
         public int DistritoId { get; set; }
@@ -46,8 +47,10 @@ namespace Domain.Entities.Mantenimiento
         public string Ocupacion { get; set; }
         [Display(Name ="Sexo")]
         public int SexoId { get; set; }
+        [Display(Name = "Usuario Creación")]
         public string Usuariocreacion { get; set; }
         public DateTime Fechacreacion { get; set; }
+        [Display(Name = "Usuario Modificación")]
         public string Usuariomodificacion { get; set; }
         public DateTime? Fechamodificacion { get; set; }
         

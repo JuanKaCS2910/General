@@ -46,7 +46,11 @@ namespace Aplication.Services.Logica.Mantenimiento
                               PersonaId = p.PersonaId,
                               SexoId = p.SexoId,
                               TipodocumentoId = p.TipodocumentoId,
-                              NombreDistrito = d.Nombre
+                              NombreDistrito = d.Nombre,
+                              Usuariocreacion = p.Usuariocreacion,
+                              Fechacreacion = p.Fechacreacion,
+                              Usuariomodificacion = p.Usuariomodificacion,
+                              Fechamodificacion = p.Fechamodificacion
                           }).ToList();
             }
             else
@@ -69,7 +73,11 @@ namespace Aplication.Services.Logica.Mantenimiento
                               PersonaId = p.PersonaId,
                               SexoId = p.SexoId,
                               TipodocumentoId = p.TipodocumentoId,
-                              NombreDistrito = d.Nombre
+                              NombreDistrito = d.Nombre,
+                              Usuariocreacion = p.Usuariocreacion,
+                              Fechacreacion = p.Fechacreacion,
+                              Usuariomodificacion = p.Usuariomodificacion,
+                              Fechamodificacion = p.Fechamodificacion
                           }).ToList();
             }
             

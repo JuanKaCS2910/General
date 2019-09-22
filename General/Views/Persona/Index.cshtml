@@ -47,6 +47,21 @@
                             </div>
                             <br />
                             <div class="row">
+                                <div class="col-xs-12 col-md-12">
+                                    <div class="col-xs-12 col-md-3">
+                                        <label class="control-label input-style" for="NombreFiltro">Descripción</label>
+                                    </div>
+                                    <div class="col-xs-12 col-md-6">
+                                        <input class="form-control text-box single-line" data-val="true" id="Descripcionfiltro" name="Descripcionfiltro" type="text" value="">
+                                    </div>
+                                    <div class="col-xs-12 col-md-3">
+                                        <button class="btn btn-primary" id="btnFiltro">Buscar</button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+
+                            <div class="row">
                                 <div class="cols-xs-12 col-md-12" style="overflow: scroll;">
                                     <table id="tblPersonGrid" class="table table-striped table-bordered table-hover dataTables-example">
                                         <thead>
@@ -170,16 +185,18 @@
                                         <img src="~/Content/Iconos/save.png" class="img-button" id="btnSave" title="Grabar">
                                     </button>
                                 </div>
-                                <div class="col-xs-12 col-md-1 div-btn-img">
+                                @*
+                            <div class="col-xs-12 col-md-1 div-btn-img">
+                                <button class="btn-img">
+                                    <img src="~/Content/Iconos/edit.png" class="img-button" id="btnUpdate" title="Editar">
+                                </button>
+                            </div>
+                            <div class="col-xs-12 col-md-1 div-btn-img">
                                     <button class="btn-img">
-                                        <img src="~/Content/Iconos/edit.png" class="img-button" id="btnUpdate" title="Editar">
+                                        <img src="~/Content/Iconos/delete.png" class="img-button" id="btnDelete" title="Eliminar">
                                     </button>
                                 </div>
-                                @*<div class="col-xs-12 col-md-1 div-btn-img">
-                                        <button class="btn-img">
-                                            <img src="~/Content/Iconos/delete.png" class="img-button" id="btnDelete" title="Eliminar">
-                                        </button>
-                                    </div>*@
+                                *@
                                 <div class="col-xs-12 col-md-9">
                                 </div>
                             </div>
@@ -315,6 +332,35 @@
                                 </div>
                             </div>
 
+                        </div>
+
+                        <div class="ibox-footer">
+                            <div class="row">
+                                <div class="col-xs-12 col-md-2">
+                                </div>
+                                <div class="col-xs-12 col-md-2">
+                                    <div class="form-group">
+                                    </div>
+
+                                </div>
+
+                                @*<div class="col-xs-12 col-md-2">
+                                @Html.LabelForModel(Model.Person.Usuariocreacion, htmlAttributes: new { @class = "control-label input-style" })
+                            </div>
+                            <div class="col-xs-12 col-md-2">
+                                @Html.LabelFor(model => Model.Person.Fechacreacion, htmlAttributes: new { @class = "control-label input-style" })
+                                |
+                            </div>
+                            <div class="col-xs-12 col-md-2">
+                                @Html.LabelFor(model => Model.Person.Usuariomodificacion, htmlAttributes: new { @class = "control-label input-style" })
+                            </div>
+                            <div class="col-xs-12 col-md-2">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => Model.Person.Fechamodificacion, htmlAttributes: new { @class = "control-label input-style" })
+                                </div>
+
+                            </div>*@
+                            </div>
                         </div>
 
                         @*< !--Model Popup Distrito-- >*@
