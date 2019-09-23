@@ -6,5 +6,10 @@ namespace Domain.Entities.Mantenimiento
     {
         public IPagedList<EPersona> PersonaGrilla { get; set; }
         public EPersona Person { get; set; }
+
+        public EPersona FiltroPerson { get; set; }
+        public int cantGrid { get; set; }
+        public int cantPage { get; set; }
+        public int cantTotal { get; set; }
     }
 }

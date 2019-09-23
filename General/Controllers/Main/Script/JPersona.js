@@ -1,4 +1,5 @@
-﻿$(document).ready(function () {
+﻿(function () {
+    var fila = document.getElementById("cantTotal");
 
     var grabar = document.getElementById("btnSave");
     grabar.addEventListener("click", SavePerson, "");
@@ -9,17 +10,8 @@
     var nuevo = document.getElementById("btnNew");
     nuevo.addEventListener("click", NewPerson, "");
 
-    //$("#tblPersonGrid_length option:selected")
-    var rowGrid = document.getElementById("tblPersonGrid_length option:selected");
-    //rowGrid.addEventListener("onchange", ViewGrid, "");
-
-    $("#tblPersonGrid_length option:selected").change(function () {
-        alert("ddd");
-    });
-
-    $('select').on('change', function () {
-        alert(this.value);
-    });
+    var countRow = document.getElementById("tblPersonGrid_length");
+    countRow.addEventListener("change", ViewGrid, "");
 
     $('#date_1 .input-group.date').datepicker({
         todayBtn: "linked",
@@ -29,9 +21,51 @@
         autoclose: true,
         locale: 'es'
     });
-    
+    /*
+    $('.dataTables-examplePerson').DataTable({
+        dom: '<"html5buttons"B>lTfgitp',
+        //======================================....
+        buttons: [
+            {
+                extend: 'excel',
+                text: 'Exportar a Excel',
+                title: 'Consulta Resultados Docentes',
+                exportOptions: {
+                    columns: ':visible'
+                }
+            }
+        ],
+        deferRender: true,
+        responsive: true,
+        "language": {
+            "decimal": "",
+            "emptyTable": "No se encontraron registros.",
+            "info": "Mostrando _START_ a _END_ de _TOTAL_ registros",
+            "infoEmpty": "Mostrando 0 a 0 de 0 registros",
+            "infoFiltered": "(filtrado de _MAX_ total registros)",
+            "infoPostFix": "",
+            "thousands": ",",
+            "lengthMenu": "Mostrar  _MENU_  registros",
+            "loadingRecords": "Cargando...",
+            "processing": "Procesando...",
+            "search": "Buscar: ",
+            "zeroRecords": "No se encontraron registros",
+            "paginate": {
+                "first": "Primera",
+                "last": "Última",
+                "next": "Siguiente",
+                "previous": "Anterior"
+            },
+            "aria": {
+                "sortAscending": ": activar para ordernar columna de forma ascendente",
+                "sortDescending": ": activar para ordenar de forma descendente"
+            }
+        }
+
+    });
+    */
     $('.dataTables-example').DataTable({
-        pageLength: 25,
+        pageLength: 10,
         buttons: [
             { extend: 'pdf', title: 'ExampleFile' }
         ],
@@ -77,7 +111,17 @@
         BusquedaGrilla();
     });
 
-});
+    var rowGrid = $("#tblPersonGrid_length option:selected").text();
+
+    var mostrar = "Mostrando 1 a " + rowGrid + " de " + fila.value + " registros";
+    $("#tblPersonGrid_info").html(mostrar);
+}());
+
+//$(document).ready(function () {
+
+    
+
+//});
 
 function parseJsonRow(jsonRowString) {
     if (!jsonRowString) {
@@ -265,13 +309,14 @@ function ViewGrid()
         dataType: "json",
         success: function (data) {
             if (data != null) {
-                if (data.Resultado.length > 0) {
+                if (data.Resultado.PersonaGrilla.length > 0) {
 
-                    var mostrar = "Mostrando 1 a " + data.Resultado.length + " de " + data.Resultado.length  +" registros";
+                    var mostrar = "Mostrando 1 a " + data.Resultado.PersonaGrilla.length + " de " + data.Resultado.cantTotal  +" registros";
                     $("#tblPersonGrid_info").html(mostrar);
+
                     var table = $('#tblPersonGrid');
                     table.find("tbody tr").remove();
-                    data.Resultado.forEach(function (result) {
+                    data.Resultado.PersonaGrilla.forEach(function (result) {
             
                         table.append("<tr><td class='col-xs-12 col-md-1'>" +
                             "<div><table><tr><td class='col-xs-12 col-md-6'> " +
@@ -289,6 +334,25 @@ function ViewGrid()
                             "<td class='col-xs-12 col-md-2'>" + parseJsonRow(result.Direccion) + "</td>" +
                             "<td class='col-xs-12 col-md-2'>" + parseJsonDate(result.Fecnacimiento) + "</td></tr>");
                     });
+
+                    var page = $('#hiPaginado');
+                    page.find("div").remove();
+                    var html = "";
+
+                    for (var i = 1; i < data.Resultado.cantPage + 1; i++)
+                    {
+                        if (i == 1) {
+                            html = "<div class='pagination-container'><ul class='pagination'><li class='active'><a>" + i + "</a></li>"
+                        }
+                        else {
+                            html = html + "<li class=''><a href='/Persona/Index?page=" + i + "'>" + i + "</a></li>"
+                           
+                        } 
+                    }
+                    //html = html + "<li class='PagedList-skipToNext'><a href='/Persona/Index?page=" + i + "' rel='next' >»" + i + "</a></li>"
+                    html = html + "</ul></div>";
+                    page.append(html);
+
                     LimpiarCampos();
 
                     var tab1 = document.getElementById("tab-1");

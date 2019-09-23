@@ -83,7 +83,28 @@ namespace General.Controllers.Main.Controllers
 
             ViewBag.Cantidad = paginacion.countrow;
 
-            var result = oPersona.PersonaGrillaToPageList(paginacion);
+            //var result = oPersona.PersonaGrillaToPageList(paginacion);
+            var result = new ViewModelPerson
+            {
+                PersonaGrilla = oPersona.PersonaGrillaToPageList(paginacion),
+                Person = new EPersona(),
+                FiltroPerson = new EPersona(),
+                cantGrid = int.Parse(WebConfigurationManager.AppSettings["CountRow"]),
+                cantPage = 0,
+                cantTotal = 0
+            };
+            
+            result.cantTotal = result.PersonaGrilla.TotalItemCount;
+
+            //if (paginacion.countrow > result.cantTotal)
+            //{
+            //    result.cantPage = 1;
+            //}
+            //else
+            //{
+            //    result.cantPage = (result.cantTotal / (int)paginacion.countrow);
+            //}
+            result.cantPage = ((paginacion.countrow > result.cantTotal) == true ? 1 : (result.cantTotal)/((int)paginacion.countrow) + 1);
 
             return Json(new { Resultado = result }, JsonRequestBehavior.AllowGet);
         }
@@ -103,9 +124,12 @@ namespace General.Controllers.Main.Controllers
             var result = new ViewModelPerson
             {
                 PersonaGrilla = oPersona.PersonaGrillaToPageList(paginacion),
-                Person = new EPersona()
+                Person = new EPersona(),
+                FiltroPerson = new EPersona(),
+                cantGrid = int.Parse(WebConfigurationManager.AppSettings["CountRow"]),
+                cantTotal = 0
             };
-
+            result.cantTotal = result.PersonaGrilla.TotalItemCount;
             //var result = oPersona.PersonaGrillaToPageList(paginacion);
 
             return View(result);
