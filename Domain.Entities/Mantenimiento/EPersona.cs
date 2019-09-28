@@ -19,6 +19,12 @@ namespace Domain.Entities.Mantenimiento
 
     }
 
+    public class FiltroGrilloPerson : EPersona
+    {
+        public int? page { get; set; }
+        public int? countrow { get; set; }
+    }
+
     public class EPersona
     {
         [Display(Name="Codigo")]
@@ -43,6 +49,7 @@ namespace Domain.Entities.Mantenimiento
         [Display(Name = "Distrito")]
         public int DistritoId { get; set; }
         public string NombreDistrito { get; set; }
+        [Display(Name = "Dirección")]
         public string Direccion { get; set; }
         public string Ocupacion { get; set; }
         [Display(Name ="Sexo")]

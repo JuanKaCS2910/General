@@ -65,12 +65,33 @@ namespace General.Controllers.Main.Controllers
         [HttpPost]
         public JsonResult CargarFiltro(FiltroDistritoPersona filtro)
         {
-            //if (paginacion.countrow == null)
-            //    paginacion.countrow = int.Parse(WebConfigurationManager.AppSettings["CountRow"]);
-
-            //ViewBag.Cantidad = paginacion.countrow;
-
             var result = oDistrito.BusquedaDistrito(filtro);
+
+            return Json(new { Resultado = result }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public JsonResult CargarBusquedaGrilla(FiltroGrilloPerson Filtro)
+        {
+            if (Filtro.countrow == null)
+                Filtro.countrow = int.Parse(WebConfigurationManager.AppSettings["CountRow"]);
+
+            ViewBag.Cantidad = Filtro.countrow;
+
+            //var result = oPersona.PersonaGrillaToPageList(paginacion);
+            var result = new ViewModelPerson
+            {
+                PersonaGrilla = oPersona.PersonaFoundPageList(Filtro),
+                Person = new EPersona(),
+                FiltroPerson = new EPersona(),
+                cantGrid = int.Parse(WebConfigurationManager.AppSettings["CountRow"]),
+                cantPage = 0,
+                cantTotal = 0
+            };
+
+            result.cantTotal = result.PersonaGrilla.TotalItemCount;
+
+            result.cantPage = ((Filtro.countrow > result.cantTotal) == true ? 1 : (result.cantTotal) / ((int)Filtro.countrow) + 1);
 
             return Json(new { Resultado = result }, JsonRequestBehavior.AllowGet);
         }
@@ -116,6 +137,8 @@ namespace General.Controllers.Main.Controllers
                 paginacion.countrow = int.Parse(WebConfigurationManager.AppSettings["CountRow"]);
 
             //ViewBag.Cantidad = paginacion.countrow;
+            ViewBag.FiltroDocumentypeId = new SelectList(oTipodocumento.Cargardocumento(),
+                "TipodocumentoId", "Descripcion");
             ViewBag.DocumentypeId = new SelectList(oTipodocumento.Cargardocumento(),
                 "TipodocumentoId", "Descripcion");
             ViewBag.SexoId = new SelectList(oSexo.Cargarsexo(),
