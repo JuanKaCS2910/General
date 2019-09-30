@@ -29,7 +29,7 @@
                 </ul>
             </li>
 
-            <li>
+            @*<li>
                 <a href="@Url.Action("Index", "Home", new {area="Agentes"})"><i class="glyphicon glyphicon-edit"></i> <span class="nav-label" data-i18n="nav.dashboard">Mantenimiento</span> <span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse @Html.IsSelected(controller: "Agentes", cssClass: "in")">
 
@@ -38,7 +38,7 @@
                     <li class="@Html.IsSelected(controller: "Terapeuticas",action: "Index")"><a href="@Url.Action("Index", "Terapeuticas", new { area= "Agentes" })"><i class="fa fa-circle-o text-aqua"></i>M. Terapeuticas</a></li>
                 </ul>
 
-            </li>
+            </li>*@
 
             <li>
                 <a href="@Url.Action("Index", "Home", new {area="Mantenimiento"})"><i class="fa fa-edit" aria-hidden="true"></i> <span class="nav-label" data-i18n="nav.dashboard">Mantenimiento</span> <span class="fa arrow"></span></a>
