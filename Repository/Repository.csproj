@@ -56,9 +56,6 @@
     <Compile Include="AgenteTermico.cs">
       <DependentUpon>DataModelFisioterapia.tt</DependentUpon>
     </Compile>
-    <Compile Include="Antecedentes.cs">
-      <DependentUpon>DataModelFisioterapia.tt</DependentUpon>
-    </Compile>
     <Compile Include="DataModelFisioterapia.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -80,14 +77,14 @@
     <Compile Include="Distrito.cs">
       <DependentUpon>DataModelFisioterapia.tt</DependentUpon>
     </Compile>
-    <Compile Include="Estadocivil.cs">
-      <DependentUpon>DataModelFisioterapia.tt</DependentUpon>
-    </Compile>
     <Compile Include="Frecuencia.cs">
       <DependentUpon>DataModelFisioterapia.tt</DependentUpon>
     </Compile>
     <Compile Include="GenericRepository\GenericRepository.cs" />
-    <Compile Include="ManiobraTerapeutica.cs">
+    <Compile Include="Historico.cs">
+      <DependentUpon>DataModelFisioterapia.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ManiobrasTerapeuticas.cs">
       <DependentUpon>DataModelFisioterapia.tt</DependentUpon>
     </Compile>
     <Compile Include="Persona.cs">
@@ -96,7 +93,13 @@
     <Compile Include="Sexo.cs">
       <DependentUpon>DataModelFisioterapia.tt</DependentUpon>
     </Compile>
+    <Compile Include="SubTramite.cs">
+      <DependentUpon>DataModelFisioterapia.tt</DependentUpon>
+    </Compile>
     <Compile Include="Tipodocumento.cs">
+      <DependentUpon>DataModelFisioterapia.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Tramite.cs">
       <DependentUpon>DataModelFisioterapia.tt</DependentUpon>
     </Compile>
     <Compile Include="UnitOfWork\UnitOfWorkReference.cs" />

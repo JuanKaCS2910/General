@@ -50,13 +50,20 @@
   <ItemGroup>
     <Compile Include="General\Grilla.cs" />
     <Compile Include="General\SendEmail.cs" />
+    <Compile Include="Mantenimiento\EAgenteelectrofisico.cs" />
+    <Compile Include="Mantenimiento\EAgentetermico.cs" />
     <Compile Include="Mantenimiento\EDistrito.cs" />
+    <Compile Include="Mantenimiento\EFrecuencia.cs" />
+    <Compile Include="Mantenimiento\EHistorico.cs" />
     <Compile Include="Mantenimiento\EPersona.cs" />
     <Compile Include="Mantenimiento\ESexo.cs" />
+    <Compile Include="Mantenimiento\ESubtramite.cs" />
     <Compile Include="Mantenimiento\ETipodocumento.cs" />
     <Compile Include="Mantenimiento\HMain.cs" />
-    <Compile Include="Mantenimiento\ViewModelPerson.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModel\ViewModelGrilla.cs" />
+    <Compile Include="ViewModel\ViewModelHistorico.cs" />
+    <Compile Include="ViewModel\ViewModelPerson.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

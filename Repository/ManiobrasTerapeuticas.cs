@@ -12,13 +12,12 @@ namespace Repository
     using System;
     using System.Collections.Generic;
     
-    public partial class AgenteElectrofisico
+    public partial class ManiobrasTerapeuticas
     {
-        public int AgenteElectrofisicoId { get; set; }
+        public int ManiobrasTerapeuticasId { get; set; }
         public int HistoricoId { get; set; }
         public int SubTramiteId { get; set; }
         public string Condicion { get; set; }
-        public string Descripcion { get; set; }
         public string Usuariocreacion { get; set; }
         public System.DateTime Fechacreacion { get; set; }
         public string Usuariomodificacion { get; set; }

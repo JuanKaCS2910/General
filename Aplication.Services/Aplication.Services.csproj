@@ -52,10 +52,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Interfaz\IDistrito.cs" />
+    <Compile Include="Interfaz\IHistorico.cs" />
     <Compile Include="Interfaz\IPersona.cs" />
     <Compile Include="Interfaz\ISexo.cs" />
     <Compile Include="Interfaz\ITipodocumento.cs" />
     <Compile Include="Logica\Mantenimiento\Distrito.cs" />
+    <Compile Include="Logica\Mantenimiento\Historico.cs" />
     <Compile Include="Logica\Mantenimiento\Persona.cs" />
     <Compile Include="Logica\Mantenimiento\Sexo.cs" />
     <Compile Include="Logica\Mantenimiento\Tipodocumento.cs" />

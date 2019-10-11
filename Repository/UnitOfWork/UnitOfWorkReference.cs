@@ -7,26 +7,19 @@
     {
 
         #region Private
-        private GenericRepository<AgenteElectrofisico> agenteelectrofisicoRepository;
+        //private GenericRepository<AgenteElectrofisico> agenteelectrofisicoRepository;
         private GenericRepository<Distrito> distritoRepository;
         private GenericRepository<Persona> personaRepository;
         private GenericRepository<Tipodocumento> tipodocumentoRepository;
         private GenericRepository<Sexo> sexoRepository;
+
+        private GenericRepository<Historico> historicoRepository;
+        private GenericRepository<AgenteElectrofisico> agenteelectrofisicoRepository;
+        private GenericRepository<AgenteTermico> agentetermicoRepository;
+        private GenericRepository<ManiobrasTerapeuticas> maniobrasterapeuticasRepository;
         #endregion
 
         #region Public
-        public GenericRepository<AgenteElectrofisico> AgenteElectrofisicoRepository
-        {
-            get
-            {
-
-                if (this.agenteelectrofisicoRepository == null)
-                {
-                    this.agenteelectrofisicoRepository = new GenericRepository<AgenteElectrofisico>(context);
-                }
-                return agenteelectrofisicoRepository;
-            }
-        }
 
         public GenericRepository<Distrito> DistritoRepository
         {
@@ -75,6 +68,65 @@
                     this.sexoRepository = new GenericRepository<Sexo>(context);
                 }
                 return sexoRepository;
+            }
+        }
+        /// <summary>
+        /// Histórico
+        /// </summary>
+        public GenericRepository<Historico> HistoricoRepository
+        {
+            get
+            {
+                if (this.historicoRepository == null)
+                {
+                    this.historicoRepository = new GenericRepository<Historico>(context);
+                }
+                return historicoRepository;
+            }
+        }
+
+        /// <summary>
+        /// AgenteElectrofísico
+        /// </summary>
+        public GenericRepository<AgenteElectrofisico> AgenteElectrofisicoRepository
+        {
+            get
+            {
+                if (this.agenteelectrofisicoRepository == null)
+                {
+                    this.agenteelectrofisicoRepository = new GenericRepository<AgenteElectrofisico>(context);
+                }
+                return agenteelectrofisicoRepository;
+            }
+        }
+
+        /// <summary>
+        /// Agente Térmico
+        /// </summary>
+        public GenericRepository<AgenteTermico> AgenteTermicoRepository
+        {
+            get
+            {
+                if (this.agentetermicoRepository == null)
+                {
+                    this.agentetermicoRepository = new GenericRepository<AgenteTermico>(context);
+                }
+                return agentetermicoRepository;
+            }
+        }
+
+        /// <summary>
+        /// Maniobras Terapeuricas
+        /// </summary>
+        public GenericRepository<ManiobrasTerapeuticas> ManiobrasTerapeuticasRepository
+        {
+            get
+            {
+                if (this.maniobrasterapeuticasRepository == null)
+                {
+                    this.maniobrasterapeuticasRepository = new GenericRepository<ManiobrasTerapeuticas>(context);
+                }
+                return maniobrasterapeuticasRepository;
             }
         }
 

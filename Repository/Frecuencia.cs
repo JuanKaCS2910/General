@@ -15,7 +15,15 @@ namespace Repository
     public partial class Frecuencia
     {
         public int FrecuenciaId { get; set; }
-        public string Codigo { get; set; }
-        public string Descripcion { get; set; }
+        public int HistoricoId { get; set; }
+        public int SubTramiteId { get; set; }
+        public string Condicion { get; set; }
+        public string Usuariocreacion { get; set; }
+        public System.DateTime Fechacreacion { get; set; }
+        public string Usuariomodificacion { get; set; }
+        public Nullable<System.DateTime> Fechamodificacion { get; set; }
+    
+        public virtual Historico Historico { get; set; }
+        public virtual SubTramite SubTramite { get; set; }
     }
 }

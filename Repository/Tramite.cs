@@ -12,13 +12,22 @@ namespace Repository
     using System;
     using System.Collections.Generic;
     
-    public partial class ManiobraTerapeutica
+    public partial class Tramite
     {
-        public int ManiobraTerapeuticaId { get; set; }
-        public string Nombre { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Tramite()
+        {
+            this.SubTramite = new HashSet<SubTramite>();
+        }
+    
+        public string Codigo { get; set; }
+        public string Descripcion { get; set; }
         public string Usuariocreacion { get; set; }
         public System.DateTime Fechacreacion { get; set; }
         public string Usuariomodificacion { get; set; }
         public Nullable<System.DateTime> Fechamodificacion { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SubTramite> SubTramite { get; set; }
     }
 }

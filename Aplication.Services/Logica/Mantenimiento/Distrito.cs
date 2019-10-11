@@ -119,11 +119,26 @@
             }
             else
             {
-                oUnitOfWork.DistritoRepository.Delete(distritoId);
-                oUnitOfWork.Save();
-                Resultado = "OK";
+                try
+                {
+                    oUnitOfWork.DistritoRepository.Delete(distritoId);
+                    oUnitOfWork.Save();
+                    Resultado = "OK";
+                }
+                catch (Exception ex)
+                {
+                    if (ex.InnerException != null &&
+                        ex.InnerException.InnerException != null &&
+                        ex.InnerException.InnerException.Message.Contains("FK_dbo.Persona"))
+                    {
+                        Resultado = "El distrito no se puede eliminar porque esta asociado con alguna Persona";
+                    }
+                    else
+                    {
+                        Resultado = ex.Message;
+                    }
+                }
             }
-
             return Resultado;
 
         }

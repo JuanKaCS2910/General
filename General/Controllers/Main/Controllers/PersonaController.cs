@@ -2,6 +2,7 @@
 using Aplication.Services.Logica.Mantenimiento;
 using Domain.Entities.General;
 using Domain.Entities.Mantenimiento;
+using Domain.Entities.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -153,8 +154,7 @@ namespace General.Controllers.Main.Controllers
                 cantTotal = 0
             };
             result.cantTotal = result.PersonaGrilla.TotalItemCount;
-            //var result = oPersona.PersonaGrillaToPageList(paginacion);
-
+            
             return View(result);
         }
     }

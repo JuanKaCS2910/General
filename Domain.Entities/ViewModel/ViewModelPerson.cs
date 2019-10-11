@@ -1,6 +1,7 @@
 ﻿
-namespace Domain.Entities.Mantenimiento
+namespace Domain.Entities.ViewModel
 {
+    using Domain.Entities.Mantenimiento;
     using PagedList;
     public class ViewModelPerson
     {

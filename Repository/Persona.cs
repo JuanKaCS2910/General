@@ -14,6 +14,12 @@ namespace Repository
     
     public partial class Persona
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Persona()
+        {
+            this.Historico = new HashSet<Historico>();
+        }
+    
         public int PersonaId { get; set; }
         public int TipodocumentoId { get; set; }
         public string Nrodocumento { get; set; }
@@ -34,5 +40,7 @@ namespace Repository
         public virtual Distrito Distrito { get; set; }
         public virtual Sexo Sexo { get; set; }
         public virtual Tipodocumento Tipodocumento { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Historico> Historico { get; set; }
     }
 }

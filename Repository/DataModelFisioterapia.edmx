@@ -10,7 +10,10 @@
             <PropertyRef Name="AgenteElectrofisicoId" />
           </Key>
           <Property Name="AgenteElectrofisicoId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Nombre" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="HistoricoId" Type="int" Nullable="false" />
+          <Property Name="SubTramiteId" Type="int" Nullable="false" />
+          <Property Name="Condicion" Type="char" MaxLength="1" />
+          <Property Name="Descripcion" Type="nvarchar" MaxLength="250" />
           <Property Name="Usuariocreacion" Type="nvarchar" MaxLength="20" Nullable="false" />
           <Property Name="Fechacreacion" Type="datetime" Nullable="false" />
           <Property Name="Usuariomodificacion" Type="nvarchar" MaxLength="20" />
@@ -21,18 +24,13 @@
             <PropertyRef Name="AgenteTermicoId" />
           </Key>
           <Property Name="AgenteTermicoId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Nombre" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="HistoricoId" Type="int" Nullable="false" />
+          <Property Name="SubTramiteId" Type="int" Nullable="false" />
+          <Property Name="Condicion" Type="char" MaxLength="1" />
           <Property Name="Usuariocreacion" Type="nvarchar" MaxLength="20" Nullable="false" />
           <Property Name="Fechacreacion" Type="datetime" Nullable="false" />
           <Property Name="Usuariomodificacion" Type="nvarchar" MaxLength="20" />
           <Property Name="Fechamodificacion" Type="datetime" />
-        </EntityType>
-        <EntityType Name="Antecedentes">
-          <Key>
-            <PropertyRef Name="AntecedentesId" />
-          </Key>
-          <Property Name="AntecedentesId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Descripcion" Type="nvarchar" MaxLength="250" Nullable="false" />
         </EntityType>
         <EntityType Name="Departamento">
           <Key>
@@ -49,28 +47,41 @@
           <Property Name="DepartamentoId" Type="int" Nullable="false" />
           <Property Name="Nombre" Type="nvarchar" MaxLength="100" Nullable="false" />
         </EntityType>
-        <EntityType Name="Estadocivil">
-          <Key>
-            <PropertyRef Name="EstadocivilId" />
-          </Key>
-          <Property Name="EstadocivilId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Codigo" Type="char" MaxLength="1" Nullable="false" />
-          <Property Name="Descripcion" Type="nvarchar" MaxLength="100" Nullable="false" />
-        </EntityType>
         <EntityType Name="Frecuencia">
           <Key>
             <PropertyRef Name="FrecuenciaId" />
           </Key>
           <Property Name="FrecuenciaId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Codigo" Type="char" MaxLength="2" Nullable="false" />
-          <Property Name="Descripcion" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="HistoricoId" Type="int" Nullable="false" />
+          <Property Name="SubTramiteId" Type="int" Nullable="false" />
+          <Property Name="Condicion" Type="char" MaxLength="1" />
+          <Property Name="Usuariocreacion" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Fechacreacion" Type="datetime" Nullable="false" />
+          <Property Name="Usuariomodificacion" Type="nvarchar" MaxLength="20" />
+          <Property Name="Fechamodificacion" Type="datetime" />
         </EntityType>
-        <EntityType Name="ManiobraTerapeutica">
+        <EntityType Name="Historico">
           <Key>
-            <PropertyRef Name="ManiobraTerapeuticaId" />
+            <PropertyRef Name="HistoricoId" />
           </Key>
-          <Property Name="ManiobraTerapeuticaId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Nombre" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="HistoricoId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PersonaId" Type="int" Nullable="false" />
+          <Property Name="Diagnostico" Type="nvarchar" MaxLength="250" />
+          <Property Name="Observaciones" Type="nvarchar" MaxLength="250" />
+          <Property Name="Otros" Type="nvarchar" MaxLength="250" />
+          <Property Name="Usuariocreacion" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Fechacreacion" Type="datetime" Nullable="false" />
+          <Property Name="Usuariomodificacion" Type="nvarchar" MaxLength="20" />
+          <Property Name="Fechamodificacion" Type="datetime" />
+        </EntityType>
+        <EntityType Name="ManiobrasTerapeuticas">
+          <Key>
+            <PropertyRef Name="ManiobrasTerapeuticasId" />
+          </Key>
+          <Property Name="ManiobrasTerapeuticasId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="HistoricoId" Type="int" Nullable="false" />
+          <Property Name="SubTramiteId" Type="int" Nullable="false" />
+          <Property Name="Condicion" Type="char" MaxLength="1" />
           <Property Name="Usuariocreacion" Type="nvarchar" MaxLength="20" Nullable="false" />
           <Property Name="Fechacreacion" Type="datetime" Nullable="false" />
           <Property Name="Usuariomodificacion" Type="nvarchar" MaxLength="20" />
@@ -105,6 +116,18 @@
           <Property Name="Codigo" Type="char" MaxLength="1" Nullable="false" />
           <Property Name="Descripcion" Type="nvarchar" MaxLength="100" Nullable="false" />
         </EntityType>
+        <EntityType Name="SubTramite">
+          <Key>
+            <PropertyRef Name="SubTramiteId" />
+          </Key>
+          <Property Name="SubTramiteId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Descripcion" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="Codigo" Type="char" MaxLength="2" Nullable="false" />
+          <Property Name="Usuariocreacion" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Fechacreacion" Type="datetime" Nullable="false" />
+          <Property Name="Usuariomodificacion" Type="nvarchar" MaxLength="20" />
+          <Property Name="Fechamodificacion" Type="datetime" />
+        </EntityType>
         <EntityType Name="Tipodocumento">
           <Key>
             <PropertyRef Name="TipodocumentoId" />
@@ -113,6 +136,65 @@
           <Property Name="Codigo" Type="char" MaxLength="3" Nullable="false" />
           <Property Name="Descripcion" Type="nvarchar" MaxLength="100" Nullable="false" />
         </EntityType>
+        <EntityType Name="Tramite">
+          <Key>
+            <PropertyRef Name="Codigo" />
+          </Key>
+          <Property Name="Codigo" Type="char" MaxLength="2" Nullable="false" />
+          <Property Name="Descripcion" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="Usuariocreacion" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Fechacreacion" Type="datetime" Nullable="false" />
+          <Property Name="Usuariomodificacion" Type="nvarchar" MaxLength="20" />
+          <Property Name="Fechamodificacion" Type="datetime" />
+        </EntityType>
+        <Association Name="FK_dbo_AgenteElectrofisico_dbo_Historico_HistoricoId">
+          <End Role="Historico" Type="Self.Historico" Multiplicity="1" />
+          <End Role="AgenteElectrofisico" Type="Self.AgenteElectrofisico" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Historico">
+              <PropertyRef Name="HistoricoId" />
+            </Principal>
+            <Dependent Role="AgenteElectrofisico">
+              <PropertyRef Name="HistoricoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AgenteElectrofisico_dbo_SubTramite_SubTramiteId">
+          <End Role="SubTramite" Type="Self.SubTramite" Multiplicity="1" />
+          <End Role="AgenteElectrofisico" Type="Self.AgenteElectrofisico" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SubTramite">
+              <PropertyRef Name="SubTramiteId" />
+            </Principal>
+            <Dependent Role="AgenteElectrofisico">
+              <PropertyRef Name="SubTramiteId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AgenteTermico_dbo_Historico_HistoricoId">
+          <End Role="Historico" Type="Self.Historico" Multiplicity="1" />
+          <End Role="AgenteTermico" Type="Self.AgenteTermico" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Historico">
+              <PropertyRef Name="HistoricoId" />
+            </Principal>
+            <Dependent Role="AgenteTermico">
+              <PropertyRef Name="HistoricoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AgenteTermico_dbo_SubTramite_SubTramiteId">
+          <End Role="SubTramite" Type="Self.SubTramite" Multiplicity="1" />
+          <End Role="AgenteTermico" Type="Self.AgenteTermico" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SubTramite">
+              <PropertyRef Name="SubTramiteId" />
+            </Principal>
+            <Dependent Role="AgenteTermico">
+              <PropertyRef Name="SubTramiteId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_dbo_Distrito_dbo_Departamento_DepartamentoId">
           <End Role="Departamento" Type="Self.Departamento" Multiplicity="1" />
           <End Role="Distrito" Type="Self.Distrito" Multiplicity="*" />
@@ -122,6 +204,66 @@
             </Principal>
             <Dependent Role="Distrito">
               <PropertyRef Name="DepartamentoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Frecuencia_dbo_Historico_HistoricoId">
+          <End Role="Historico" Type="Self.Historico" Multiplicity="1" />
+          <End Role="Frecuencia" Type="Self.Frecuencia" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Historico">
+              <PropertyRef Name="HistoricoId" />
+            </Principal>
+            <Dependent Role="Frecuencia">
+              <PropertyRef Name="HistoricoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Frecuencia_dbo_SubTramite_SubTramiteId">
+          <End Role="SubTramite" Type="Self.SubTramite" Multiplicity="1" />
+          <End Role="Frecuencia" Type="Self.Frecuencia" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SubTramite">
+              <PropertyRef Name="SubTramiteId" />
+            </Principal>
+            <Dependent Role="Frecuencia">
+              <PropertyRef Name="SubTramiteId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Historico_dbo_Persona_PersonaId">
+          <End Role="Persona" Type="Self.Persona" Multiplicity="1" />
+          <End Role="Historico" Type="Self.Historico" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Persona">
+              <PropertyRef Name="PersonaId" />
+            </Principal>
+            <Dependent Role="Historico">
+              <PropertyRef Name="PersonaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_ManiobrasTerapeuticas_dbo_Historico_HistoricoId">
+          <End Role="Historico" Type="Self.Historico" Multiplicity="1" />
+          <End Role="ManiobrasTerapeuticas" Type="Self.ManiobrasTerapeuticas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Historico">
+              <PropertyRef Name="HistoricoId" />
+            </Principal>
+            <Dependent Role="ManiobrasTerapeuticas">
+              <PropertyRef Name="HistoricoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_ManiobrasTerapeuticas_dbo_SubTramite_SubTramiteId">
+          <End Role="SubTramite" Type="Self.SubTramite" Multiplicity="1" />
+          <End Role="ManiobrasTerapeuticas" Type="Self.ManiobrasTerapeuticas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SubTramite">
+              <PropertyRef Name="SubTramiteId" />
+            </Principal>
+            <Dependent Role="ManiobrasTerapeuticas">
+              <PropertyRef Name="SubTramiteId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -161,21 +303,70 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_dbo_SubTramite_dbo_Tramite_Codigo">
+          <End Role="Tramite" Type="Self.Tramite" Multiplicity="1" />
+          <End Role="SubTramite" Type="Self.SubTramite" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tramite">
+              <PropertyRef Name="Codigo" />
+            </Principal>
+            <Dependent Role="SubTramite">
+              <PropertyRef Name="Codigo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="DBFisioterapiaModelStoreContainer">
           <EntitySet Name="AgenteElectrofisico" EntityType="Self.AgenteElectrofisico" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AgenteTermico" EntityType="Self.AgenteTermico" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Antecedentes" EntityType="Self.Antecedentes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Departamento" EntityType="Self.Departamento" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Distrito" EntityType="Self.Distrito" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Estadocivil" EntityType="Self.Estadocivil" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Frecuencia" EntityType="Self.Frecuencia" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="ManiobraTerapeutica" EntityType="Self.ManiobraTerapeutica" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Historico" EntityType="Self.Historico" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ManiobrasTerapeuticas" EntityType="Self.ManiobrasTerapeuticas" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Persona" EntityType="Self.Persona" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sexo" EntityType="Self.Sexo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SubTramite" EntityType="Self.SubTramite" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tipodocumento" EntityType="Self.Tipodocumento" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tramite" EntityType="Self.Tramite" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_dbo_AgenteElectrofisico_dbo_Historico_HistoricoId" Association="Self.FK_dbo_AgenteElectrofisico_dbo_Historico_HistoricoId">
+            <End Role="Historico" EntitySet="Historico" />
+            <End Role="AgenteElectrofisico" EntitySet="AgenteElectrofisico" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AgenteElectrofisico_dbo_SubTramite_SubTramiteId" Association="Self.FK_dbo_AgenteElectrofisico_dbo_SubTramite_SubTramiteId">
+            <End Role="SubTramite" EntitySet="SubTramite" />
+            <End Role="AgenteElectrofisico" EntitySet="AgenteElectrofisico" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AgenteTermico_dbo_Historico_HistoricoId" Association="Self.FK_dbo_AgenteTermico_dbo_Historico_HistoricoId">
+            <End Role="Historico" EntitySet="Historico" />
+            <End Role="AgenteTermico" EntitySet="AgenteTermico" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AgenteTermico_dbo_SubTramite_SubTramiteId" Association="Self.FK_dbo_AgenteTermico_dbo_SubTramite_SubTramiteId">
+            <End Role="SubTramite" EntitySet="SubTramite" />
+            <End Role="AgenteTermico" EntitySet="AgenteTermico" />
+          </AssociationSet>
           <AssociationSet Name="FK_dbo_Distrito_dbo_Departamento_DepartamentoId" Association="Self.FK_dbo_Distrito_dbo_Departamento_DepartamentoId">
             <End Role="Departamento" EntitySet="Departamento" />
             <End Role="Distrito" EntitySet="Distrito" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Frecuencia_dbo_Historico_HistoricoId" Association="Self.FK_dbo_Frecuencia_dbo_Historico_HistoricoId">
+            <End Role="Historico" EntitySet="Historico" />
+            <End Role="Frecuencia" EntitySet="Frecuencia" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Frecuencia_dbo_SubTramite_SubTramiteId" Association="Self.FK_dbo_Frecuencia_dbo_SubTramite_SubTramiteId">
+            <End Role="SubTramite" EntitySet="SubTramite" />
+            <End Role="Frecuencia" EntitySet="Frecuencia" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Historico_dbo_Persona_PersonaId" Association="Self.FK_dbo_Historico_dbo_Persona_PersonaId">
+            <End Role="Persona" EntitySet="Persona" />
+            <End Role="Historico" EntitySet="Historico" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_ManiobrasTerapeuticas_dbo_Historico_HistoricoId" Association="Self.FK_dbo_ManiobrasTerapeuticas_dbo_Historico_HistoricoId">
+            <End Role="Historico" EntitySet="Historico" />
+            <End Role="ManiobrasTerapeuticas" EntitySet="ManiobrasTerapeuticas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_ManiobrasTerapeuticas_dbo_SubTramite_SubTramiteId" Association="Self.FK_dbo_ManiobrasTerapeuticas_dbo_SubTramite_SubTramiteId">
+            <End Role="SubTramite" EntitySet="SubTramite" />
+            <End Role="ManiobrasTerapeuticas" EntitySet="ManiobrasTerapeuticas" />
           </AssociationSet>
           <AssociationSet Name="FK_dbo_Persona_dbo_Distrito_DistritoId" Association="Self.FK_dbo_Persona_dbo_Distrito_DistritoId">
             <End Role="Distrito" EntitySet="Distrito" />
@@ -189,23 +380,19 @@
             <End Role="Tipodocumento" EntitySet="Tipodocumento" />
             <End Role="Persona" EntitySet="Persona" />
           </AssociationSet>
+          <AssociationSet Name="FK_dbo_SubTramite_dbo_Tramite_Codigo" Association="Self.FK_dbo_SubTramite_dbo_Tramite_Codigo">
+            <End Role="Tramite" EntitySet="Tramite" />
+            <End Role="SubTramite" EntitySet="SubTramite" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="DBFisioterapiaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="DBFisioterapiaEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="AgenteElectrofisico" EntityType="DBFisioterapiaModel.AgenteElectrofisico" />
-          <EntitySet Name="AgenteTermico" EntityType="DBFisioterapiaModel.AgenteTermico" />
-          <EntitySet Name="Antecedentes" EntityType="DBFisioterapiaModel.Antecedentes" />
           <EntitySet Name="Departamento" EntityType="DBFisioterapiaModel.Departamento" />
           <EntitySet Name="Distrito" EntityType="DBFisioterapiaModel.Distrito" />
-          <EntitySet Name="Estadocivil" EntityType="DBFisioterapiaModel.Estadocivil" />
-          <EntitySet Name="Frecuencia" EntityType="DBFisioterapiaModel.Frecuencia" />
-          <EntitySet Name="ManiobraTerapeutica" EntityType="DBFisioterapiaModel.ManiobraTerapeutica" />
           <EntitySet Name="Persona" EntityType="DBFisioterapiaModel.Persona" />
-          <EntitySet Name="Sexo" EntityType="DBFisioterapiaModel.Sexo" />
-          <EntitySet Name="Tipodocumento" EntityType="DBFisioterapiaModel.Tipodocumento" />
           <AssociationSet Name="FK_dbo_Distrito_dbo_Departamento_DepartamentoId" Association="DBFisioterapiaModel.FK_dbo_Distrito_dbo_Departamento_DepartamentoId">
             <End Role="Departamento" EntitySet="Departamento" />
             <End Role="Distrito" EntitySet="Distrito" />
@@ -214,6 +401,8 @@
             <End Role="Distrito" EntitySet="Distrito" />
             <End Role="Persona" EntitySet="Persona" />
           </AssociationSet>
+          <EntitySet Name="Sexo" EntityType="DBFisioterapiaModel.Sexo" />
+          <EntitySet Name="Tipodocumento" EntityType="DBFisioterapiaModel.Tipodocumento" />
           <AssociationSet Name="FK_dbo_Persona_dbo_Sexo_SexoId" Association="DBFisioterapiaModel.FK_dbo_Persona_dbo_Sexo_SexoId">
             <End Role="Sexo" EntitySet="Sexo" />
             <End Role="Persona" EntitySet="Persona" />
@@ -222,36 +411,54 @@
             <End Role="Tipodocumento" EntitySet="Tipodocumento" />
             <End Role="Persona" EntitySet="Persona" />
           </AssociationSet>
+          <EntitySet Name="AgenteElectrofisico" EntityType="DBFisioterapiaModel.AgenteElectrofisico" />
+          <EntitySet Name="Frecuencia" EntityType="DBFisioterapiaModel.Frecuencia" />
+          <EntitySet Name="Historico" EntityType="DBFisioterapiaModel.Historico" />
+          <EntitySet Name="ManiobrasTerapeuticas" EntityType="DBFisioterapiaModel.ManiobrasTerapeuticas" />
+          <EntitySet Name="SubTramite" EntityType="DBFisioterapiaModel.SubTramite" />
+          <EntitySet Name="Tramite" EntityType="DBFisioterapiaModel.Tramite" />
+          <AssociationSet Name="FK_dbo_AgenteElectrofisico_dbo_Historico_HistoricoId" Association="DBFisioterapiaModel.FK_dbo_AgenteElectrofisico_dbo_Historico_HistoricoId">
+            <End Role="Historico" EntitySet="Historico" />
+            <End Role="AgenteElectrofisico" EntitySet="AgenteElectrofisico" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AgenteElectrofisico_dbo_SubTramite_SubTramiteId" Association="DBFisioterapiaModel.FK_dbo_AgenteElectrofisico_dbo_SubTramite_SubTramiteId">
+            <End Role="SubTramite" EntitySet="SubTramite" />
+            <End Role="AgenteElectrofisico" EntitySet="AgenteElectrofisico" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Frecuencia_dbo_Historico_HistoricoId" Association="DBFisioterapiaModel.FK_dbo_Frecuencia_dbo_Historico_HistoricoId">
+            <End Role="Historico" EntitySet="Historico" />
+            <End Role="Frecuencia" EntitySet="Frecuencia" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Frecuencia_dbo_SubTramite_SubTramiteId" Association="DBFisioterapiaModel.FK_dbo_Frecuencia_dbo_SubTramite_SubTramiteId">
+            <End Role="SubTramite" EntitySet="SubTramite" />
+            <End Role="Frecuencia" EntitySet="Frecuencia" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Historico_dbo_Persona_PersonaId" Association="DBFisioterapiaModel.FK_dbo_Historico_dbo_Persona_PersonaId">
+            <End Role="Persona" EntitySet="Persona" />
+            <End Role="Historico" EntitySet="Historico" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_ManiobrasTerapeuticas_dbo_Historico_HistoricoId" Association="DBFisioterapiaModel.FK_dbo_ManiobrasTerapeuticas_dbo_Historico_HistoricoId">
+            <End Role="Historico" EntitySet="Historico" />
+            <End Role="ManiobrasTerapeuticas" EntitySet="ManiobrasTerapeuticas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_ManiobrasTerapeuticas_dbo_SubTramite_SubTramiteId" Association="DBFisioterapiaModel.FK_dbo_ManiobrasTerapeuticas_dbo_SubTramite_SubTramiteId">
+            <End Role="SubTramite" EntitySet="SubTramite" />
+            <End Role="ManiobrasTerapeuticas" EntitySet="ManiobrasTerapeuticas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_SubTramite_dbo_Tramite_Codigo" Association="DBFisioterapiaModel.FK_dbo_SubTramite_dbo_Tramite_Codigo">
+            <End Role="Tramite" EntitySet="Tramite" />
+            <End Role="SubTramite" EntitySet="SubTramite" />
+          </AssociationSet>
+          <EntitySet Name="AgenteTermico" EntityType="DBFisioterapiaModel.AgenteTermico" />
+          <AssociationSet Name="FK_dbo_AgenteTermico_dbo_Historico_HistoricoId" Association="DBFisioterapiaModel.FK_dbo_AgenteTermico_dbo_Historico_HistoricoId">
+            <End Role="Historico" EntitySet="Historico" />
+            <End Role="AgenteTermico" EntitySet="AgenteTermico" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AgenteTermico_dbo_SubTramite_SubTramiteId" Association="DBFisioterapiaModel.FK_dbo_AgenteTermico_dbo_SubTramite_SubTramiteId">
+            <End Role="SubTramite" EntitySet="SubTramite" />
+            <End Role="AgenteTermico" EntitySet="AgenteTermico" />
+          </AssociationSet>
         </EntityContainer>
-        <EntityType Name="AgenteElectrofisico">
-          <Key>
-            <PropertyRef Name="AgenteElectrofisicoId" />
-          </Key>
-          <Property Name="AgenteElectrofisicoId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="Usuariocreacion" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="Fechacreacion" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="Usuariomodificacion" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="Fechamodificacion" Type="DateTime" Precision="3" />
-        </EntityType>
-        <EntityType Name="AgenteTermico">
-          <Key>
-            <PropertyRef Name="AgenteTermicoId" />
-          </Key>
-          <Property Name="AgenteTermicoId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="Usuariocreacion" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="Fechacreacion" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="Usuariomodificacion" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="Fechamodificacion" Type="DateTime" Precision="3" />
-        </EntityType>
-        <EntityType Name="Antecedentes">
-          <Key>
-            <PropertyRef Name="AntecedentesId" />
-          </Key>
-          <Property Name="AntecedentesId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
-        </EntityType>
         <EntityType Name="Departamento">
           <Key>
             <PropertyRef Name="DepartamentoId" />
@@ -269,33 +476,6 @@
           <Property Name="Nombre" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Departamento" Relationship="DBFisioterapiaModel.FK_dbo_Distrito_dbo_Departamento_DepartamentoId" FromRole="Distrito" ToRole="Departamento" />
           <NavigationProperty Name="Persona" Relationship="DBFisioterapiaModel.FK_dbo_Persona_dbo_Distrito_DistritoId" FromRole="Distrito" ToRole="Persona" />
-        </EntityType>
-        <EntityType Name="Estadocivil">
-          <Key>
-            <PropertyRef Name="EstadocivilId" />
-          </Key>
-          <Property Name="EstadocivilId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Codigo" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="false" />
-          <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="Frecuencia">
-          <Key>
-            <PropertyRef Name="FrecuenciaId" />
-          </Key>
-          <Property Name="FrecuenciaId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Codigo" Type="String" Nullable="false" MaxLength="2" FixedLength="true" Unicode="false" />
-          <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="ManiobraTerapeutica">
-          <Key>
-            <PropertyRef Name="ManiobraTerapeuticaId" />
-          </Key>
-          <Property Name="ManiobraTerapeuticaId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="Usuariocreacion" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="Fechacreacion" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="Usuariomodificacion" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="Fechamodificacion" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="Persona">
           <Key>
@@ -320,24 +500,7 @@
           <NavigationProperty Name="Distrito" Relationship="DBFisioterapiaModel.FK_dbo_Persona_dbo_Distrito_DistritoId" FromRole="Persona" ToRole="Distrito" />
           <NavigationProperty Name="Sexo" Relationship="DBFisioterapiaModel.FK_dbo_Persona_dbo_Sexo_SexoId" FromRole="Persona" ToRole="Sexo" />
           <NavigationProperty Name="Tipodocumento" Relationship="DBFisioterapiaModel.FK_dbo_Persona_dbo_Tipodocumento_TipodocumentoId" FromRole="Persona" ToRole="Tipodocumento" />
-        </EntityType>
-        <EntityType Name="Sexo">
-          <Key>
-            <PropertyRef Name="SexoId" />
-          </Key>
-          <Property Name="SexoId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Codigo" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="false" />
-          <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Persona" Relationship="DBFisioterapiaModel.FK_dbo_Persona_dbo_Sexo_SexoId" FromRole="Sexo" ToRole="Persona" />
-        </EntityType>
-        <EntityType Name="Tipodocumento">
-          <Key>
-            <PropertyRef Name="TipodocumentoId" />
-          </Key>
-          <Property Name="TipodocumentoId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Codigo" Type="String" Nullable="false" MaxLength="3" FixedLength="true" Unicode="false" />
-          <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Persona" Relationship="DBFisioterapiaModel.FK_dbo_Persona_dbo_Tipodocumento_TipodocumentoId" FromRole="Tipodocumento" ToRole="Persona" />
+          <NavigationProperty Name="Historico" Relationship="DBFisioterapiaModel.FK_dbo_Historico_dbo_Persona_PersonaId" FromRole="Persona" ToRole="Historico" />
         </EntityType>
         <Association Name="FK_dbo_Distrito_dbo_Departamento_DepartamentoId">
           <End Type="DBFisioterapiaModel.Departamento" Role="Departamento" Multiplicity="1" />
@@ -363,6 +526,24 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Sexo">
+          <Key>
+            <PropertyRef Name="SexoId" />
+          </Key>
+          <Property Name="SexoId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Codigo" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Persona" Relationship="DBFisioterapiaModel.FK_dbo_Persona_dbo_Sexo_SexoId" FromRole="Sexo" ToRole="Persona" />
+        </EntityType>
+        <EntityType Name="Tipodocumento">
+          <Key>
+            <PropertyRef Name="TipodocumentoId" />
+          </Key>
+          <Property Name="TipodocumentoId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Codigo" Type="String" Nullable="false" MaxLength="3" FixedLength="true" Unicode="false" />
+          <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Persona" Relationship="DBFisioterapiaModel.FK_dbo_Persona_dbo_Tipodocumento_TipodocumentoId" FromRole="Tipodocumento" ToRole="Persona" />
+        </EntityType>
         <Association Name="FK_dbo_Persona_dbo_Sexo_SexoId">
           <End Type="DBFisioterapiaModel.Sexo" Role="Sexo" Multiplicity="1" />
           <End Type="DBFisioterapiaModel.Persona" Role="Persona" Multiplicity="*" />
@@ -387,44 +568,241 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
+        <EntityType Name="AgenteElectrofisico">
+          <Key>
+            <PropertyRef Name="AgenteElectrofisicoId" />
+          </Key>
+          <Property Name="AgenteElectrofisicoId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="HistoricoId" Type="Int32" Nullable="false" />
+          <Property Name="SubTramiteId" Type="Int32" Nullable="false" />
+          <Property Name="Condicion" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Usuariocreacion" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Fechacreacion" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Usuariomodificacion" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Fechamodificacion" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Historico" Relationship="DBFisioterapiaModel.FK_dbo_AgenteElectrofisico_dbo_Historico_HistoricoId" FromRole="AgenteElectrofisico" ToRole="Historico" />
+          <NavigationProperty Name="SubTramite" Relationship="DBFisioterapiaModel.FK_dbo_AgenteElectrofisico_dbo_SubTramite_SubTramiteId" FromRole="AgenteElectrofisico" ToRole="SubTramite" />
+        </EntityType>
+        <EntityType Name="Frecuencia">
+          <Key>
+            <PropertyRef Name="FrecuenciaId" />
+          </Key>
+          <Property Name="FrecuenciaId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="HistoricoId" Type="Int32" Nullable="false" />
+          <Property Name="SubTramiteId" Type="Int32" Nullable="false" />
+          <Property Name="Condicion" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="Usuariocreacion" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Fechacreacion" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Usuariomodificacion" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Fechamodificacion" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Historico" Relationship="DBFisioterapiaModel.FK_dbo_Frecuencia_dbo_Historico_HistoricoId" FromRole="Frecuencia" ToRole="Historico" />
+          <NavigationProperty Name="SubTramite" Relationship="DBFisioterapiaModel.FK_dbo_Frecuencia_dbo_SubTramite_SubTramiteId" FromRole="Frecuencia" ToRole="SubTramite" />
+        </EntityType>
+        <EntityType Name="Historico">
+          <Key>
+            <PropertyRef Name="HistoricoId" />
+          </Key>
+          <Property Name="HistoricoId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PersonaId" Type="Int32" Nullable="false" />
+          <Property Name="Diagnostico" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Observaciones" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Otros" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Usuariocreacion" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Fechacreacion" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Usuariomodificacion" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Fechamodificacion" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="AgenteElectrofisico" Relationship="DBFisioterapiaModel.FK_dbo_AgenteElectrofisico_dbo_Historico_HistoricoId" FromRole="Historico" ToRole="AgenteElectrofisico" />
+          <NavigationProperty Name="Frecuencia" Relationship="DBFisioterapiaModel.FK_dbo_Frecuencia_dbo_Historico_HistoricoId" FromRole="Historico" ToRole="Frecuencia" />
+          <NavigationProperty Name="Persona" Relationship="DBFisioterapiaModel.FK_dbo_Historico_dbo_Persona_PersonaId" FromRole="Historico" ToRole="Persona" />
+          <NavigationProperty Name="ManiobrasTerapeuticas" Relationship="DBFisioterapiaModel.FK_dbo_ManiobrasTerapeuticas_dbo_Historico_HistoricoId" FromRole="Historico" ToRole="ManiobrasTerapeuticas" />
+          <NavigationProperty Name="AgenteTermico" Relationship="DBFisioterapiaModel.FK_dbo_AgenteTermico_dbo_Historico_HistoricoId" FromRole="Historico" ToRole="AgenteTermico" />
+        </EntityType>
+        <EntityType Name="ManiobrasTerapeuticas">
+          <Key>
+            <PropertyRef Name="ManiobrasTerapeuticasId" />
+          </Key>
+          <Property Name="ManiobrasTerapeuticasId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="HistoricoId" Type="Int32" Nullable="false" />
+          <Property Name="SubTramiteId" Type="Int32" Nullable="false" />
+          <Property Name="Condicion" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="Usuariocreacion" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Fechacreacion" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Usuariomodificacion" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Fechamodificacion" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Historico" Relationship="DBFisioterapiaModel.FK_dbo_ManiobrasTerapeuticas_dbo_Historico_HistoricoId" FromRole="ManiobrasTerapeuticas" ToRole="Historico" />
+          <NavigationProperty Name="SubTramite" Relationship="DBFisioterapiaModel.FK_dbo_ManiobrasTerapeuticas_dbo_SubTramite_SubTramiteId" FromRole="ManiobrasTerapeuticas" ToRole="SubTramite" />
+        </EntityType>
+        <EntityType Name="SubTramite">
+          <Key>
+            <PropertyRef Name="SubTramiteId" />
+          </Key>
+          <Property Name="SubTramiteId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Codigo" Type="String" Nullable="false" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="Usuariocreacion" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Fechacreacion" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Usuariomodificacion" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Fechamodificacion" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="AgenteElectrofisico" Relationship="DBFisioterapiaModel.FK_dbo_AgenteElectrofisico_dbo_SubTramite_SubTramiteId" FromRole="SubTramite" ToRole="AgenteElectrofisico" />
+          <NavigationProperty Name="Frecuencia" Relationship="DBFisioterapiaModel.FK_dbo_Frecuencia_dbo_SubTramite_SubTramiteId" FromRole="SubTramite" ToRole="Frecuencia" />
+          <NavigationProperty Name="ManiobrasTerapeuticas" Relationship="DBFisioterapiaModel.FK_dbo_ManiobrasTerapeuticas_dbo_SubTramite_SubTramiteId" FromRole="SubTramite" ToRole="ManiobrasTerapeuticas" />
+          <NavigationProperty Name="Tramite" Relationship="DBFisioterapiaModel.FK_dbo_SubTramite_dbo_Tramite_Codigo" FromRole="SubTramite" ToRole="Tramite" />
+          <NavigationProperty Name="AgenteTermico" Relationship="DBFisioterapiaModel.FK_dbo_AgenteTermico_dbo_SubTramite_SubTramiteId" FromRole="SubTramite" ToRole="AgenteTermico" />
+        </EntityType>
+        <EntityType Name="Tramite">
+          <Key>
+            <PropertyRef Name="Codigo" />
+          </Key>
+          <Property Name="Codigo" Type="String" Nullable="false" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Usuariocreacion" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Fechacreacion" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Usuariomodificacion" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Fechamodificacion" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="SubTramite" Relationship="DBFisioterapiaModel.FK_dbo_SubTramite_dbo_Tramite_Codigo" FromRole="Tramite" ToRole="SubTramite" />
+        </EntityType>
+        <Association Name="FK_dbo_AgenteElectrofisico_dbo_Historico_HistoricoId">
+          <End Type="DBFisioterapiaModel.Historico" Role="Historico" Multiplicity="1" />
+          <End Type="DBFisioterapiaModel.AgenteElectrofisico" Role="AgenteElectrofisico" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Historico">
+              <PropertyRef Name="HistoricoId" />
+            </Principal>
+            <Dependent Role="AgenteElectrofisico">
+              <PropertyRef Name="HistoricoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AgenteElectrofisico_dbo_SubTramite_SubTramiteId">
+          <End Type="DBFisioterapiaModel.SubTramite" Role="SubTramite" Multiplicity="1" />
+          <End Type="DBFisioterapiaModel.AgenteElectrofisico" Role="AgenteElectrofisico" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SubTramite">
+              <PropertyRef Name="SubTramiteId" />
+            </Principal>
+            <Dependent Role="AgenteElectrofisico">
+              <PropertyRef Name="SubTramiteId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Frecuencia_dbo_Historico_HistoricoId">
+          <End Type="DBFisioterapiaModel.Historico" Role="Historico" Multiplicity="1" />
+          <End Type="DBFisioterapiaModel.Frecuencia" Role="Frecuencia" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Historico">
+              <PropertyRef Name="HistoricoId" />
+            </Principal>
+            <Dependent Role="Frecuencia">
+              <PropertyRef Name="HistoricoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Frecuencia_dbo_SubTramite_SubTramiteId">
+          <End Type="DBFisioterapiaModel.SubTramite" Role="SubTramite" Multiplicity="1" />
+          <End Type="DBFisioterapiaModel.Frecuencia" Role="Frecuencia" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SubTramite">
+              <PropertyRef Name="SubTramiteId" />
+            </Principal>
+            <Dependent Role="Frecuencia">
+              <PropertyRef Name="SubTramiteId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Historico_dbo_Persona_PersonaId">
+          <End Type="DBFisioterapiaModel.Persona" Role="Persona" Multiplicity="1" />
+          <End Type="DBFisioterapiaModel.Historico" Role="Historico" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Persona">
+              <PropertyRef Name="PersonaId" />
+            </Principal>
+            <Dependent Role="Historico">
+              <PropertyRef Name="PersonaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_ManiobrasTerapeuticas_dbo_Historico_HistoricoId">
+          <End Type="DBFisioterapiaModel.Historico" Role="Historico" Multiplicity="1" />
+          <End Type="DBFisioterapiaModel.ManiobrasTerapeuticas" Role="ManiobrasTerapeuticas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Historico">
+              <PropertyRef Name="HistoricoId" />
+            </Principal>
+            <Dependent Role="ManiobrasTerapeuticas">
+              <PropertyRef Name="HistoricoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_ManiobrasTerapeuticas_dbo_SubTramite_SubTramiteId">
+          <End Type="DBFisioterapiaModel.SubTramite" Role="SubTramite" Multiplicity="1" />
+          <End Type="DBFisioterapiaModel.ManiobrasTerapeuticas" Role="ManiobrasTerapeuticas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SubTramite">
+              <PropertyRef Name="SubTramiteId" />
+            </Principal>
+            <Dependent Role="ManiobrasTerapeuticas">
+              <PropertyRef Name="SubTramiteId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_SubTramite_dbo_Tramite_Codigo">
+          <End Type="DBFisioterapiaModel.Tramite" Role="Tramite" Multiplicity="1" />
+          <End Type="DBFisioterapiaModel.SubTramite" Role="SubTramite" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tramite">
+              <PropertyRef Name="Codigo" />
+            </Principal>
+            <Dependent Role="SubTramite">
+              <PropertyRef Name="Codigo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="AgenteTermico">
+          <Key>
+            <PropertyRef Name="AgenteTermicoId" />
+          </Key>
+          <Property Name="AgenteTermicoId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="HistoricoId" Type="Int32" Nullable="false" />
+          <Property Name="SubTramiteId" Type="Int32" Nullable="false" />
+          <Property Name="Condicion" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="Usuariocreacion" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Fechacreacion" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Usuariomodificacion" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Fechamodificacion" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Historico" Relationship="DBFisioterapiaModel.FK_dbo_AgenteTermico_dbo_Historico_HistoricoId" FromRole="AgenteTermico" ToRole="Historico" />
+          <NavigationProperty Name="SubTramite" Relationship="DBFisioterapiaModel.FK_dbo_AgenteTermico_dbo_SubTramite_SubTramiteId" FromRole="AgenteTermico" ToRole="SubTramite" />
+        </EntityType>
+        <Association Name="FK_dbo_AgenteTermico_dbo_Historico_HistoricoId">
+          <End Type="DBFisioterapiaModel.Historico" Role="Historico" Multiplicity="1" />
+          <End Type="DBFisioterapiaModel.AgenteTermico" Role="AgenteTermico" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Historico">
+              <PropertyRef Name="HistoricoId" />
+            </Principal>
+            <Dependent Role="AgenteTermico">
+              <PropertyRef Name="HistoricoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AgenteTermico_dbo_SubTramite_SubTramiteId">
+          <End Type="DBFisioterapiaModel.SubTramite" Role="SubTramite" Multiplicity="1" />
+          <End Type="DBFisioterapiaModel.AgenteTermico" Role="AgenteTermico" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SubTramite">
+              <PropertyRef Name="SubTramiteId" />
+            </Principal>
+            <Dependent Role="AgenteTermico">
+              <PropertyRef Name="SubTramiteId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="DBFisioterapiaModelStoreContainer" CdmEntityContainer="DBFisioterapiaEntities">
-          <EntitySetMapping Name="AgenteElectrofisico">
-            <EntityTypeMapping TypeName="DBFisioterapiaModel.AgenteElectrofisico">
-              <MappingFragment StoreEntitySet="AgenteElectrofisico">
-                <ScalarProperty Name="Fechamodificacion" ColumnName="Fechamodificacion" />
-                <ScalarProperty Name="Usuariomodificacion" ColumnName="Usuariomodificacion" />
-                <ScalarProperty Name="Fechacreacion" ColumnName="Fechacreacion" />
-                <ScalarProperty Name="Usuariocreacion" ColumnName="Usuariocreacion" />
-                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
-                <ScalarProperty Name="AgenteElectrofisicoId" ColumnName="AgenteElectrofisicoId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="AgenteTermico">
-            <EntityTypeMapping TypeName="DBFisioterapiaModel.AgenteTermico">
-              <MappingFragment StoreEntitySet="AgenteTermico">
-                <ScalarProperty Name="Fechamodificacion" ColumnName="Fechamodificacion" />
-                <ScalarProperty Name="Usuariomodificacion" ColumnName="Usuariomodificacion" />
-                <ScalarProperty Name="Fechacreacion" ColumnName="Fechacreacion" />
-                <ScalarProperty Name="Usuariocreacion" ColumnName="Usuariocreacion" />
-                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
-                <ScalarProperty Name="AgenteTermicoId" ColumnName="AgenteTermicoId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Antecedentes">
-            <EntityTypeMapping TypeName="DBFisioterapiaModel.Antecedentes">
-              <MappingFragment StoreEntitySet="Antecedentes">
-                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
-                <ScalarProperty Name="AntecedentesId" ColumnName="AntecedentesId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Departamento">
             <EntityTypeMapping TypeName="DBFisioterapiaModel.Departamento">
               <MappingFragment StoreEntitySet="Departamento">
@@ -439,36 +817,6 @@
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />
                 <ScalarProperty Name="DepartamentoId" ColumnName="DepartamentoId" />
                 <ScalarProperty Name="DistritoId" ColumnName="DistritoId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Estadocivil">
-            <EntityTypeMapping TypeName="DBFisioterapiaModel.Estadocivil">
-              <MappingFragment StoreEntitySet="Estadocivil">
-                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
-                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
-                <ScalarProperty Name="EstadocivilId" ColumnName="EstadocivilId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Frecuencia">
-            <EntityTypeMapping TypeName="DBFisioterapiaModel.Frecuencia">
-              <MappingFragment StoreEntitySet="Frecuencia">
-                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
-                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
-                <ScalarProperty Name="FrecuenciaId" ColumnName="FrecuenciaId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ManiobraTerapeutica">
-            <EntityTypeMapping TypeName="DBFisioterapiaModel.ManiobraTerapeutica">
-              <MappingFragment StoreEntitySet="ManiobraTerapeutica">
-                <ScalarProperty Name="Fechamodificacion" ColumnName="Fechamodificacion" />
-                <ScalarProperty Name="Usuariomodificacion" ColumnName="Usuariomodificacion" />
-                <ScalarProperty Name="Fechacreacion" ColumnName="Fechacreacion" />
-                <ScalarProperty Name="Usuariocreacion" ColumnName="Usuariocreacion" />
-                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
-                <ScalarProperty Name="ManiobraTerapeuticaId" ColumnName="ManiobraTerapeuticaId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -509,6 +857,103 @@
                 <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
                 <ScalarProperty Name="Codigo" ColumnName="Codigo" />
                 <ScalarProperty Name="TipodocumentoId" ColumnName="TipodocumentoId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AgenteElectrofisico">
+            <EntityTypeMapping TypeName="DBFisioterapiaModel.AgenteElectrofisico">
+              <MappingFragment StoreEntitySet="AgenteElectrofisico">
+                <ScalarProperty Name="Fechamodificacion" ColumnName="Fechamodificacion" />
+                <ScalarProperty Name="Usuariomodificacion" ColumnName="Usuariomodificacion" />
+                <ScalarProperty Name="Fechacreacion" ColumnName="Fechacreacion" />
+                <ScalarProperty Name="Usuariocreacion" ColumnName="Usuariocreacion" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Condicion" ColumnName="Condicion" />
+                <ScalarProperty Name="SubTramiteId" ColumnName="SubTramiteId" />
+                <ScalarProperty Name="HistoricoId" ColumnName="HistoricoId" />
+                <ScalarProperty Name="AgenteElectrofisicoId" ColumnName="AgenteElectrofisicoId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Frecuencia">
+            <EntityTypeMapping TypeName="DBFisioterapiaModel.Frecuencia">
+              <MappingFragment StoreEntitySet="Frecuencia">
+                <ScalarProperty Name="Fechamodificacion" ColumnName="Fechamodificacion" />
+                <ScalarProperty Name="Usuariomodificacion" ColumnName="Usuariomodificacion" />
+                <ScalarProperty Name="Fechacreacion" ColumnName="Fechacreacion" />
+                <ScalarProperty Name="Usuariocreacion" ColumnName="Usuariocreacion" />
+                <ScalarProperty Name="Condicion" ColumnName="Condicion" />
+                <ScalarProperty Name="SubTramiteId" ColumnName="SubTramiteId" />
+                <ScalarProperty Name="HistoricoId" ColumnName="HistoricoId" />
+                <ScalarProperty Name="FrecuenciaId" ColumnName="FrecuenciaId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Historico">
+            <EntityTypeMapping TypeName="DBFisioterapiaModel.Historico">
+              <MappingFragment StoreEntitySet="Historico">
+                <ScalarProperty Name="Fechamodificacion" ColumnName="Fechamodificacion" />
+                <ScalarProperty Name="Usuariomodificacion" ColumnName="Usuariomodificacion" />
+                <ScalarProperty Name="Fechacreacion" ColumnName="Fechacreacion" />
+                <ScalarProperty Name="Usuariocreacion" ColumnName="Usuariocreacion" />
+                <ScalarProperty Name="Otros" ColumnName="Otros" />
+                <ScalarProperty Name="Observaciones" ColumnName="Observaciones" />
+                <ScalarProperty Name="Diagnostico" ColumnName="Diagnostico" />
+                <ScalarProperty Name="PersonaId" ColumnName="PersonaId" />
+                <ScalarProperty Name="HistoricoId" ColumnName="HistoricoId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ManiobrasTerapeuticas">
+            <EntityTypeMapping TypeName="DBFisioterapiaModel.ManiobrasTerapeuticas">
+              <MappingFragment StoreEntitySet="ManiobrasTerapeuticas">
+                <ScalarProperty Name="Fechamodificacion" ColumnName="Fechamodificacion" />
+                <ScalarProperty Name="Usuariomodificacion" ColumnName="Usuariomodificacion" />
+                <ScalarProperty Name="Fechacreacion" ColumnName="Fechacreacion" />
+                <ScalarProperty Name="Usuariocreacion" ColumnName="Usuariocreacion" />
+                <ScalarProperty Name="Condicion" ColumnName="Condicion" />
+                <ScalarProperty Name="SubTramiteId" ColumnName="SubTramiteId" />
+                <ScalarProperty Name="HistoricoId" ColumnName="HistoricoId" />
+                <ScalarProperty Name="ManiobrasTerapeuticasId" ColumnName="ManiobrasTerapeuticasId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SubTramite">
+            <EntityTypeMapping TypeName="DBFisioterapiaModel.SubTramite">
+              <MappingFragment StoreEntitySet="SubTramite">
+                <ScalarProperty Name="Fechamodificacion" ColumnName="Fechamodificacion" />
+                <ScalarProperty Name="Usuariomodificacion" ColumnName="Usuariomodificacion" />
+                <ScalarProperty Name="Fechacreacion" ColumnName="Fechacreacion" />
+                <ScalarProperty Name="Usuariocreacion" ColumnName="Usuariocreacion" />
+                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="SubTramiteId" ColumnName="SubTramiteId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tramite">
+            <EntityTypeMapping TypeName="DBFisioterapiaModel.Tramite">
+              <MappingFragment StoreEntitySet="Tramite">
+                <ScalarProperty Name="Fechamodificacion" ColumnName="Fechamodificacion" />
+                <ScalarProperty Name="Usuariomodificacion" ColumnName="Usuariomodificacion" />
+                <ScalarProperty Name="Fechacreacion" ColumnName="Fechacreacion" />
+                <ScalarProperty Name="Usuariocreacion" ColumnName="Usuariocreacion" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AgenteTermico">
+            <EntityTypeMapping TypeName="DBFisioterapiaModel.AgenteTermico">
+              <MappingFragment StoreEntitySet="AgenteTermico">
+                <ScalarProperty Name="Fechamodificacion" ColumnName="Fechamodificacion" />
+                <ScalarProperty Name="Usuariomodificacion" ColumnName="Usuariomodificacion" />
+                <ScalarProperty Name="Fechacreacion" ColumnName="Fechacreacion" />
+                <ScalarProperty Name="Usuariocreacion" ColumnName="Usuariocreacion" />
+                <ScalarProperty Name="Condicion" ColumnName="Condicion" />
+                <ScalarProperty Name="SubTramiteId" ColumnName="SubTramiteId" />
+                <ScalarProperty Name="HistoricoId" ColumnName="HistoricoId" />
+                <ScalarProperty Name="AgenteTermicoId" ColumnName="AgenteTermicoId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
