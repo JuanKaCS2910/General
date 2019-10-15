@@ -32,6 +32,13 @@ namespace General.Controllers.Main.Controllers
 
         }
 
+        [HttpPost]
+        public JsonResult SaveHistorico(EHistorico registro)
+        {
+            var result = oHistorico.CreateHistory(registro);
+            return Json(new { Resultado = result }, JsonRequestBehavior.AllowGet);
+        }
+
         // GET: Historial
         public ActionResult Index(Grilla paginacion)
         {

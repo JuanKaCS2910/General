@@ -111,7 +111,7 @@
                                     </div>
                                 </div>
                             </div>
-
+                            <input id="PersonaId" name="PersonaId" type="hidden" value="">
                             <div class="row">
                                 <div class="col-xs-12 col-md-3">
                                     @Html.LabelFor(model => Model.Historicos.Diagnostico, htmlAttributes: new { @class = "control-label input-style" })
@@ -159,21 +159,22 @@
                             <div class="row">
                                 <div class="col-xs-12 col-md-3">
                                     <div class="form-group">
-                                        @Html.CheckBoxFor(model => Model.Historicos.checkCaliente, new { disabled = "disabled" })
+                                        @Html.CheckBoxFor(model => Model.Historicos.checkCaliente, new { disabled = "disabled", @checked = false })
                                         @*<input type="checkbox" class="form-check-input" id="checkCaliente">*@
                                         <label class="form-check-label" for="Historicos_checkCaliente">Compresa Caliente</label>
                                     </div>
                                 </div>
                                 <div class="col-xs-12 col-md-3">
                                     <div class="form-group">
-                                        @Html.CheckBoxFor(model => Model.Historicos.checkFria, new { disabled = "disabled" })
+                                        @Html.CheckBoxFor(model => Model.Historicos.checkFria, new { disabled = "disabled", @checked = false })
                                         @*<input type="checkbox" class="form-check-input" id="checkFria">*@
                                         <label class="form-check-label" for="Historicos_checkFria">Compresa Fría</label>
                                     </div>
                                 </div>
                                 <div class="col-xs-12 col-md-3">
                                     <div class="form-group">
-                                        @Html.CheckBoxFor(model => Model.Historicos.checkContraste, new { disabled = "disabled" })
+                                        @*<input id="Historicos_checkContraste" name="Historicos_checkContraste" type="checkbox"/>*@
+                                        @Html.CheckBoxFor(model => Model.Historicos.checkContraste, new { disabled = "disabled", @checked = "checked" })
                                         @*<input type="checkbox" class="form-check-input" id="checkContraste">*@
                                         <label class="form-check-label" for="Historicos_checkContraste">Contraste</label>
                                     </div>
@@ -360,208 +361,208 @@
                             </div>
 
                             @*<div class="row">
-                <div class="ibox-title">
-                    <h5>Tratamientos</h5>
-                </div>
-                <div class="col-xs-12 col-md-3">
-                    <div class="form-group">
-                        <h4 style="color:red">Agente Térmico</h4>
-                    </div>
-                </div>
-                <div class="col-xs-12 col-md-9">
+                        <div class="ibox-title">
+                            <h5>Tratamientos</h5>
+                        </div>
+                        <div class="col-xs-12 col-md-3">
+                            <div class="form-group">
+                                <h4 style="color:red">Agente Térmico</h4>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-9">
 
-                </div>
-            </div>
+                        </div>
+                    </div>
 
-            <div class="row">
-                <div class="col-xs-12 col-md-3">
-                    <div class="form-group">
-                        <input type="checkbox" class="form-check-input" id="checkCaliente">
-                        <label class="form-check-label" for="checkCaliente">Compresa Caliente</label>
-                    </div>
-                </div>
-                <div class="col-xs-12 col-md-3">
-                    <div class="form-group">
-                        <input type="checkbox" class="form-check-input" id="checkFria">
-                        <label class="form-check-label" for="checkFria">Compresa Fría</label>
-                    </div>
-                </div>
-                <div class="col-xs-12 col-md-3">
-                    <div class="form-group">
-                        <input type="checkbox" class="form-check-input" id="checkContraste">
-                        <label class="form-check-label" for="checkContraste">Contraste</label>
-                    </div>
-                </div>
-                <div class="col-xs-12 col-md-3">
+                    <div class="row">
+                        <div class="col-xs-12 col-md-3">
+                            <div class="form-group">
+                                <input type="checkbox" class="form-check-input" id="checkCaliente">
+                                <label class="form-check-label" for="checkCaliente">Compresa Caliente</label>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-3">
+                            <div class="form-group">
+                                <input type="checkbox" class="form-check-input" id="checkFria">
+                                <label class="form-check-label" for="checkFria">Compresa Fría</label>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-3">
+                            <div class="form-group">
+                                <input type="checkbox" class="form-check-input" id="checkContraste">
+                                <label class="form-check-label" for="checkContraste">Contraste</label>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-3">
 
-                </div>
-            </div>
+                        </div>
+                    </div>
 
-            <hr />
+                    <hr />
 
-            <div class="row">
-                <div class="col-xs-12 col-md-3">
-                    <div class="form-group">
-                        <h4 style="color:red">Agente Electrofísico</h4>
-                    </div>
-                </div>
-                <div class="col-xs-12 col-md-9">
+                    <div class="row">
+                        <div class="col-xs-12 col-md-3">
+                            <div class="form-group">
+                                <h4 style="color:red">Agente Electrofísico</h4>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-9">
 
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-12 col-md-3">
-                    <div class="form-group">
-                        <label class="form-check-label" for="exampleCheck1">Electroanalgesico</label>
+                        </div>
                     </div>
-                </div>
-                <div class="col-xs-12 col-md-3">
-                    <div class="form-group">
-                        <input class="form-control text-box single-line" id="Historicos_Paquetes" name="Historicos.Paquetes" type="text" value="">
+                    <div class="row">
+                        <div class="col-xs-12 col-md-3">
+                            <div class="form-group">
+                                <label class="form-check-label" for="exampleCheck1">Electroanalgesico</label>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-3">
+                            <div class="form-group">
+                                <input class="form-control text-box single-line" id="Historicos_Paquetes" name="Historicos.Paquetes" type="text" value="">
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-3">
+                            <div class="form-group">
+                                <input type="checkbox" class="form-check-input" id="checkElectroestimulacion">
+                                <label class="form-check-label" for="checkElectroestimulacion">Electroestimulacion</label>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-3">
+                            <div class="form-group">
+                                <input class="form-control text-box single-line" id="Historicos_Paquetes" name="Historicos.Paquetes" type="text" value="">
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="col-xs-12 col-md-3">
-                    <div class="form-group">
-                        <input type="checkbox" class="form-check-input" id="checkElectroestimulacion">
-                        <label class="form-check-label" for="checkElectroestimulacion">Electroestimulacion</label>
-                    </div>
-                </div>
-                <div class="col-xs-12 col-md-3">
-                    <div class="form-group">
-                        <input class="form-control text-box single-line" id="Historicos_Paquetes" name="Historicos.Paquetes" type="text" value="">
-                    </div>
-                </div>
-            </div>
 
-            <div class="row">
-                <div class="col-xs-12 col-md-3">
-                    <div class="form-group">
-                        <input type="checkbox" class="form-check-input" id="checkMagnetoterapia">
-                        <label class="form-check-label" for="checkMagnetoterapia">Magnetoterapia</label>
+                    <div class="row">
+                        <div class="col-xs-12 col-md-3">
+                            <div class="form-group">
+                                <input type="checkbox" class="form-check-input" id="checkMagnetoterapia">
+                                <label class="form-check-label" for="checkMagnetoterapia">Magnetoterapia</label>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-3">
+                            <div class="form-group">
+                                <input class="form-control text-box single-line" id="Historicos_Paquetes" name="Historicos.Paquetes" type="text" value="">
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-3">
+                            <div class="form-group">
+                                <input type="checkbox" class="form-check-input" id="checkUltrasonido">
+                                <label class="form-check-label" for="checkUltrasonido">Ultrasonido</label>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-3">
+                            <div class="form-group">
+                                <input class="form-control text-box single-line" id="Historicos_Paquetes" name="Historicos.Paquetes" type="text" value="">
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="col-xs-12 col-md-3">
-                    <div class="form-group">
-                        <input class="form-control text-box single-line" id="Historicos_Paquetes" name="Historicos.Paquetes" type="text" value="">
-                    </div>
-                </div>
-                <div class="col-xs-12 col-md-3">
-                    <div class="form-group">
-                        <input type="checkbox" class="form-check-input" id="checkUltrasonido">
-                        <label class="form-check-label" for="checkUltrasonido">Ultrasonido</label>
-                    </div>
-                </div>
-                <div class="col-xs-12 col-md-3">
-                    <div class="form-group">
-                        <input class="form-control text-box single-line" id="Historicos_Paquetes" name="Historicos.Paquetes" type="text" value="">
-                    </div>
-                </div>
-            </div>
 
-            <div class="row">
-                <div class="col-xs-12 col-md-3">
-                    <div class="form-group">
-                        <input type="checkbox" class="form-check-input" id="checkTCombinada">
-                        <label class="form-check-label" for="checkTCombinada">T. Combinada</label>
-                    </div>
-                </div>
+                    <div class="row">
+                        <div class="col-xs-12 col-md-3">
+                            <div class="form-group">
+                                <input type="checkbox" class="form-check-input" id="checkTCombinada">
+                                <label class="form-check-label" for="checkTCombinada">T. Combinada</label>
+                            </div>
+                        </div>
 
-                <div class="col-xs-12 col-md-3">
-                    <div class="form-group">
-                        <input class="form-control text-box single-line" id="Historicos_Paquetes" name="Historicos.Paquetes" type="text" value="">
+                        <div class="col-xs-12 col-md-3">
+                            <div class="form-group">
+                                <input class="form-control text-box single-line" id="Historicos_Paquetes" name="Historicos.Paquetes" type="text" value="">
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-3">
+                            <div class="form-group">
+                                <input type="checkbox" class="form-check-input" id="checkLaserterapia">
+                                <label class="form-check-label" for="checkLaserterapia">Laserterapia</label>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-3">
+                            <div class="form-group">
+                                <input class="form-control text-box single-line" id="Historicos_Paquetes" name="Historicos.Paquetes" type="text" value="">
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="col-xs-12 col-md-3">
-                    <div class="form-group">
-                        <input type="checkbox" class="form-check-input" id="checkLaserterapia">
-                        <label class="form-check-label" for="checkLaserterapia">Laserterapia</label>
-                    </div>
-                </div>
-                <div class="col-xs-12 col-md-3">
-                    <div class="form-group">
-                        <input class="form-control text-box single-line" id="Historicos_Paquetes" name="Historicos.Paquetes" type="text" value="">
-                    </div>
-                </div>
-            </div>
 
-            <hr />
+                    <hr />
 
-            <div class="row">
-                <div class="col-xs-12 col-md-3">
-                    <h4 style="color:red">Maniobras Terapéuticas</h4>
-                </div>
-                <div class="col-xs-12 col-md-9">
-                </div>
-            </div>
+                    <div class="row">
+                        <div class="col-xs-12 col-md-3">
+                            <h4 style="color:red">Maniobras Terapéuticas</h4>
+                        </div>
+                        <div class="col-xs-12 col-md-9">
+                        </div>
+                    </div>
 
-            <div class="row">
-                <div class="col-xs-12 col-md-3">
-                    <div class="form-group">
-                        <input type="checkbox" class="form-check-input" id="checkRelajante">
-                        <label class="form-check-label" for="checkRelajante">Masaje Relajante</label>
+                    <div class="row">
+                        <div class="col-xs-12 col-md-3">
+                            <div class="form-group">
+                                <input type="checkbox" class="form-check-input" id="checkRelajante">
+                                <label class="form-check-label" for="checkRelajante">Masaje Relajante</label>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-3">
+                            <div class="form-group">
+                                <input type="checkbox" class="form-check-input" id="checkDescontracturante">
+                                <label class="form-check-label" for="checkDescontracturante">Masaje Descontracturante</label>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-3">
+                            <div class="form-group">
+                                <input type="checkbox" class="form-check-input" id="checkEstiramiento">
+                                <label class="form-check-label" for="checkEstiramiento">Estiramiento</label>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-3">
+                            <div class="form-group">
+                                <input type="checkbox" class="form-check-input" id="checkFortalecimiento">
+                                <label class="form-check-label" for="checkFortalecimiento">Fortalecimiento</label>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="col-xs-12 col-md-3">
-                    <div class="form-group">
-                        <input type="checkbox" class="form-check-input" id="checkDescontracturante">
-                        <label class="form-check-label" for="checkDescontracturante">Masaje Descontracturante</label>
-                    </div>
-                </div>
-                <div class="col-xs-12 col-md-3">
-                    <div class="form-group">
-                        <input type="checkbox" class="form-check-input" id="checkEstiramiento">
-                        <label class="form-check-label" for="checkEstiramiento">Estiramiento</label>
-                    </div>
-                </div>
-                <div class="col-xs-12 col-md-3">
-                    <div class="form-group">
-                        <input type="checkbox" class="form-check-input" id="checkFortalecimiento">
-                        <label class="form-check-label" for="checkFortalecimiento">Fortalecimiento</label>
-                    </div>
-                </div>
-            </div>
 
-            <div class="row">
-                <div class="col-xs-12 col-md-3">
-                    <div class="form-group">
-                        <input type="checkbox" class="form-check-input" id="checkRPG">
-                        <label class="form-check-label" for="checkRPG">RPG</label>
-                    </div>
-                </div>
-                <div class="col-xs-12 col-md-3">
-                    <div class="form-group">
-                        <input type="checkbox" class="form-check-input" id="checkActivacion">
-                        <label class="form-check-label" for="checkActivacion">Activacion Mimica F.</label>
-                    </div>
-                </div>
-                <div class="col-xs-12 col-md-3">
-                    <div class="form-group">
-                        <input type="checkbox" class="form-check-input" id="checkTAPE">
-                        <label class="form-check-label" for="checkTAPE">TAPE</label>
-                    </div>
-                </div>
-                <div class="col-xs-12 col-md-3">
-                    <div class="form-group">
+                    <div class="row">
+                        <div class="col-xs-12 col-md-3">
+                            <div class="form-group">
+                                <input type="checkbox" class="form-check-input" id="checkRPG">
+                                <label class="form-check-label" for="checkRPG">RPG</label>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-3">
+                            <div class="form-group">
+                                <input type="checkbox" class="form-check-input" id="checkActivacion">
+                                <label class="form-check-label" for="checkActivacion">Activacion Mimica F.</label>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-3">
+                            <div class="form-group">
+                                <input type="checkbox" class="form-check-input" id="checkTAPE">
+                                <label class="form-check-label" for="checkTAPE">TAPE</label>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-3">
+                            <div class="form-group">
 
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
 
-            <hr />
-            <div class="row">
-                <div class="col-xs-12 col-md-3">
-                    <h4 style="color:red">Frecuencia</h4>
-                </div>
-            </div>
-            <hr />
-            <div class="row">
-                <div class="col-xs-12 col-md-3">
-                    @Html.LabelFor(model => Model.Historicos.Observaciones, htmlAttributes: new { @class = "control-label input-style" })
-                </div>
-                <div class="col-xs-12 col-md-9">
-                    @Html.EditorFor(model => Model.Historicos.Observaciones, new { htmlAttributes = new { @class = "form-control" } })
-                </div>
-            </div>*@
+                    <hr />
+                    <div class="row">
+                        <div class="col-xs-12 col-md-3">
+                            <h4 style="color:red">Frecuencia</h4>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="row">
+                        <div class="col-xs-12 col-md-3">
+                            @Html.LabelFor(model => Model.Historicos.Observaciones, htmlAttributes: new { @class = "control-label input-style" })
+                        </div>
+                        <div class="col-xs-12 col-md-9">
+                            @Html.EditorFor(model => Model.Historicos.Observaciones, new { htmlAttributes = new { @class = "form-control" } })
+                        </div>
+                    </div>*@
 
                         </div>
 
@@ -594,7 +595,7 @@
                                                     </div>
 
                                                     <h1>No existe Persona</h1>
-                                                    
+
                                                 </div>
                                             </div>
 
@@ -606,6 +607,64 @@
 
                     </div>
                 </div>
+
+                @*< !--Model Popup starts Correct-- >*@
+                <div class="container">
+                    <div class="row">
+                        <div class="modal fade" id="success" role="dialog">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header succes-modal">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="" id="btncancelar"><span>×</span></button>
+                                    </div>
+
+                                    <div class="modal-body">
+
+                                        <div class="thank-you-pop">
+                                            <div class="row">
+                                                <img style="align-content:center" src="~/Content/Iconos/success.png" alt="">
+                                            </div>
+                                            <h1>
+                                                <span id="SuccessResult"></span>
+                                            </h1>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--Model Popup ends-->
+                <!--Model Popup starts Incorrecto-->
+                <div class="container">
+                    <div class="row">
+                        <div class="modal fade" id="error" role="dialog">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header fail-modal">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label=""><span>×</span></button>
+                                    </div>
+
+                                    <div class="modal-body">
+                                        <div class="thank-you-pop">
+                                            <div class="row">
+                                                <img src="~/Content/Iconos/error.png" alt="">
+                                            </div>
+
+                                            <h1>Ocurrió un error al momento de registrar</h1>
+                                            <h3 class="cupon-pop">
+                                                Error : <span id="ErrorResult"></span>
+                                            </h3>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--Model Popup ends-->
 
             </div>
 

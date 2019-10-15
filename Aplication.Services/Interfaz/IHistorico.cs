@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Domain.Entities.Mantenimiento;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,6 @@ namespace Aplication.Services.Interfaz
 {
     public interface IHistorico 
     {
-
+        string CreateHistory(EHistorico registro);
     }
 }
