@@ -81,6 +81,120 @@ CREATE TABLE Persona
 	)
 )
 GO
+--
+CREATE TABLE Tramite
+(
+	--TramiteId int IDENTITY(1,1) NOT NULL,
+	Codigo char(2) NOT NULL,
+	Descripcion nvarchar(250) NOT NULL,
+	Usuariocreacion nvarchar(20) NOT NULL,
+	Fechacreacion datetime NOT NULL,
+	Usuariomodificacion nvarchar(20),
+	Fechamodificacion datetime,
+	CONSTRAINT [PK_dbo.Tramite] PRIMARY KEY CLUSTERED 
+	(
+		Codigo ASC
+	)
+)
+GO
+CREATE TABLE SubTramite
+(
+	SubTramiteId int IDENTITY(1,1) NOT NULL,
+	Descripcion nvarchar(250) NOT NULL,
+	Codigo char(2) NOT NULL,
+	Usuariocreacion nvarchar(20) NOT NULL,
+	Fechacreacion datetime NOT NULL,
+	Usuariomodificacion nvarchar(20),
+	Fechamodificacion datetime,
+	CONSTRAINT [PK_dbo.SubTramite] PRIMARY KEY CLUSTERED 
+	(
+		SubTramiteId ASC
+	)
+)
+GO
+CREATE TABLE Historico
+(
+	HistoricoId int IDENTITY(1,1) NOT NULL,
+	PersonaId int NOT NULL,
+	Diagnostico nvarchar(250),
+	Observaciones nvarchar(250),
+	Otros nvarchar(250),
+	Usuariocreacion nvarchar(20) NOT NULL,
+	Fechacreacion datetime NOT NULL,
+	Usuariomodificacion nvarchar(20),
+	Fechamodificacion datetime,
+	CONSTRAINT [PK_dbo.Historico] PRIMARY KEY CLUSTERED 
+	(
+		HistoricoId ASC
+	)
+)
+GO
+CREATE TABLE AgenteTermico
+(
+	AgenteTermicoId int IDENTITY(1,1) NOT NULL,
+	HistoricoId int NOT NULL,
+	SubTramiteId int NOT NULL,
+	Condicion bit,
+	Usuariocreacion nvarchar(20) NOT NULL,
+	Fechacreacion datetime NOT NULL,
+	Usuariomodificacion nvarchar(20),
+	Fechamodificacion datetime,
+	CONSTRAINT [PK_dbo.AgenteTermico] PRIMARY KEY CLUSTERED 
+	(
+		AgenteTermicoId ASC
+	)
+)
+GO
+CREATE TABLE AgenteElectrofisico
+(
+	AgenteElectrofisicoId int IDENTITY(1,1) NOT NULL,
+	HistoricoId int NOT NULL,
+	SubTramiteId int NOT NULL,
+	Condicion bit,
+	Descripcion nvarchar(250),
+	Usuariocreacion nvarchar(20) NOT NULL,
+	Fechacreacion datetime NOT NULL,
+	Usuariomodificacion nvarchar(20),
+	Fechamodificacion datetime,
+	CONSTRAINT [PK_dbo.AgenteElectrofisico] PRIMARY KEY CLUSTERED 
+	(
+		AgenteElectrofisicoId ASC
+	)
+)
+GO
+CREATE TABLE ManiobrasTerapeuticas
+(
+	ManiobrasTerapeuticasId int IDENTITY(1,1) NOT NULL,
+	HistoricoId int NOT NULL,
+	SubTramiteId int NOT NULL,
+	Condicion bit,
+	Usuariocreacion nvarchar(20) NOT NULL,
+	Fechacreacion datetime NOT NULL,
+	Usuariomodificacion nvarchar(20),
+	Fechamodificacion datetime,
+	CONSTRAINT [PK_dbo.ManiobrasTerapeuticas] PRIMARY KEY CLUSTERED 
+	(
+		ManiobrasTerapeuticasId ASC
+	)
+)
+GO
+CREATE TABLE Frecuencia
+(
+	FrecuenciaId int IDENTITY(1,1) NOT NULL,
+	HistoricoId int NOT NULL,
+	SubTramiteId int NOT NULL,
+	Condicion bit,
+	Usuariocreacion nvarchar(20) NOT NULL,
+	Fechacreacion datetime NOT NULL,
+	Usuariomodificacion nvarchar(20),
+	Fechamodificacion datetime,
+	CONSTRAINT [PK_dbo.Frecuencia] PRIMARY KEY CLUSTERED 
+	(
+		FrecuenciaId ASC
+	)
+)
+GO
+/*
 CREATE TABLE AgenteTermico
 (
 	AgenteTermicoId int IDENTITY(1,1) NOT NULL,
@@ -134,6 +248,7 @@ CREATE TABLE Frecuencia
 	)
 )
 GO
+
 CREATE TABLE Antecedentes
 (
 	AntecedentesId int IDENTITY(1,1) NOT NULL,
@@ -143,7 +258,7 @@ CREATE TABLE Antecedentes
 		AntecedentesId ASC
 	)
 )
-GO
+GO*/
 --UNIQUE
 CREATE UNIQUE NONCLUSTERED INDEX [Departamento_Nombre_Index] ON Departamento
 (
@@ -190,6 +305,7 @@ CREATE UNIQUE NONCLUSTERED INDEX [Persona_Nrodocumento_Index] ON Persona
 	Nrodocumento ASC
 )
 GO
+/*
 CREATE UNIQUE NONCLUSTERED INDEX [AgenteTermico_Nombre_Index] ON AgenteTermico
 (
 	Nombre ASC
@@ -214,8 +330,19 @@ CREATE UNIQUE NONCLUSTERED INDEX [Frecuencia_Descripcion_Index] ON Frecuencia
 (
 	Descripcion ASC
 )
+
 GO
 CREATE UNIQUE NONCLUSTERED INDEX [Antecedentes_Descripcion_Index] ON Antecedentes
+(
+	Descripcion ASC
+)*/
+GO
+CREATE UNIQUE NONCLUSTERED INDEX [Tramite_Descripcion_Index] ON Tramite
+(
+	Descripcion ASC
+)
+GO
+CREATE UNIQUE NONCLUSTERED INDEX [SubTramite_Descripcion_Index] ON SubTramite
 (
 	Descripcion ASC
 )
@@ -247,7 +374,62 @@ ADD  CONSTRAINT [FK_dbo.Persona_dbo.Tipodocumento_TipodocumentoId]
 FOREIGN KEY(TipodocumentoId)
 REFERENCES Tipodocumento (TipodocumentoId)
 GO
-
+--SubTramite
+ALTER TABLE SubTramite  WITH CHECK 
+ADD  CONSTRAINT [FK_dbo.SubTramite_dbo.Tramite_Codigo] 
+FOREIGN KEY(Codigo)
+REFERENCES Tramite (Codigo)
+GO
+--Historico
+ALTER TABLE Historico  WITH CHECK 
+ADD  CONSTRAINT [FK_dbo.Historico_dbo.Persona_PersonaId] 
+FOREIGN KEY(PersonaId)
+REFERENCES Persona (PersonaId)
+GO
+--AgenteTermico
+ALTER TABLE AgenteTermico  WITH CHECK 
+ADD  CONSTRAINT [FK_dbo.AgenteTermico_dbo.Historico_HistoricoId] 
+FOREIGN KEY(HistoricoId)
+REFERENCES Historico (HistoricoId)
+GO
+ALTER TABLE AgenteTermico  WITH CHECK 
+ADD  CONSTRAINT [FK_dbo.AgenteTermico_dbo.SubTramite_SubTramiteId] 
+FOREIGN KEY(SubTramiteId)
+REFERENCES SubTramite (SubTramiteId)
+GO
+--AgenteElectrofisico
+ALTER TABLE AgenteElectrofisico  WITH CHECK 
+ADD  CONSTRAINT [FK_dbo.AgenteElectrofisico_dbo.Historico_HistoricoId] 
+FOREIGN KEY(HistoricoId)
+REFERENCES Historico (HistoricoId)
+GO
+ALTER TABLE AgenteElectrofisico  WITH CHECK 
+ADD  CONSTRAINT [FK_dbo.AgenteElectrofisico_dbo.SubTramite_SubTramiteId] 
+FOREIGN KEY(SubTramiteId)
+REFERENCES SubTramite (SubTramiteId)
+GO
+--ManiobrasTerapeuticas
+ALTER TABLE ManiobrasTerapeuticas  WITH CHECK 
+ADD  CONSTRAINT [FK_dbo.ManiobrasTerapeuticas_dbo.Historico_HistoricoId] 
+FOREIGN KEY(HistoricoId)
+REFERENCES Historico (HistoricoId)
+GO
+ALTER TABLE ManiobrasTerapeuticas  WITH CHECK 
+ADD  CONSTRAINT [FK_dbo.ManiobrasTerapeuticas_dbo.SubTramite_SubTramiteId] 
+FOREIGN KEY(SubTramiteId)
+REFERENCES SubTramite (SubTramiteId)
+GO
+--Frecuencia
+ALTER TABLE Frecuencia  WITH CHECK 
+ADD  CONSTRAINT [FK_dbo.Frecuencia_dbo.Historico_HistoricoId] 
+FOREIGN KEY(HistoricoId)
+REFERENCES Historico (HistoricoId)
+GO
+ALTER TABLE Frecuencia  WITH CHECK 
+ADD  CONSTRAINT [FK_dbo.Frecuencia_dbo.SubTramite_SubTramiteId] 
+FOREIGN KEY(SubTramiteId)
+REFERENCES SubTramite (SubTramiteId)
+GO
 --INSERT INTO 
 --Departamento
 INSERT Departamento (Nombre) VALUES (N'Lima')
@@ -275,6 +457,42 @@ INSERT Tipodocumento (Codigo,Descripcion) VALUES ('CEX','Carnet de Extranjeria')
 INSERT Tipodocumento (Codigo,Descripcion) VALUES ('DNI','Documento Nacional de Identidad')
 INSERT Tipodocumento (Codigo,Descripcion) VALUES ('PAS','Pasaporte')
 
+--Tramite
+INSERT Tramite (Codigo,Descripcion,Usuariocreacion,Fechacreacion) VALUES ('AT','Agente Térmico','SYSTEM',GETDATE())
+INSERT Tramite (Codigo,Descripcion,Usuariocreacion,Fechacreacion) VALUES ('AE','Agente Electrofísico','SYSTEM',GETDATE())
+INSERT Tramite (Codigo,Descripcion,Usuariocreacion,Fechacreacion) VALUES ('MT','Maniobras Terapéuticas','SYSTEM',GETDATE())
+INSERT Tramite (Codigo,Descripcion,Usuariocreacion,Fechacreacion) VALUES ('FR','Frecuencia','SYSTEM',GETDATE())
+INSERT Tramite (Codigo,Descripcion,Usuariocreacion,Fechacreacion) VALUES ('AN','Antecedente','SYSTEM',GETDATE())
+--SubTramite
+INSERT SubTramite (Codigo,Descripcion,Usuariocreacion,Fechacreacion) VALUES ('AT','Compresa Caliente','SYSTEM',GETDATE())
+INSERT SubTramite (Codigo,Descripcion,Usuariocreacion,Fechacreacion) VALUES ('AT','Compresa Fria','SYSTEM',GETDATE())
+INSERT SubTramite (Codigo,Descripcion,Usuariocreacion,Fechacreacion) VALUES ('AT','Contraste','SYSTEM',GETDATE())
+INSERT SubTramite (Codigo,Descripcion,Usuariocreacion,Fechacreacion) VALUES ('AE','Electroanalgesico','SYSTEM',GETDATE())
+INSERT SubTramite (Codigo,Descripcion,Usuariocreacion,Fechacreacion) VALUES ('AE','Electroestimulacion','SYSTEM',GETDATE())
+INSERT SubTramite (Codigo,Descripcion,Usuariocreacion,Fechacreacion) VALUES ('AE','Magnetoterapia','SYSTEM',GETDATE())
+INSERT SubTramite (Codigo,Descripcion,Usuariocreacion,Fechacreacion) VALUES ('AE','Ultrasonido','SYSTEM',GETDATE())
+INSERT SubTramite (Codigo,Descripcion,Usuariocreacion,Fechacreacion) VALUES ('AE','T. Combinada','SYSTEM',GETDATE())
+INSERT SubTramite (Codigo,Descripcion,Usuariocreacion,Fechacreacion) VALUES ('AE','Laserterapia','SYSTEM',GETDATE())
+INSERT SubTramite (Codigo,Descripcion,Usuariocreacion,Fechacreacion) VALUES ('MT','Masaje Relajante','SYSTEM',GETDATE())
+INSERT SubTramite (Codigo,Descripcion,Usuariocreacion,Fechacreacion) VALUES ('MT','Masaje Descontracturante','SYSTEM',GETDATE())
+INSERT SubTramite (Codigo,Descripcion,Usuariocreacion,Fechacreacion) VALUES ('MT','Estiramiento','SYSTEM',GETDATE())
+INSERT SubTramite (Codigo,Descripcion,Usuariocreacion,Fechacreacion) VALUES ('MT','Fortalecimiento','SYSTEM',GETDATE())
+INSERT SubTramite (Codigo,Descripcion,Usuariocreacion,Fechacreacion) VALUES ('MT','RPG','SYSTEM',GETDATE())
+INSERT SubTramite (Codigo,Descripcion,Usuariocreacion,Fechacreacion) VALUES ('MT','Activacion Mimica F.','SYSTEM',GETDATE())
+INSERT SubTramite (Codigo,Descripcion,Usuariocreacion,Fechacreacion) VALUES ('MT','TAPE','SYSTEM',GETDATE())
+INSERT SubTramite (Codigo,Descripcion,Usuariocreacion,Fechacreacion) VALUES ('FR','DIARIO','SYSTEM',GETDATE())
+INSERT SubTramite (Codigo,Descripcion,Usuariocreacion,Fechacreacion) VALUES ('FR','INTERDIARIO','SYSTEM',GETDATE())
+INSERT SubTramite (Codigo,Descripcion,Usuariocreacion,Fechacreacion) VALUES ('AN','RIESGO DE CAIDAS','SYSTEM',GETDATE())
+INSERT SubTramite (Codigo,Descripcion,Usuariocreacion,Fechacreacion) VALUES ('AN','ESTA EMBARAZADA','SYSTEM',GETDATE())
+INSERT SubTramite (Codigo,Descripcion,Usuariocreacion,Fechacreacion) VALUES ('AN','TIENE DIABETES','SYSTEM',GETDATE())
+INSERT SubTramite (Codigo,Descripcion,Usuariocreacion,Fechacreacion) VALUES ('AN','DIAGNOSTICO DE CÁNCER','SYSTEM',GETDATE())
+INSERT SubTramite (Codigo,Descripcion,Usuariocreacion,Fechacreacion) VALUES ('AN','TIENE ENFERMEDAD CARDIACA','SYSTEM',GETDATE())
+INSERT SubTramite (Codigo,Descripcion,Usuariocreacion,Fechacreacion) VALUES ('AN','RIESGO DE QUEMADURAS','SYSTEM',GETDATE())
+INSERT SubTramite (Codigo,Descripcion,Usuariocreacion,Fechacreacion) VALUES ('AN','PRESENTA VARICES','SYSTEM',GETDATE())
+INSERT SubTramite (Codigo,Descripcion,Usuariocreacion,Fechacreacion) VALUES ('AN','TIENE HTA','SYSTEM',GETDATE())
+INSERT SubTramite (Codigo,Descripcion,Usuariocreacion,Fechacreacion) VALUES ('AN','USA MARCAPASO','SYSTEM',GETDATE())
+INSERT SubTramite (Codigo,Descripcion,Usuariocreacion,Fechacreacion) VALUES ('AN','TIENE ELEMENTOS OSTEOSINTESIS','SYSTEM',GETDATE())
+/*
 --AgenteTermico
 INSERT AgenteTermico (Nombre,Usuariocreacion,Fechacreacion) VALUES ('Compresa Caliente','SYSTEM',GETDATE())
 INSERT AgenteTermico (Nombre,Usuariocreacion,Fechacreacion) VALUES ('Compresa Fria','SYSTEM',GETDATE())
@@ -312,3 +530,4 @@ INSERT Antecedentes (Descripcion) VALUES ('Diagnostico de Cancer')
 INSERT Antecedentes (Descripcion) VALUES ('Usa Marcapaso')
 INSERT Antecedentes (Descripcion) VALUES ('Tiene enfermedad cardiaca')
 INSERT Antecedentes (Descripcion) VALUES ('Tiene elementos Osteosintesis')
+*/

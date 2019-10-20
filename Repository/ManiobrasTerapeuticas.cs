@@ -17,7 +17,7 @@ namespace Repository
         public int ManiobrasTerapeuticasId { get; set; }
         public int HistoricoId { get; set; }
         public int SubTramiteId { get; set; }
-        public string Condicion { get; set; }
+        public Nullable<bool> Condicion { get; set; }
         public string Usuariocreacion { get; set; }
         public System.DateTime Fechacreacion { get; set; }
         public string Usuariomodificacion { get; set; }

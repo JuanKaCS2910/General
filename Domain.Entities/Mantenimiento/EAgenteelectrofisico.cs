@@ -12,7 +12,7 @@ namespace Domain.Entities.Mantenimiento
         public int AgenteElectrofisicoId { get; set; }
         public int HistoricoId { get; set; }
         public int SubTramiteId { get; set; }
-        public string Condicion { get; set; }
+        public bool Condicion { get; set; }
         public string Descripcion { get; set; }
 
         [Display(Name = "Usuario Creación")]

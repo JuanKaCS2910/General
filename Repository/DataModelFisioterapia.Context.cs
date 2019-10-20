@@ -30,12 +30,12 @@ namespace Repository
         public virtual DbSet<Persona> Persona { get; set; }
         public virtual DbSet<Sexo> Sexo { get; set; }
         public virtual DbSet<Tipodocumento> Tipodocumento { get; set; }
-        public virtual DbSet<AgenteElectrofisico> AgenteElectrofisico { get; set; }
-        public virtual DbSet<Frecuencia> Frecuencia { get; set; }
         public virtual DbSet<Historico> Historico { get; set; }
-        public virtual DbSet<ManiobrasTerapeuticas> ManiobrasTerapeuticas { get; set; }
         public virtual DbSet<SubTramite> SubTramite { get; set; }
         public virtual DbSet<Tramite> Tramite { get; set; }
+        public virtual DbSet<AgenteElectrofisico> AgenteElectrofisico { get; set; }
         public virtual DbSet<AgenteTermico> AgenteTermico { get; set; }
+        public virtual DbSet<Frecuencia> Frecuencia { get; set; }
+        public virtual DbSet<ManiobrasTerapeuticas> ManiobrasTerapeuticas { get; set; }
     }
 }

@@ -14,23 +14,23 @@
         <EntityTypeShape EntityType="DBFisioterapiaModel.Tipodocumento" Width="1.5" PointX="0.75" PointY="5.125" />
         <AssociationConnector Association="DBFisioterapiaModel.FK_dbo_Persona_dbo_Sexo_SexoId" />
         <AssociationConnector Association="DBFisioterapiaModel.FK_dbo_Persona_dbo_Tipodocumento_TipodocumentoId" />
-        <EntityTypeShape EntityType="DBFisioterapiaModel.AgenteElectrofisico" Width="1.5" PointX="7.875" PointY="9.125" />
-        <EntityTypeShape EntityType="DBFisioterapiaModel.Frecuencia" Width="1.5" PointX="7.875" PointY="13.125" />
         <EntityTypeShape EntityType="DBFisioterapiaModel.Historico" Width="1.5" PointX="5.625" PointY="7.75" />
-        <EntityTypeShape EntityType="DBFisioterapiaModel.ManiobrasTerapeuticas" Width="1.5" PointX="7.875" PointY="17.125" />
         <EntityTypeShape EntityType="DBFisioterapiaModel.SubTramite" Width="1.5" PointX="5.625" PointY="13" />
         <EntityTypeShape EntityType="DBFisioterapiaModel.Tramite" Width="1.5" PointX="3.375" PointY="13.5" />
+        <AssociationConnector Association="DBFisioterapiaModel.FK_dbo_Historico_dbo_Persona_PersonaId" />
+        <AssociationConnector Association="DBFisioterapiaModel.FK_dbo_SubTramite_dbo_Tramite_Codigo" />
+        <EntityTypeShape EntityType="DBFisioterapiaModel.AgenteElectrofisico" Width="1.5" PointX="10.875" PointY="10.5" />
+        <EntityTypeShape EntityType="DBFisioterapiaModel.AgenteTermico" Width="1.5" PointX="7.875" PointY="10.625" />
+        <EntityTypeShape EntityType="DBFisioterapiaModel.Frecuencia" Width="1.5" PointX="7.875" PointY="6.625" />
+        <EntityTypeShape EntityType="DBFisioterapiaModel.ManiobrasTerapeuticas" Width="1.5" PointX="7.875" PointY="14.625" />
         <AssociationConnector Association="DBFisioterapiaModel.FK_dbo_AgenteElectrofisico_dbo_Historico_HistoricoId" />
         <AssociationConnector Association="DBFisioterapiaModel.FK_dbo_AgenteElectrofisico_dbo_SubTramite_SubTramiteId" />
-        <AssociationConnector Association="DBFisioterapiaModel.FK_dbo_Frecuencia_dbo_Historico_HistoricoId" />
-        <AssociationConnector Association="DBFisioterapiaModel.FK_dbo_Frecuencia_dbo_SubTramite_SubTramiteId" />
-        <AssociationConnector Association="DBFisioterapiaModel.FK_dbo_Historico_dbo_Persona_PersonaId" />
-        <AssociationConnector Association="DBFisioterapiaModel.FK_dbo_ManiobrasTerapeuticas_dbo_Historico_HistoricoId" />
-        <AssociationConnector Association="DBFisioterapiaModel.FK_dbo_ManiobrasTerapeuticas_dbo_SubTramite_SubTramiteId" />
-        <AssociationConnector Association="DBFisioterapiaModel.FK_dbo_SubTramite_dbo_Tramite_Codigo" />
-        <EntityTypeShape EntityType="DBFisioterapiaModel.AgenteTermico" Width="1.5" PointX="10.875" PointY="10.625" />
         <AssociationConnector Association="DBFisioterapiaModel.FK_dbo_AgenteTermico_dbo_Historico_HistoricoId" />
         <AssociationConnector Association="DBFisioterapiaModel.FK_dbo_AgenteTermico_dbo_SubTramite_SubTramiteId" />
+        <AssociationConnector Association="DBFisioterapiaModel.FK_dbo_Frecuencia_dbo_Historico_HistoricoId" />
+        <AssociationConnector Association="DBFisioterapiaModel.FK_dbo_Frecuencia_dbo_SubTramite_SubTramiteId" />
+        <AssociationConnector Association="DBFisioterapiaModel.FK_dbo_ManiobrasTerapeuticas_dbo_Historico_HistoricoId" />
+        <AssociationConnector Association="DBFisioterapiaModel.FK_dbo_ManiobrasTerapeuticas_dbo_SubTramite_SubTramiteId" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

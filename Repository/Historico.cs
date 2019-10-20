@@ -18,9 +18,9 @@ namespace Repository
         public Historico()
         {
             this.AgenteElectrofisico = new HashSet<AgenteElectrofisico>();
+            this.AgenteTermico = new HashSet<AgenteTermico>();
             this.Frecuencia = new HashSet<Frecuencia>();
             this.ManiobrasTerapeuticas = new HashSet<ManiobrasTerapeuticas>();
-            this.AgenteTermico = new HashSet<AgenteTermico>();
         }
     
         public int HistoricoId { get; set; }
@@ -33,14 +33,14 @@ namespace Repository
         public string Usuariomodificacion { get; set; }
         public Nullable<System.DateTime> Fechamodificacion { get; set; }
     
+        public virtual Persona Persona { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AgenteElectrofisico> AgenteElectrofisico { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<AgenteTermico> AgenteTermico { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Frecuencia> Frecuencia { get; set; }
-        public virtual Persona Persona { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ManiobrasTerapeuticas> ManiobrasTerapeuticas { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<AgenteTermico> AgenteTermico { get; set; }
     }
 }
