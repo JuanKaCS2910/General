@@ -51,7 +51,6 @@ namespace General.Controllers.Main.Controllers
 
         #endregion
 
-
         [HttpPost]
         public JsonResult CargarPerson(int? personaId)
         {

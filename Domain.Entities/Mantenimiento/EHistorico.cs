@@ -56,6 +56,8 @@ namespace Domain.Entities.Mantenimiento
         public bool checkRPG { get; set; }
         public bool checkActivacion { get; set; }
         public bool checkTAPE { get; set; }
+
+        public string NombreCompleto { get; set; }
     }
 
     public class Tratamiento

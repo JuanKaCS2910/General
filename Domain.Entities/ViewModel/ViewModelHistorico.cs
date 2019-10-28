@@ -1,4 +1,5 @@
 ﻿using Domain.Entities.Mantenimiento;
+using PagedList;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,7 @@ namespace Domain.Entities.ViewModel
     {
 
         public EHistorico Historicos { get; set; }
+        public IPagedList<EHistorico> HistoricoGrilla { get; set; }
         public EAgentetermico AgenteTermicos { get; set; }
         public EAgenteelectrofisico AgenteElectrofisicos { get; set; }
         

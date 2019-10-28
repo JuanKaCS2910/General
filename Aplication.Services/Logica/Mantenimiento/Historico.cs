@@ -9,6 +9,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using PagedList;
+using Domain.Entities.General;
 
 namespace Aplication.Services.Logica.Mantenimiento
 {
@@ -141,6 +143,7 @@ namespace Aplication.Services.Logica.Mantenimiento
                         oUnitOfWork.AgenteElectrofisicoRepository.Insert(Efisico5);
                         oUnitOfWork.Save();
                         transaction.Complete();
+                        mensaje = "OK";
                     }
                     catch (Exception ex)
                     {
@@ -206,28 +209,6 @@ namespace Aplication.Services.Logica.Mantenimiento
         {
             string mensaje = string.Empty;
             mensaje = Save(registro);
-            /*Repository.Historico hist = AddHistorico(registro);
-            oUnitOfWork.HistoricoRepository.Insert(hist);
-            try
-            {
-                oUnitOfWork.Save();
-                mensaje = "OK";
-            }
-            catch (Exception ex)
-            {
-                if (ex.InnerException != null &&
-                    ex.InnerException.InnerException != null &&
-                    ex.InnerException.InnerException.Message.Contains("Nrodocumento_Index"))
-                {
-                    mensaje = "El Nro. Documento ya se encuentra registrado";
-                }
-                else
-                {
-                    mensaje = ex.Message;
-                }
-            }
-            */
-
             return mensaje;
         }
 
@@ -243,6 +224,30 @@ namespace Aplication.Services.Logica.Mantenimiento
             return nMaxPacienteId;
         }
 
+        public IPagedList<EHistorico> HistoricoGrillaToPageList(Grilla pag)
+        {
+            pag.page = (pag.page ?? 1);
+            var historico = oUnitOfWork.HistoricoRepository.Queryable();
+            var person = oUnitOfWork.PersonaRepository.Queryable();
+
+            var result = (from h in historico
+                          join p in person
+                          on h.PersonaId equals p.PersonaId
+                          select new EHistorico
+                          {
+                              HistoricoId = h.HistoricoId,
+                              NombreCompleto = p.Apellidopaterno + " " + p.Apellidomaterno + " , " + p.Nombre,
+                              Diagnostico = h.Diagnostico,
+                              Observaciones = h.Observaciones,
+                              Otros = h.Otros,
+                              Fechacreacion = h.Fechacreacion
+                          }).OrderBy(d => d.NombreCompleto)
+                         .ThenBy(d => d.Fechacreacion);
+            var _result = result.ToPagedList((int)pag.page, (int)pag.countrow);
+
+            return _result;
+
+        }
 
     }
 }

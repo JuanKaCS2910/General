@@ -187,3 +187,153 @@ function SearchPerson() {
     });
 
 }
+
+function ViewGrid() {
+
+    var paginacion = {
+        countrow: $("#tblHistoricoGrid_length option:selected").text()
+    };
+
+    $.ajax({
+        url: '../Historial/CargarGrilla',
+        type: 'POST',
+        data: JSON.stringify(paginacion),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (data) {
+            if (data != null) {
+                if (data.Resultado.HistoricoGrilla.length > 0) {
+
+                    var mostrar = "Mostrando 1 a " + data.Resultado.HistoricoGrilla.length + " de " + data.Resultado.cantTotal + " registros";
+                    $("#tblHistoricoGrid_info").html(mostrar);
+
+                    var table = $('#tblHistoricoGrid');
+                    table.find("tbody tr").remove();
+                    data.Resultado.HistoricoGrilla.forEach(function (result) {
+
+                        table.append("<tr><td class='col-xs-12 col-md-1'>" +
+                            "<div><table><tr><td class='col-xs-12 col-md-6'> " +
+                            "<a class='fa fa-search' onclick='HistoricoSelect(this)' id ='btnEdit' " +
+                            " style='color: #6A5ACD' data-assigned-id=" + result.historicoId +
+                            " </a></td> " +
+                            "<td class='col-xs-12 col-md-6'> " +
+                            "<a class='fa fa-minus-circle' onclick='DeleteHistorico(this)' id ='btnElimHistorico' " +
+                            " style='color:red' data-assigned-id=" + result.historicoId +
+                            " </a></td></tr></table></div></td>" +
+                            "<td class='col-xs-12 col-md-3'>" + result.NombreCompleto + "</td>" +
+                            "<td class='col-xs-12 col-md-4'>" + result.Diagnostico + "</td>" +
+                            "<td class='col-xs-12 col-md-3'>" + parseJsonRow(result.Otros) + "</td>" +
+                            "<td class='col-xs-12 col-md-1'>" + parseJsonDate(result.Fechacreacion) + "</td></tr>");
+                    });
+                    
+                    var page = $('#hiPaginado');
+                    page.find("div").remove();
+                    var html = "";
+
+                    for (var i = 1; i < data.Resultado.cantPage + 1; i++) {
+                        if (i == 1) {
+                            html = "<div class='pagination-container'><ul class='pagination'><li class='active'><a>" + i + "</a></li>"
+                        }
+                        else {
+                            html = html + "<li class=''><a href='/Historico/Index?page=" + i + "'>" + i + "</a></li>"
+                        }
+                    }
+
+                    html = html + "</ul></div>";
+                    page.append(html);
+
+                    //LimpiarCampos();
+
+                    var tab1 = document.getElementById("tab-1");
+                    var tab2 = document.getElementById("tab-2");
+                    var ltab1 = document.getElementById("litab1");
+                    var ltab2 = document.getElementById("litab2");
+
+                    tab2.classList.remove("active");
+                    tab1.classList.add("active");
+                    ltab2.classList.remove("active");
+                    ltab1.classList.add("active");
+
+                }
+            }
+
+        },
+        error: function (request, status, error) {
+            alert("Inconveniente al cargar Grilla");
+        },
+    });
+}
+
+function HistoricoSelect(id) {
+    var resultado = {
+        historicoId: $(id).data('assigned-id')
+    };
+
+    var tab1 = document.getElementById("tab-1");
+    var tab2 = document.getElementById("tab-2");
+    var ltab1 = document.getElementById("litab1");
+    var ltab2 = document.getElementById("litab2");
+
+    tab1.classList.remove("active");
+    tab2.classList.add("active");
+    ltab1.classList.remove("active");
+    ltab2.classList.add("active");
+
+    $.ajax({
+        url: '../Persona/CargarPerson',
+        type: 'POST',
+        data: JSON.stringify(resultado),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (data) {
+            if (data != null) {
+                if (data.Resultado.length > 0) {
+                    var apMaterno = data.Resultado[0].Apellidomaterno;
+                    var apPaterno = data.Resultado[0].Apellidopaterno;
+                    var direccion = data.Resultado[0].Direccion;
+                    var distritoId = data.Resultado[0].DistritoId;
+                    var fecNacimiento = parseJsonDate(data.Resultado[0].Fecnacimiento);
+                    var nombre = data.Resultado[0].Nombre;
+                    var nroDocumento = data.Resultado[0].Nrodocumento;
+                    var nroTelefono = data.Resultado[0].Nrotelefono;
+                    var ocupacion = data.Resultado[0].Ocupacion;
+                    var personaId = data.Resultado[0].PersonaId;
+                    var sexoId = data.Resultado[0].SexoId;
+                    var tipodocumentoId = data.Resultado[0].TipodocumentoId;
+                    var nombreDistrito = data.Resultado[0].NombreDistrito;
+                    var userCreate = data.Resultado[0].Usuariocreacion;
+                    var userDate = parseJsonDate(data.Resultado[0].Fechacreacion);
+                    var userModify = data.Resultado[0].Usuariomodificacion;
+                    var userDateModify = parseJsonDate(data.Resultado[0].Fechamodificacion);
+
+                    $("#Person_Nombre").val(nombre);
+                    $("#Person_Apellidopaterno").val(apPaterno);
+                    $("#Person_Apellidomaterno").val(apMaterno);
+                    $("#Person_Direccion").val(direccion);
+                    $("#FechaNacimiento").val(fecNacimiento);
+                    $("#hdistritoId").val(distritoId);
+                    $("#Person_Nrotelefono").val(nroTelefono);
+                    $("#Person_Ocupacion").val(ocupacion);
+                    $("#Person_Nrodocumento").val(nroDocumento);
+                    $("#Person_PersonaId").val(personaId);
+
+                    $("#SexoId").val(sexoId);
+                    $("#DocumentypeId").val(tipodocumentoId);
+                    $("#Namedistrito").val(nombreDistrito);
+
+                    $("#Person_Usuariocreacion").val(userCreate);
+                    $("#Person_Fechacreacion").val(userDate);
+                    $("#Person_Usuariomodificacion").val(userModify);
+                    $("#Person_Fechamodificacion").val(userDateModify);
+
+
+                }
+            }
+
+        },
+        error: function (request, status, error) {
+            alert("dd");
+        },
+    });
+
+}
