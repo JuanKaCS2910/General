@@ -10,7 +10,8 @@ namespace Domain.Entities.ViewModel
 {
     public class ViewModelHistorico : ViewModelGrilla
     {
-
+        public IPagedList<EPersona> PersonaGrilla { get; set; }
+        public EPersona FiltroPerson { get; set; }
         public EHistorico Historicos { get; set; }
         public IPagedList<EHistorico> HistoricoGrilla { get; set; }
         public EAgentetermico AgenteTermicos { get; set; }

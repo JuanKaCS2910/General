@@ -188,6 +188,98 @@ function SearchPerson() {
 
 }
 
+function ViewGridJson(page, countrow) {
+    //var Fdocumento = document.getElementById("FiltroPerson_Nrodocumento");
+    //var Ftipodocumento = document.getElementById("FiltroDocumentypeId");
+    //var Fappaterno = document.getElementById("FiltroPerson_Apellidopaterno");
+
+    var paginacion = {
+        page: page,
+        countrow: countrow,
+        TipodocumentoId: Ftipodocumento.value,
+        Nrodocumento: Fdocumento.value,
+        Apellidopaterno: Fappaterno.value,
+    };
+
+    $.ajax({
+        url: '../Historial/CargarGrilla',
+        type: 'POST',
+        data: JSON.stringify(paginacion),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (data) {
+            if (data != null) {
+                if (data.Resultado.HistoricoGrilla.length > 0) {
+
+                    var mostrar = "Mostrando 1 a " + data.Resultado.HistoricoGrilla.length + " de " + data.Resultado.cantTotal + " registros";
+                    $("#tblHistoricoGrid_info").html(mostrar);
+
+                    var table = $('#tblHistoricoGrid');
+                    table.find("tbody tr").remove();
+                    data.Resultado.HistoricoGrilla.forEach(function (result) {
+
+                        table.append("<tr><td class='col-xs-12 col-md-1'>" +
+                            "<div><table><tr><td class='col-xs-12 col-md-6'> " +
+                            "<a class='fa fa-search' onclick='HistoricoSelect(this)' id ='btnEdit' " +
+                            " style='color: #6A5ACD' data-assigned-id=" + result.historicoId +
+                            " </a></td> " +
+                            "<td class='col-xs-12 col-md-6'> " +
+                            "<a class='fa fa-minus-circle' onclick='DeleteHistorico(this)' id ='btnElimHistorico' " +
+                            " style='color:red' data-assigned-id=" + result.historicoId +
+                            " </a></td></tr></table></div></td>" +
+                            "<td class='col-xs-12 col-md-3'>" + result.NombreCompleto + "</td>" +
+                            "<td class='col-xs-12 col-md-4'>" + result.Diagnostico + "</td>" +
+                            "<td class='col-xs-12 col-md-3'>" + parseJsonRow(result.Otros) + "</td>" +
+                            "<td class='col-xs-12 col-md-1'>" + parseJsonDate(result.Fechacreacion) + "</td></tr>");
+                    });
+
+                    var page = $('#hiPaginado');
+                    page.find("div").remove();
+                    var html = "";
+                    html = "<div class='pagination-container'><ul class='pagination'>";
+                    for (var i = 1; i < data.Resultado.cantPage + 1; i++) {
+                        if (i == data.Resultado.pageView) {
+                            html = html + "<li class='active'><a>" + i + "</a></li>"
+                        }
+                        else {
+                            //html = html + "<li class=''><a href='/Historico/Index?page=" + i + "'>" + i + "</a></li>"
+                            html = html + "<li class=''><a href='javaScript:ViewGridJson(" + i + "," + $("#tblPersonGrid_length").val() + ")'>" + i + "</a></li>"
+                        }
+                    }
+
+                    html = html + "</ul></div>";
+                    page.append(html);
+
+                    //LimpiarCampos();
+
+                    var tab1 = document.getElementById("tab-1");
+                    var tab2 = document.getElementById("tab-2");
+                    var ltab1 = document.getElementById("litab1");
+                    var ltab2 = document.getElementById("litab2");
+
+                    tab2.classList.remove("active");
+                    tab1.classList.add("active");
+                    ltab2.classList.remove("active");
+                    ltab1.classList.add("active");
+
+                }
+                else {
+                    var table = $('#tblHistoricoGrid');
+                    table.find("tbody tr").remove();
+                    $("#tblHistoricoGrid_info").html("");
+                    var page = $('#hiPaginado');
+                    page.find("div").remove();
+                }
+            }
+
+        },
+        error: function (request, status, error) {
+            alert("Inconveniente al cargar Grilla");
+        },
+    });
+
+}
+
 function ViewGrid() {
 
     var paginacion = {
@@ -229,13 +321,14 @@ function ViewGrid() {
                     var page = $('#hiPaginado');
                     page.find("div").remove();
                     var html = "";
-
+                    html = "<div class='pagination-container'><ul class='pagination'>";
                     for (var i = 1; i < data.Resultado.cantPage + 1; i++) {
-                        if (i == 1) {
-                            html = "<div class='pagination-container'><ul class='pagination'><li class='active'><a>" + i + "</a></li>"
+                        if (i == data.Resultado.pageView) {
+                            html = html + "<li class='active'><a>" + i + "</a></li>"
                         }
                         else {
-                            html = html + "<li class=''><a href='/Historico/Index?page=" + i + "'>" + i + "</a></li>"
+                            //html = html + "<li class=''><a href='/Historico/Index?page=" + i + "'>" + i + "</a></li>"
+                            html = html + "<li class=''><a href='javaScript:ViewGridJson(" + i + "," + $("#tblPersonGrid_length").val() + ")'>" + i + "</a></li>"
                         }
                     }
 
@@ -254,6 +347,13 @@ function ViewGrid() {
                     ltab2.classList.remove("active");
                     ltab1.classList.add("active");
 
+                }
+                else {
+                    var table = $('#tblHistoricoGrid');
+                    table.find("tbody tr").remove();
+                    $("#tblHistoricoGrid_info").html("");
+                    var page = $('#hiPaginado');
+                    page.find("div").remove();
                 }
             }
 

@@ -90,14 +90,13 @@ namespace General.Controllers.Main.Controllers
             };
 
             result.cantTotal = result.PersonaGrilla.TotalItemCount;
-
             result.cantPage = ((Filtro.countrow > result.cantTotal) == true ? 1 : (result.cantTotal) / ((int)Filtro.countrow) + 1);
-
+            result.pageView = result.PersonaGrilla.PageNumber;
             return Json(new { Resultado = result }, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
-        public JsonResult CargarGrilla(Grilla paginacion)
+        public JsonResult CargarGrilla(FiltroGrilloPerson paginacion)
         {
             if (paginacion.countrow == null)
                 paginacion.countrow = int.Parse(WebConfigurationManager.AppSettings["CountRow"]);
@@ -107,31 +106,22 @@ namespace General.Controllers.Main.Controllers
             //var result = oPersona.PersonaGrillaToPageList(paginacion);
             var result = new ViewModelPerson
             {
-                PersonaGrilla = oPersona.PersonaGrillaToPageList(paginacion),
+                //PersonaGrilla = oPersona.PersonaGrillaToPageList(paginacion),
+                PersonaGrilla = oPersona.PersonaFoundPageList(paginacion),
                 Person = new EPersona(),
                 FiltroPerson = new EPersona(),
-                cantGrid = int.Parse(WebConfigurationManager.AppSettings["CountRow"]),
+                cantGrid = paginacion.countrow,//int.Parse(WebConfigurationManager.AppSettings["CountRow"]),
                 cantPage = 0,
                 cantTotal = 0
             };
             
             result.cantTotal = result.PersonaGrilla.TotalItemCount;
-
-            //if (paginacion.countrow > result.cantTotal)
-            //{
-            //    result.cantPage = 1;
-            //}
-            //else
-            //{
-            //    result.cantPage = (result.cantTotal / (int)paginacion.countrow);
-            //}
             result.cantPage = ((paginacion.countrow > result.cantTotal) == true ? 1 : (result.cantTotal)/((int)paginacion.countrow) + 1);
-
+            result.pageView = result.PersonaGrilla.PageNumber;
             return Json(new { Resultado = result }, JsonRequestBehavior.AllowGet);
         }
 
-        // GET: Persona
-        public ActionResult Index(Grilla paginacion)
+        public JsonResult CargarGrillaJson(FiltroGrilloPerson paginacion)
         {
             if (paginacion.countrow == null)
                 paginacion.countrow = int.Parse(WebConfigurationManager.AppSettings["CountRow"]);
@@ -146,14 +136,44 @@ namespace General.Controllers.Main.Controllers
 
             var result = new ViewModelPerson
             {
-                PersonaGrilla = oPersona.PersonaGrillaToPageList(paginacion),
+                //PersonaGrilla = oPersona.PersonaGrillaToPageList(paginacion),
+                PersonaGrilla = oPersona.PersonaFoundPageList(paginacion),
                 Person = new EPersona(),
                 FiltroPerson = new EPersona(),
-                cantGrid = int.Parse(WebConfigurationManager.AppSettings["CountRow"]),
+                cantGrid = paginacion.countrow,
                 cantTotal = 0
             };
             result.cantTotal = result.PersonaGrilla.TotalItemCount;
+            result.cantPage = result.PersonaGrilla.PageCount;
+            result.pageView = result.PersonaGrilla.PageNumber;
+
+            return Json(new { Resultado = result }, JsonRequestBehavior.AllowGet);
+        }
+
+        // GET: Persona
+        public ActionResult Index(Grilla paginacion)
+        {
+            if (paginacion.countrow == null)
+                paginacion.countrow = int.Parse(WebConfigurationManager.AppSettings["CountRow"]);
             
+            //ViewBag.Cantidad = paginacion.countrow;
+            ViewBag.FiltroDocumentypeId = new SelectList(oTipodocumento.Cargardocumento(),
+                "TipodocumentoId", "Descripcion");
+            ViewBag.DocumentypeId = new SelectList(oTipodocumento.Cargardocumento(),
+                "TipodocumentoId", "Descripcion");
+            ViewBag.SexoId = new SelectList(oSexo.Cargarsexo(),
+                "SexoId", "Descripcion");
+
+            var result = new ViewModelPerson
+            {
+                PersonaGrilla = oPersona.PersonaGrillaToPageList(paginacion),
+                Person = new EPersona(),
+                FiltroPerson = new EPersona(),
+                cantGrid = paginacion.countrow,
+                cantTotal = 0
+            };
+            result.cantTotal = result.PersonaGrilla.TotalItemCount;
+            result.pageView = result.PersonaGrilla.PageNumber;
             return View(result);
         }
     }

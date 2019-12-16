@@ -23,6 +23,33 @@ namespace General.Controllers.Main.Controllers
             //this.oHistorico = new 
         }
 
+        // GET: Persona
+        public ActionResult Index(Grilla paginacion)
+        {
+            if (paginacion.countrow == null)
+                paginacion.countrow = int.Parse(WebConfigurationManager.AppSettings["CountRow"]);
+
+            //ViewBag.Cantidad = paginacion.countrow;
+            ViewBag.FiltroDocumentypeId = new SelectList(oTipodocumento.Cargardocumento(),
+                "TipodocumentoId", "Descripcion");
+            ViewBag.DocumentypeId = new SelectList(oTipodocumento.Cargardocumento(),
+                "TipodocumentoId", "Descripcion");
+
+            var result = new ViewModelHistorico
+            {
+                PersonaGrilla = oPersona.PersonaGrillaToPageList(paginacion),
+                HistoricoGrilla = oHistorico.HistoricoGrillaToPageList(paginacion),
+                Historicos = new EHistorico(),
+                //Person = new EPersona(),
+                FiltroPerson = new EPersona(),
+                cantGrid = paginacion.countrow,
+                cantTotal = 0
+            };
+            result.cantTotal = result.PersonaGrilla.TotalItemCount;
+            result.pageView = result.PersonaGrilla.PageNumber;
+            return View(result);
+        }
+
         [HttpPost]
         public JsonResult SearchPerson(FiltroGrilloPerson Filtro)
         {
@@ -31,6 +58,7 @@ namespace General.Controllers.Main.Controllers
             return Json(new { Resultado = result }, JsonRequestBehavior.AllowGet);
 
         }
+
         #region Save,Edit,Delete
         [HttpPost]
         public JsonResult SaveHistorico(EHistorico registro)
@@ -40,9 +68,8 @@ namespace General.Controllers.Main.Controllers
         }
         #endregion
 
-
-        // GET: Historial
-        public ActionResult Index(Grilla paginacion)
+        #region Historico
+        public ActionResult Index1(Grilla paginacion)
         {
             if (paginacion.countrow == null)
                 paginacion.countrow = int.Parse(WebConfigurationManager.AppSettings["CountRow"]);
@@ -50,7 +77,8 @@ namespace General.Controllers.Main.Controllers
             ViewBag.DocumentypeId = new SelectList(oTipodocumento.Cargardocumento(),
                 "TipodocumentoId", "Descripcion");
 
-            var result = new ViewModelHistorico {
+            var result = new ViewModelHistorico
+            {
                 HistoricoGrilla = oHistorico.HistoricoGrillaToPageList(paginacion),
                 Historicos = new EHistorico(),
                 cantGrid = int.Parse(WebConfigurationManager.AppSettings["CountRow"]),
@@ -85,5 +113,8 @@ namespace General.Controllers.Main.Controllers
 
             return Json(new { Resultado = result }, JsonRequestBehavior.AllowGet);
         }
+        #endregion
+        // GET: Historial
+
     }
 }
