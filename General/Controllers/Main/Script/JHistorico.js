@@ -12,7 +12,106 @@
     var nuevo = document.getElementById("btnNew");
     nuevo.addEventListener("click", NewHistory, "");
 
+    var filtro = document.getElementById("btnFiltro");
+    filtro.addEventListener("click", FoundGrid, "");
+
 }());
+
+//Utilitarios.
+function parseJsonRow(jsonRowString) {
+    if (!jsonRowString) {
+        return "";
+    }
+    return jsonRowString;
+}
+
+//Primer Tab
+function FoundGrid() {
+
+    var Fdocumento = document.getElementById("FiltroPerson_Nrodocumento");
+    var Ftipodocumento = document.getElementById("FiltroDocumentypeId");
+    var Fappaterno = document.getElementById("FiltroPerson_Apellidopaterno");
+
+    var paginacion = {
+        countrow: $("#tblPersonGrid_length option:selected").text()
+    };
+
+    var filtro = {
+        TipodocumentoId: Ftipodocumento.value,
+        Nrodocumento: Fdocumento.value,
+        Apellidopaterno: Fappaterno.value,
+        countrow: $("#tblPersonGrid_length option:selected").text()
+    };
+
+    $.ajax({
+        url: '../Historial/CargarBusquedaGrilla',
+        type: 'POST',
+        data: JSON.stringify(filtro),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (data) {
+            if (data != null) {
+
+                if (data.Resultado.PersonaGrilla.length == 0) {
+                    $("#tblPersonGrid_info").html("");
+                    var table = $('#tblPersonGrid');
+                    table.find("tbody tr").remove();
+                    var page = $('#hiPaginado');
+                    page.find("div").remove();
+                }
+
+                if (data.Resultado.PersonaGrilla.length > 0) {
+
+                    var mostrar = "Mostrando 1 a " + data.Resultado.PersonaGrilla.length + " de " + data.Resultado.cantTotal + " registros";
+                    $("#tblPersonGrid_info").html(mostrar);
+
+                    var table = $('#tblPersonGrid');
+                    table.find("tbody tr").remove();
+                    data.Resultado.PersonaGrilla.forEach(function (result) {
+
+                        table.append("<tr><td class='col-xs-12 col-md-1'>" +
+                            "<div><table><tr><td class='col-xs-12 col-md-12'> " +
+                            "<a class='fa fa-search' onclick='PersonSelect(this)' id ='btnEdit' " +
+                            " style='color: #6A5ACD' data-assigned-id=" + result.PersonaId +
+                            " </a></td> </tr></table></div></td>" +
+                            "<td class='col-xs-12 col-md-4'>" + result.Apellidopaterno + " " + result.Apellidomaterno + " , " + result.Nombre + "</td>" +
+                            "<td class='col-xs-12 col-md-2'>" + result.Nrodocumento + "</td>" +
+                            "<td class='col-xs-12 col-md-1'>" + parseJsonRow(result.Nrotelefono) + "</td>" +
+                            "<td class='col-xs-12 col-md-4'>" + parseJsonRow(result.Direccion) + "</td></tr>");
+                    });
+                    //"<td class='col-xs-12 col-md-2'>" + result.Nombre + "</td>" +
+                    var page = $('#hiPaginado');
+                    page.find("div").remove();
+                    var html = "";
+                    html = "<div class='pagination-container'><ul class='pagination'>";
+                    for (var i = 1; i < data.Resultado.cantPage + 1; i++) {
+                        if (i == data.Resultado.pageView) {
+                            html = html + "<li class='active'><a>" + i + "</a></li>"
+                        }
+                        else {
+                            html = html + "<li class=''><a href='javaScript:FoundGrid(" + i + "," + $("#tblPersonGrid_length").val() + ")'>" + i + "</a></li>"
+                        }
+                    }
+                    html = html + "</ul></div>";
+                    page.append(html);
+
+
+                }
+            }
+
+        },
+        error: function (request, status, error) {
+            alert("dd");
+        },
+    });
+
+}
+
+//Segundo Tab.
+
+
+//Tercer Tab.
+
 
 function SaveHistory() {
 

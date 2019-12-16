@@ -12,17 +12,20 @@ namespace General.Controllers
     public class HomeController : Controller
     {
         private IPersona oIPersona;
+        private IHistorico oIHistorico;
 
         public HomeController()
         {
             this.oIPersona = new Persona();
+            this.oIHistorico = new Historico();
         }
 
         public ActionResult Main()
         {
             var Main = new HMain()
             {
-                Personas = oIPersona.PersonaGrilla(null).Count()
+                Personas = oIPersona.PersonaGrilla(null).Count(),
+                Historicos = oIHistorico.PersonaHistoricoGrilla(null).Count()
             };
 
             return View(Main);

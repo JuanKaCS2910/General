@@ -22,6 +22,67 @@ namespace Aplication.Services.Logica.Mantenimiento
             this.oUnitOfWork = new UnitOfWork();
         }
 
+        public List<EPersona> PersonaHistoricoGrilla(int? personId)
+        {
+            var persona = oUnitOfWork.PersonaRepository.Queryable();
+            var historico = oUnitOfWork.HistoricoRepository.Queryable();
+            var result = new List<EPersona>();
+
+            if (personId == null)
+            {
+                result = (from p in persona
+                          join h in historico
+                          on p.PersonaId equals h.PersonaId
+                          select new EPersona
+                          {
+                              Apellidomaterno = p.Apellidomaterno,
+                              Apellidopaterno = p.Apellidopaterno,
+                              Direccion = p.Direccion,
+                              DistritoId = p.DistritoId,
+                              Fecnacimiento = p.Fecnacimiento,
+                              Nombre = p.Nombre,
+                              Nrodocumento = p.Nrodocumento,
+                              Nrotelefono = p.Nrotelefono,
+                              Ocupacion = p.Ocupacion,
+                              PersonaId = p.PersonaId,
+                              SexoId = p.SexoId,
+                              TipodocumentoId = p.TipodocumentoId,
+                              Usuariocreacion = p.Usuariocreacion,
+                              Fechacreacion = p.Fechacreacion,
+                              Usuariomodificacion = p.Usuariomodificacion,
+                              Fechamodificacion = p.Fechamodificacion
+                          }).Distinct().ToList();
+            }
+            else
+            {
+                result = (from p in persona
+                          join h in historico
+                          on p.PersonaId equals h.PersonaId
+                          where p.PersonaId == personId
+                          select new EPersona
+                          {
+                              Apellidomaterno = p.Apellidomaterno,
+                              Apellidopaterno = p.Apellidopaterno,
+                              Direccion = p.Direccion,
+                              DistritoId = p.DistritoId,
+                              Fecnacimiento = p.Fecnacimiento,
+                              Nombre = p.Nombre,
+                              Nrodocumento = p.Nrodocumento,
+                              Nrotelefono = p.Nrotelefono,
+                              Ocupacion = p.Ocupacion,
+                              PersonaId = p.PersonaId,
+                              SexoId = p.SexoId,
+                              TipodocumentoId = p.TipodocumentoId,
+                              Usuariocreacion = p.Usuariocreacion,
+                              Fechacreacion = p.Fechacreacion,
+                              Usuariomodificacion = p.Usuariomodificacion,
+                              Fechamodificacion = p.Fechamodificacion
+                          }).Distinct().ToList();
+            }
+
+            return result;
+        }
+
         #region Save,Edit,Delete
 
         public string Save(EHistorico registro)

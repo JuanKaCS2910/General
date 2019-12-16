@@ -183,6 +183,145 @@ namespace Aplication.Services.Logica.Mantenimiento
         }
         #endregion
 
+        #region BusquedaEnGrillaHistorico
+        public IPagedList<EPersona> PersonaHistoricoFoundGrillaToPageList(FiltroGrilloPerson Filtro)
+        {
+            Filtro.page = (Filtro.page ?? 1);
+            var persona = oUnitOfWork.PersonaRepository.Queryable();
+            var historico = oUnitOfWork.HistoricoRepository.Queryable();
+
+            var result = new List<EPersona>();
+
+            if (Filtro.TipodocumentoId != 0 && string.IsNullOrEmpty(Filtro.Nrodocumento) && string.IsNullOrEmpty(Filtro.Apellidopaterno))
+            {
+                result = (from d in persona 
+                          join h in historico 
+                          on d.PersonaId equals h.PersonaId
+                          where d.Tipodocumento.TipodocumentoId == Filtro.TipodocumentoId
+                          select new EPersona
+                          {
+                              PersonaId = d.PersonaId,
+                              TipodocumentoId = d.TipodocumentoId,
+                              Nrodocumento = d.Nrodocumento,
+                              Nombre = d.Nombre,
+                              Apellidopaterno = d.Apellidopaterno,
+                              Apellidomaterno = d.Apellidomaterno,
+                              Nrotelefono = d.Nrotelefono,
+                              Fecnacimiento = d.Fecnacimiento,
+                              DistritoId = d.DistritoId,
+                              Direccion = d.Direccion,
+                              Ocupacion = d.Ocupacion,
+                              SexoId = d.SexoId,
+                          }).Distinct().OrderBy(d => d.Apellidopaterno)
+                        .ThenBy(d => d.Nombre).ToList();
+            }
+            else if (Filtro.TipodocumentoId != 0 && !string.IsNullOrEmpty(Filtro.Nrodocumento))
+            {
+                result = (from d in persona
+                          join h in historico
+                          on d.PersonaId equals h.PersonaId
+                          where d.Tipodocumento.TipodocumentoId == Filtro.TipodocumentoId
+                             && d.Nrodocumento == Filtro.Nrodocumento
+                          select new EPersona
+                          {
+                              PersonaId = d.PersonaId,
+                              TipodocumentoId = d.TipodocumentoId,
+                              Nrodocumento = d.Nrodocumento,
+                              Nombre = d.Nombre,
+                              Apellidopaterno = d.Apellidopaterno,
+                              Apellidomaterno = d.Apellidomaterno,
+                              Nrotelefono = d.Nrotelefono,
+                              Fecnacimiento = d.Fecnacimiento,
+                              DistritoId = d.DistritoId,
+                              Direccion = d.Direccion,
+                              Ocupacion = d.Ocupacion,
+                              SexoId = d.SexoId,
+                          }).Distinct().OrderBy(d => d.Apellidopaterno)
+                        .ThenBy(d => d.Nombre).ToList();
+            }
+            else if (Filtro.TipodocumentoId != 0 && !string.IsNullOrEmpty(Filtro.Apellidopaterno))
+            {
+                result = (from d in persona
+                          join h in historico
+                          on d.PersonaId equals h.PersonaId
+                          where d.Tipodocumento.TipodocumentoId == Filtro.TipodocumentoId
+                             && d.Apellidopaterno.Contains(Filtro.Apellidopaterno)
+                          select new EPersona
+                          {
+                              PersonaId = d.PersonaId,
+                              TipodocumentoId = d.TipodocumentoId,
+                              Nrodocumento = d.Nrodocumento,
+                              Nombre = d.Nombre,
+                              Apellidopaterno = d.Apellidopaterno,
+                              Apellidomaterno = d.Apellidomaterno,
+                              Nrotelefono = d.Nrotelefono,
+                              Fecnacimiento = d.Fecnacimiento,
+                              DistritoId = d.DistritoId,
+                              Direccion = d.Direccion,
+                              Ocupacion = d.Ocupacion,
+                              SexoId = d.SexoId,
+                          }).Distinct().OrderBy(d => d.Apellidopaterno)
+                        .ThenBy(d => d.Nombre).ToList();
+            }
+            else
+            {
+                result = (from d in persona
+                          join h in historico
+                          on d.PersonaId equals h.PersonaId
+                          select new EPersona
+                          {
+                              PersonaId = d.PersonaId,
+                              TipodocumentoId = d.TipodocumentoId,
+                              Nrodocumento = d.Nrodocumento,
+                              Nombre = d.Nombre,
+                              Apellidopaterno = d.Apellidopaterno,
+                              Apellidomaterno = d.Apellidomaterno,
+                              Nrotelefono = d.Nrotelefono,
+                              Fecnacimiento = d.Fecnacimiento,
+                              DistritoId = d.DistritoId,
+                              Direccion = d.Direccion,
+                              Ocupacion = d.Ocupacion,
+                              SexoId = d.SexoId,
+                          }).Distinct().OrderBy(d => d.Apellidopaterno)
+                        .ThenBy(d => d.Nombre).ToList();
+            }
+
+            var _result = result.ToPagedList((int)Filtro.page, (int)Filtro.countrow);
+            return _result;
+        }
+        #endregion
+
+        public IPagedList<EPersona> PersonaHistoricoGrillaToPageList(Grilla pag)
+        {
+            pag.page = (pag.page ?? 1);
+            var persona = oUnitOfWork.PersonaRepository.Queryable();
+            var historico = oUnitOfWork.HistoricoRepository.Queryable();
+
+            var result = (from d in persona 
+                          join h in historico
+                          on d.PersonaId equals h.PersonaId
+                          select new EPersona
+                          {
+                              PersonaId = d.PersonaId,
+                              TipodocumentoId = d.TipodocumentoId,
+                              Nrodocumento = d.Nrodocumento,
+                              Nombre = d.Nombre,
+                              Apellidopaterno = d.Apellidopaterno,
+                              Apellidomaterno = d.Apellidomaterno,
+                              Nrotelefono = d.Nrotelefono,
+                              Fecnacimiento = d.Fecnacimiento,
+                              DistritoId = d.DistritoId,
+                              Direccion = d.Direccion,
+                              Ocupacion = d.Ocupacion,
+                              SexoId = d.SexoId,
+                          }).Distinct().OrderBy(d => d.Apellidopaterno)
+                         .ThenBy(d => d.Nombre);
+            var _result = result.ToPagedList((int)pag.page, (int)pag.countrow);
+
+            return _result;
+
+        }
+
         public IPagedList<EPersona> PersonaGrillaToPageList(Grilla pag)
         {
             pag.page = (pag.page ?? 1);
@@ -218,7 +357,7 @@ namespace Aplication.Services.Logica.Mantenimiento
             string mensaje = string.Empty;
             Repository.Persona pers = new Repository.Persona();
             pers.Apellidopaterno = registro.Apellidopaterno.ToUpper();
-            pers.Apellidomaterno = registro.Apellidopaterno.ToUpper();
+            pers.Apellidomaterno = registro.Apellidomaterno.ToUpper();
             pers.Nombre = registro.Nombre.ToUpper();
             pers.SexoId = registro.SexoId;
             pers.TipodocumentoId = registro.TipodocumentoId;
@@ -259,7 +398,7 @@ namespace Aplication.Services.Logica.Mantenimiento
             Repository.Persona pers = new Repository.Persona();
             pers.PersonaId = registro.PersonaId;
             pers.Apellidopaterno = registro.Apellidopaterno.ToUpper();
-            pers.Apellidomaterno = registro.Apellidopaterno.ToUpper();
+            pers.Apellidomaterno = registro.Apellidomaterno.ToUpper();
             pers.Nombre = registro.Nombre;
             pers.SexoId = registro.SexoId;
             pers.TipodocumentoId = registro.TipodocumentoId;

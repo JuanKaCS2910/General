@@ -12,6 +12,8 @@ namespace Aplication.Services.Interfaz
     public interface IPersona
     {
         IPagedList<EPersona> PersonaGrillaToPageList(Grilla pag);
+        IPagedList<EPersona> PersonaHistoricoGrillaToPageList(Grilla pag);
+        IPagedList<EPersona> PersonaHistoricoFoundGrillaToPageList(FiltroGrilloPerson Filtro);
         IPagedList<EPersona> PersonaFoundPageList(FiltroGrilloPerson Filtro);
         string CreatePerson(EPersona registro);
         string EditPerson(EPersona registro);
