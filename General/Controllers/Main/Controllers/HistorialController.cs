@@ -38,7 +38,7 @@ namespace General.Controllers.Main.Controllers
             var result = new ViewModelHistorico
             {
                 PersonaGrilla = oPersona.PersonaHistoricoGrillaToPageList(paginacion),
-                HistoricoGrilla = oHistorico.HistoricoGrillaToPageList(paginacion),
+                HistoricoGrilla = null,//oHistorico.HistoricoGrillaToPageList(paginacion),
                 Historicos = new EHistorico(),
                 //Person = new EPersona(),
                 FiltroPerson = new EPersona(),
@@ -98,7 +98,7 @@ namespace General.Controllers.Main.Controllers
         #endregion
 
         #region Historico
-        public ActionResult Index1(Grilla paginacion)
+        public ActionResult Index1(FiltroGrilloHistorico paginacion)
         {
             if (paginacion.countrow == null)
                 paginacion.countrow = int.Parse(WebConfigurationManager.AppSettings["CountRow"]);
@@ -119,7 +119,7 @@ namespace General.Controllers.Main.Controllers
         }
 
         [HttpPost]
-        public JsonResult CargarGrilla(Grilla paginacion)
+        public JsonResult CargarGrilla(FiltroGrilloHistorico paginacion)
         {
             if (paginacion.countrow == null)
                 paginacion.countrow = int.Parse(WebConfigurationManager.AppSettings["CountRow"]);
@@ -131,15 +131,14 @@ namespace General.Controllers.Main.Controllers
                 HistoricoGrilla = oHistorico.HistoricoGrillaToPageList(paginacion),
                 Historicos = new EHistorico(),
                 //FiltroHistoricos = new EPersona(),
-                cantGrid = int.Parse(WebConfigurationManager.AppSettings["CountRow"]),
+                cantGrid = paginacion.countrow,
                 cantPage = 0,
                 cantTotal = 0
             };
 
             result.cantTotal = result.HistoricoGrilla.TotalItemCount;
-
             result.cantPage = ((paginacion.countrow > result.cantTotal) == true ? 1 : (result.cantTotal) / ((int)paginacion.countrow) + 1);
-
+            result.pageView = result.HistoricoGrilla.PageNumber;
             return Json(new { Resultado = result }, JsonRequestBehavior.AllowGet);
         }
         #endregion

@@ -12,6 +12,12 @@ namespace Domain.Entities.Mantenimiento
         public List<EHistorico> lhistorico { get; set; }
     }
 
+    public class FiltroGrilloHistorico : EHistorico
+    {
+        public int? page { get; set; }
+        public int? countrow { get; set; }
+    }
+
     public class EHistorico 
     {
         public int HistoricoId { get; set; }

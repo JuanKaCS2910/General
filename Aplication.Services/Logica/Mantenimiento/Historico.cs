@@ -99,116 +99,117 @@ namespace Aplication.Services.Logica.Mantenimiento
                     {
                         oUnitOfWork.HistoricoRepository.Insert(hist);
                         oUnitOfWork.Save();
-                        //transaction.Complete();
+                        
+                        #region ObtenerMáxPacientexPersonaId
+                        int nMaxHistoricoId = ObtenerHistoricoxPersonId(registro);
+                        #endregion
+
+                        #region AgenteTérmico
+                        //Agente Térmico
+                        Repository.AgenteTermico term = AddTermicoPerson(new EAgentetermico
+                        {
+                            HistoricoId = nMaxHistoricoId,
+                            SubTramiteId = 1, //Compresa Caliente
+                            Condicion = registro.checkCaliente,
+                        });
+                        Repository.AgenteTermico term1 = AddTermicoPerson(new EAgentetermico
+                        {
+                            HistoricoId = nMaxHistoricoId,
+                            SubTramiteId = 2, //Compresa Fria
+                            Condicion = registro.checkFria,
+                        });
+                        Repository.AgenteTermico term2 = AddTermicoPerson(new EAgentetermico
+                        {
+                            HistoricoId = nMaxHistoricoId,
+                            SubTramiteId = 3, //Compresa Contraste
+                            Condicion = registro.checkContraste,
+                        });
+
+                        try
+                        {
+                            oUnitOfWork.AgenteTermicoRepository.Insert(term);
+                            oUnitOfWork.AgenteTermicoRepository.Insert(term1);
+                            oUnitOfWork.AgenteTermicoRepository.Insert(term2);
+                            oUnitOfWork.Save();
+                        }
+                        catch (Exception ex)
+                        {
+                            mensaje = "Inconveniente al grabar Agente Térmico";
+                            transaction.Dispose();
+                            //throw;
+                        }
+
+
+                        #endregion
+
+                        #region AgenteElectrofísico
+                        Repository.AgenteElectrofisico Efisico = AddElectrofisico(new EAgenteelectrofisico
+                        {
+                            HistoricoId = nMaxHistoricoId,
+                            SubTramiteId = 4, //Electroanalgesico
+                            Condicion = false,
+                            Descripcion = registro.descElectroanalgesico
+                        });
+                        Repository.AgenteElectrofisico Efisico1 = AddElectrofisico(new EAgenteelectrofisico
+                        {
+                            HistoricoId = nMaxHistoricoId,
+                            SubTramiteId = 5, //ElectroEstimulación
+                            Condicion = registro.checkElectroestimulacion,
+                            Descripcion = registro.descElectroestimulacion
+                        });
+                        Repository.AgenteElectrofisico Efisico2 = AddElectrofisico(new EAgenteelectrofisico
+                        {
+                            HistoricoId = nMaxHistoricoId,
+                            SubTramiteId = 6, //Magnetoterapia
+                            Condicion = registro.checkMagnetoterapia,
+                            Descripcion = registro.descMagnetoterapia
+                        });
+                        Repository.AgenteElectrofisico Efisico3 = AddElectrofisico(new EAgenteelectrofisico
+                        {
+                            HistoricoId = nMaxHistoricoId,
+                            SubTramiteId = 7, //Ultrasonido
+                            Condicion = registro.checkUltrasonido,
+                            Descripcion = registro.descUltrasonido
+                        });
+                        Repository.AgenteElectrofisico Efisico4 = AddElectrofisico(new EAgenteelectrofisico
+                        {
+                            HistoricoId = nMaxHistoricoId,
+                            SubTramiteId = 8, //T. Combinada
+                            Condicion = registro.checkTCombinada,
+                            Descripcion = registro.descTCombinada
+                        });
+                        Repository.AgenteElectrofisico Efisico5 = AddElectrofisico(new EAgenteelectrofisico
+                        {
+                            HistoricoId = nMaxHistoricoId,
+                            SubTramiteId = 9, //Laserterapia
+                            Condicion = registro.checkLaserterapia,
+                            Descripcion = registro.descLaserterapia
+                        });
+
+                        try
+                        {
+                            oUnitOfWork.AgenteElectrofisicoRepository.Insert(Efisico);
+                            oUnitOfWork.AgenteElectrofisicoRepository.Insert(Efisico1);
+                            oUnitOfWork.AgenteElectrofisicoRepository.Insert(Efisico2);
+                            oUnitOfWork.AgenteElectrofisicoRepository.Insert(Efisico3);
+                            oUnitOfWork.AgenteElectrofisicoRepository.Insert(Efisico4);
+                            oUnitOfWork.AgenteElectrofisicoRepository.Insert(Efisico5);
+                            oUnitOfWork.Save();
+                            transaction.Complete();
+                            mensaje = "OK";
+                        }
+                        catch (Exception ex)
+                        {
+                            mensaje = "Inconveniente al grabar Agente Electrofísico";
+                            transaction.Dispose();
+                            //throw;
+                        }
+                        #endregion
+
                     }
                     catch (Exception ex)
                     {
                         mensaje = "Inconveniente al grabar Historico";
-                        transaction.Dispose();
-                        //throw;
-                    }
-                    #endregion
-
-                    #region ObtenerMáxPacientexPersonaId
-                    int nMaxHistoricoId = ObtenerHistoricoxPersonId(registro);
-                    #endregion
-
-                    #region AgenteTérmico
-                    //Agente Térmico
-                    Repository.AgenteTermico term = AddTermicoPerson(new EAgentetermico
-                    {
-                        HistoricoId = nMaxHistoricoId,
-                        SubTramiteId = 1, //Compresa Caliente
-                        Condicion = registro.checkCaliente,
-                    });
-                    Repository.AgenteTermico term1 = AddTermicoPerson(new EAgentetermico
-                    {
-                        HistoricoId = nMaxHistoricoId,
-                        SubTramiteId = 2, //Compresa Fria
-                        Condicion = registro.checkFria,
-                    });
-                    Repository.AgenteTermico term2 = AddTermicoPerson(new EAgentetermico
-                    {
-                        HistoricoId = nMaxHistoricoId,
-                        SubTramiteId = 3, //Compresa Contraste
-                        Condicion = registro.checkContraste,
-                    });
-
-                    try
-                    {
-                        oUnitOfWork.AgenteTermicoRepository.Insert(term);
-                        oUnitOfWork.AgenteTermicoRepository.Insert(term1);
-                        oUnitOfWork.AgenteTermicoRepository.Insert(term2);
-                        oUnitOfWork.Save();
-                    }
-                    catch (Exception ex)
-                    {
-                        mensaje = "Inconveniente al grabar Agente Térmico";
-                        transaction.Dispose();
-                        //throw;
-                    }
-
-
-                    #endregion
-
-                    #region AgenteElectrofísico
-                    Repository.AgenteElectrofisico Efisico = AddElectrofisico(new EAgenteelectrofisico {
-                        HistoricoId = nMaxHistoricoId,
-                        SubTramiteId = 4, //Electroanalgesico
-                        Condicion = false,
-                        Descripcion = registro.descElectroanalgesico
-                    });
-                    Repository.AgenteElectrofisico Efisico1 = AddElectrofisico(new EAgenteelectrofisico
-                    {
-                        HistoricoId = nMaxHistoricoId,
-                        SubTramiteId = 5, //ElectroEstimulación
-                        Condicion = registro.checkElectroestimulacion,
-                        Descripcion = registro.descElectroestimulacion
-                    });
-                    Repository.AgenteElectrofisico Efisico2 = AddElectrofisico(new EAgenteelectrofisico
-                    {
-                        HistoricoId = nMaxHistoricoId,
-                        SubTramiteId = 6, //Magnetoterapia
-                        Condicion = registro.checkMagnetoterapia,
-                        Descripcion = registro.descMagnetoterapia
-                    });
-                    Repository.AgenteElectrofisico Efisico3 = AddElectrofisico(new EAgenteelectrofisico
-                    {
-                        HistoricoId = nMaxHistoricoId,
-                        SubTramiteId = 7, //Ultrasonido
-                        Condicion = registro.checkUltrasonido,
-                        Descripcion = registro.descUltrasonido
-                    });
-                    Repository.AgenteElectrofisico Efisico4 = AddElectrofisico(new EAgenteelectrofisico
-                    {
-                        HistoricoId = nMaxHistoricoId,
-                        SubTramiteId = 8, //T. Combinada
-                        Condicion = registro.checkTCombinada,
-                        Descripcion = registro.descTCombinada
-                    });
-                    Repository.AgenteElectrofisico Efisico5 = AddElectrofisico(new EAgenteelectrofisico
-                    {
-                        HistoricoId = nMaxHistoricoId,
-                        SubTramiteId = 9, //Laserterapia
-                        Condicion = registro.checkLaserterapia,
-                        Descripcion = registro.descLaserterapia
-                    });
-
-                    try
-                    {
-                        oUnitOfWork.AgenteElectrofisicoRepository.Insert(Efisico);
-                        oUnitOfWork.AgenteElectrofisicoRepository.Insert(Efisico1);
-                        oUnitOfWork.AgenteElectrofisicoRepository.Insert(Efisico2);
-                        oUnitOfWork.AgenteElectrofisicoRepository.Insert(Efisico3);
-                        oUnitOfWork.AgenteElectrofisicoRepository.Insert(Efisico4);
-                        oUnitOfWork.AgenteElectrofisicoRepository.Insert(Efisico5);
-                        oUnitOfWork.Save();
-                        transaction.Complete();
-                        mensaje = "OK";
-                    }
-                    catch (Exception ex)
-                    {
-                        mensaje = "Inconveniente al grabar Agente Electrofísico";
                         transaction.Dispose();
                         //throw;
                     }
@@ -285,13 +286,34 @@ namespace Aplication.Services.Logica.Mantenimiento
             return nMaxPacienteId;
         }
 
-        public IPagedList<EHistorico> HistoricoGrillaToPageList(Grilla pag)
+        public IPagedList<EHistorico> HistoricoGrillaToPageList(FiltroGrilloHistorico pag)
         {
             pag.page = (pag.page ?? 1);
             var historico = oUnitOfWork.HistoricoRepository.Queryable();
             var person = oUnitOfWork.PersonaRepository.Queryable();
 
-            var result = (from h in historico
+            var result = new List<EHistorico>();
+
+            if (pag.PersonaId != 0)
+            {
+                result = (from h in historico
+                          join p in person
+                          on h.PersonaId equals p.PersonaId
+                          where h.PersonaId == pag.PersonaId
+                          select new EHistorico
+                          {
+                              HistoricoId = h.HistoricoId,
+                              NombreCompleto = p.Apellidopaterno + " " + p.Apellidomaterno + " , " + p.Nombre,
+                              Diagnostico = h.Diagnostico,
+                              Observaciones = h.Observaciones,
+                              Otros = h.Otros,
+                              Fechacreacion = h.Fechacreacion
+                          }).OrderBy(d => d.NombreCompleto)
+                                         .ThenBy(d => d.Fechacreacion).ToList();
+            }
+            else
+            {
+                result = (from h in historico
                           join p in person
                           on h.PersonaId equals p.PersonaId
                           select new EHistorico
@@ -303,7 +325,10 @@ namespace Aplication.Services.Logica.Mantenimiento
                               Otros = h.Otros,
                               Fechacreacion = h.Fechacreacion
                           }).OrderBy(d => d.NombreCompleto)
-                         .ThenBy(d => d.Fechacreacion);
+                         .ThenBy(d => d.Fechacreacion).ToList();
+            }
+
+             
             var _result = result.ToPagedList((int)pag.page, (int)pag.countrow);
 
             return _result;

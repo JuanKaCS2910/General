@@ -22,10 +22,10 @@
                         <a class="nav-link active" data-toggle="tab" href="#tab-1">Lista</a>
                     </li>
                     <li id="litab2">
-                        <a class="nav-link" data-toggle="tab" href="#tab-2">Detalle</a>
+                        <a class="nav-link" data-toggle="tab" href="#tab-2">Historial</a>
                     </li>
                     <li id="litab3">
-                        <a class="nav-link" data-toggle="tab" href="#tab-3">Historial</a>
+                        <a class="nav-link" data-toggle="tab" href="#tab-3">Detalle</a>
                     </li>
                 </ul>
             </div>
@@ -152,11 +152,11 @@
                                                             <table>
                                                                 <tr>
                                                                     <td class="col-xs-12 col-md-12">
-                                                                        <a class="fa fa-search" onclick="PersonSelect(this)" id="btnEdit"
+                                                                        <a class="fa fa-search" onclick="PersonSelect(this)" id="btnEditPerson"
                                                                            style="color:#6A5ACD"
                                                                            data-assigned-id=@person.PersonaId></a>
                                                                     </td>
-                                                                    
+
                                                                 </tr>
                                                             </table>
                                                         </div>
@@ -216,7 +216,159 @@
                     </div>
                 </div>
 
+
                 <div id="tab-2" class="tab-pane">
+                    <div class="ibox-title">
+                        <h5>Historial <small>Del Paciente</small></h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                        <div class="row">
+                            <div class="ibox-title">
+                                <h5>Historial de Paciente</h5>
+                            </div>
+                        </div>
+                        <br />
+
+                        <div class="row">
+                            <div class="col-xs-12 col-md-12">
+                                <div class="col-xs-12 col-md-3">
+
+                                    <label class="control-label input-style" for="TDocumentoHLabel">T. Documento</label>
+                                </div>
+                                <div class="col-xs-12 col-md-3">
+                                    <div class="form-group">
+                                        <input class="form-control text-box single-line" id="TDocumentoHistorico" name="TDocumentoHistorico" type="text" value="" readonly>
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-12 col-md-3">
+                                    <label class="control-label input-style" for="NroDocumentoHLabel">Nro. Documento</label>
+                                </div>
+                                <div class="col-xs-12 col-md-3">
+                                    <div class="form-group">
+                                        <input class="form-control text-box single-line" id="NroDocumentoHistorico" name="NroDocumentoHistorico" type="text" value="" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xs-12 col-md-12">
+                                <div class="col-xs-12 col-md-3">
+                                    <label class="control-label input-style" for="NombreFiltro">Nombre Completo</label>
+                                </div>
+                                <div class="col-xs-12 col-md-9">
+                                    <input class="form-control text-box single-line" data-val="true" data-val-required="El campo Nombre Completo es obligatorio." id="NombreCompletoHistorico" name="NombreCompletoHistorico" type="text" value="" readonly>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <br />
+
+                        <div class="row">
+                            <div class="col-xs-12 col-md-3">
+                                <table>
+                                    <tr>
+                                        <td class="dataTables_length" width="75px;">
+                                            <label class="control-label input-style" for="NombreFiltro">Mostrar : </label>
+                                        </td>
+                                        <td width="75px;">
+                                            <select id="tblHistoricoGrid_length" aria-controls="tblHistoricoGrid" class="form-control form-control-sm">
+                                                <option value="10">10</option>
+                                                <option value="25">25</option>
+                                                <option value="50">50</option>
+                                                <option value="100">100</option>
+                                            </select>
+                                        </td>
+                                        <td width="10px;"></td>
+                                        <td width="100px;">
+                                            <label class="control-label input-style" for="NombreFiltro">registros.</label>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+
+                            </div>
+                            <div class="col-xs-12 col-md-3">
+
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xs-12 col-md-12">
+                                <table id="tblHistoricoGrid" class="table table-striped table-bordered table-hover dataTables-examplePerson">
+                                    <thead>
+                                        <tr class="EstiloCabecera">
+                                            <th class="col-xs-12 col-md-1"></th>
+                                            <th class="col-xs-12 col-md-3">Diagnóstico</th>
+                                            <th class="col-xs-12 col-md-3">Observaciones</th>
+                                            <th class="col-xs-12 col-md-3">Otros</th>
+                                            <th class="col-xs-12 col-md-2">Fecha</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @if (Model.HistoricoGrilla != null)
+                                        {
+                                            foreach (var historico in Model.HistoricoGrilla)
+                                            {
+                                                <tr>
+                                                    <td class="col-xs-12 col-md-1">
+                                                        <div>
+                                                            <table>
+                                                                <tr>
+                                                                    <td class="col-xs-12 col-md-6">
+                                                                        <a class="fa fa-search" onclick="HistoricoSelect(this)" id="btnEdit"
+                                                                           style="color:#6A5ACD"
+                                                                           data-assigned-id=@historico.PersonaId></a>
+                                                                    </td>
+                                                                    <td class="col-xs-12 col-md-6">
+                                                                        <a class="fa fa-minus-circle" onclick="DeleteHistorico(this)" id="btnElimHistorico" style="color:red;" data-assigned-id=@historico.PersonaId></a>
+                                                                    </td>
+                                                                </tr>
+                                                            </table>
+                                                        </div>
+                                                    </td>
+                                                    <td class="col-xs-12 col-md-3">
+                                                        @Html.DisplayFor(model => historico.Diagnostico)
+                                                    </td>
+                                                    <td class="col-xs-12 col-md-3">
+                                                        @Html.DisplayFor(model => historico.Observaciones)
+                                                    </td>
+                                                    <td class="col-xs-12 col-md-3">
+                                                        @Html.DisplayFor(model => historico.Otros)
+                                                    </td>
+                                                    <td class="col-xs-12 col-md-2">
+                                                        @Html.DisplayFor(model => historico.Fechacreacion)
+                                                    </td>
+                                                </tr>
+                                            }
+                                        }
+
+                                    </tbody>
+                                    <tfoot>
+                                        <tr class="EstiloCabecera">
+                                            <th class="col-xs-12 col-md-1"></th>
+                                            <th class="col-xs-12 col-md-3">Diagnóstico</th>
+                                            <th class="col-xs-12 col-md-3">Observaciones</th>
+                                            <th class="col-xs-12 col-md-3">Otros</th>
+                                            <th class="col-xs-12 col-md-2">Fecha</th>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div id="tab-3" class="tab-pane">
                     <div class="ibox float-e-margins">
                         <div class="ibox-title">
                             <h5>Registro <small>De Pacientes</small></h5>
@@ -569,114 +721,6 @@
 
                     </div>
                 </div>
-                <div id="tab-3" class="tab-pane">
-                    <div class="ibox-title">
-                        <h5>Sub - Detalles <small>De Pacientes</small></h5>
-                        <div class="ibox-tools">
-                            <a class="collapse-link">
-                                <i class="fa fa-chevron-up"></i>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="ibox-content">
-                        <div class="row">
-                            <div class="ibox-title">
-                                <h5>Sub Detalle de Paciente</h5>
-                            </div>
-                        </div>
-                        <br />
-                        <div class="row">
-                            <div class="col-xs-12 col-md-3">
-                                <table>
-                                    <tr>
-                                        <td class="dataTables_length" width="75px;">
-                                            <label class="control-label input-style" for="NombreFiltro">Mostrar : </label>
-                                        </td>
-                                        <td width="75px;">
-                                            <select id="tblHistoricoGrid_length" aria-controls="tblHistoricoGrid" class="form-control form-control-sm">
-                                                <option value="10">10</option>
-                                                <option value="25">25</option>
-                                                <option value="50">50</option>
-                                                <option value="100">100</option>
-                                            </select>
-                                        </td>
-                                        <td width="10px;"></td>
-                                        <td width="100px;">
-                                            <label class="control-label input-style" for="NombreFiltro">registros.</label>
-                                        </td>
-                                    </tr>
-                                </table>
-                            </div>
-                            <div class="col-xs-12 col-md-6">
-
-                            </div>
-                            <div class="col-xs-12 col-md-3">
-
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-xs-12 col-md-12">
-                                <table id="tblHistoricoGrid" class="table table-striped table-bordered table-hover dataTables-examplePerson">
-                                    <thead>
-                                        <tr class="EstiloCabecera">
-                                            <th class="col-xs-12 col-md-1"></th>
-                                            <th class="col-xs-12 col-md-3">Nombre Completo</th>
-                                            <th class="col-xs-12 col-md-4">Diagnóstico</th>
-                                            <th class="col-xs-12 col-md-3">Otros</th>
-                                            <th class="col-xs-12 col-md-1">Fecha</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach (var historico in Model.HistoricoGrilla)
-                                        {
-                                            <tr>
-                                                <td class="col-xs-12 col-md-1">
-                                                    <div>
-                                                        <table>
-                                                            <tr>
-                                                                <td class="col-xs-12 col-md-6">
-                                                                    <a class="fa fa-search" onclick="HistoricoSelect(this)" id="btnEdit"
-                                                                       style="color:#6A5ACD"
-                                                                       data-assigned-id=@historico.PersonaId></a>
-                                                                </td>
-                                                                <td class="col-xs-12 col-md-6">
-                                                                    <a class="fa fa-minus-circle" onclick="DeleteHistorico(this)" id="btnElimHistorico" style="color:red;" data-assigned-id=@historico.PersonaId></a>
-                                                                </td>
-                                                            </tr>
-                                                        </table>
-                                                    </div>
-                                                </td>
-                                                <td class="col-xs-12 col-md-3">
-                                                    @Html.DisplayFor(model => historico.NombreCompleto)
-                                                </td>
-                                                <td class="col-xs-12 col-md-4">
-                                                    @Html.DisplayFor(model => historico.Diagnostico)
-                                                </td>
-                                                <td class="col-xs-12 col-md-3">
-                                                    @Html.DisplayFor(model => historico.Otros)
-                                                </td>
-                                                <td class="col-xs-12 col-md-1">
-                                                    @Html.DisplayFor(model => historico.Fechacreacion)
-                                                </td>
-                                            </tr>
-                                        }
-                                    </tbody>
-                                    <tfoot>
-                                        <tr class="EstiloCabecera">
-                                            <th class="col-xs-12 col-md-1"></th>
-                                            <th class="col-xs-12 col-md-3">Nombre Completo</th>
-                                            <th class="col-xs-12 col-md-4">Diagnóstico</th>
-                                            <th class="col-xs-12 col-md-3">Otros</th>
-                                            <th class="col-xs-12 col-md-1">Fecha</th>
-                                        </tr>
-                                    </tfoot>
-                                </table>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
 
                 @*< !--Model Popup starts Correct-- >*@
                 <div class="container">
@@ -744,5 +788,6 @@
 
 @section Scripts
 {
+    @Scripts.Render("~/plugins/dataPicker")
     <script src="~/Controllers/Main/Script/JHistorico.js"></script>
 }
