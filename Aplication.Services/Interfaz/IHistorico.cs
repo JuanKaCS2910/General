@@ -10,5 +10,6 @@ namespace Aplication.Services.Interfaz
         string CreateHistory(EHistorico registro);
         List<EPersona> PersonaHistoricoGrilla(int? personId);
         IPagedList<EHistorico> HistoricoGrillaToPageList(FiltroGrilloHistorico pag);
+        EHistoricoView SearchHistorico(int idHistorico);
     }
 }

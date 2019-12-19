@@ -286,6 +286,99 @@ namespace Aplication.Services.Logica.Mantenimiento
             return nMaxPacienteId;
         }
 
+        public EHistoricoView SearchHistorico(int idHistorico)
+        {
+            var persona = oUnitOfWork.PersonaRepository.Queryable();
+            var historico = oUnitOfWork.HistoricoRepository.Queryable();
+            var agenteEle = oUnitOfWork.AgenteElectrofisicoRepository.Queryable();
+            var subTramite = oUnitOfWork.SubTramiteRepository.Queryable();
+
+            var resultado = from h in historico
+                         join p in persona
+                         on h.PersonaId equals p.PersonaId
+                         join ae in agenteEle
+                         on h.HistoricoId equals ae.HistoricoId
+                         join sb in subTramite
+                         on ae.SubTramiteId equals sb.SubTramiteId
+                         where h.HistoricoId == idHistorico
+                         select new EHistoricoSearch
+                         {
+                             HistoricoId = h.HistoricoId,
+                             Diagnostico = h.Diagnostico,
+                             Observaciones = h.Observaciones,
+                             Otros = h.Otros,
+                             Nombre = p.Nombre,
+                             Apellidopaterno = p.Apellidopaterno,
+                             Apellidomaterno = p.Apellidomaterno,
+                             Nrodocumento = p.Nrodocumento,
+                             TipodocumentoId = p.TipodocumentoId,
+                             SubTramiteId = sb.SubTramiteId,
+                             DescripcionST = sb.Descripcion,
+                             CodigoST = sb.Codigo,
+                             CondicionAE = ae.Condicion,
+                             DescripcionAE = ae.Descripcion,
+                         };
+
+            
+            List<EPersona> _person = personaSearch(resultado);
+            List<EHistorico> _historico = historicoSearch(resultado);
+            List<EAgenteelectrofisico> _agenteEF = agenteElectrofisicoSearch(resultado);
+
+            var result = new EHistoricoView
+            {
+                Persona = _person,
+                Historico = _historico,
+                AgenteElectofisico = _agenteEF,
+            };
+
+            return result;
+
+        }
+
+        public List<EPersona> personaSearch(IQueryable<EHistoricoSearch> result)
+        {
+            var _person = (from p in result
+                           select new EPersona
+                           {
+                               Nombre = p.Nombre,
+                               Apellidopaterno = p.Apellidopaterno,
+                               Apellidomaterno = p.Apellidomaterno,
+                               Nrodocumento = p.Nrodocumento,
+                               TipodocumentoId = p.TipodocumentoId
+                           }).Distinct().ToList();
+
+            return _person;
+        }
+
+        public List<EHistorico> historicoSearch(IQueryable<EHistoricoSearch> result)
+        {
+            var _historico = (from h in result
+                               select new EHistorico
+                               {
+                                   HistoricoId = h.HistoricoId,
+                                   Diagnostico = h.Diagnostico,
+                                   Observaciones = h.Observaciones,
+                                   Otros = h.Otros,
+                               }).Distinct().ToList();
+            return _historico;
+        }
+
+        public List<EAgenteelectrofisico> agenteElectrofisicoSearch(IQueryable<EHistoricoSearch> result)
+        {
+            var _agenteEF = (from h in result
+                             where h.CodigoST == "AE"
+                              select new EAgenteelectrofisico
+                              {
+                                  HistoricoId = h.HistoricoId,
+                                  Condicion = (bool)h.CondicionAE,
+                                  SubTramiteId = h.SubTramiteId,
+                                  Descripcion = h.DescripcionST,
+                                  Codigo = h.CodigoST,
+                                  DescripcionAE = h.DescripcionAE
+                              }).Distinct().ToList();
+            return _agenteEF;
+        }
+
         public IPagedList<EHistorico> HistoricoGrillaToPageList(FiltroGrilloHistorico pag)
         {
             pag.page = (pag.page ?? 1);

@@ -195,17 +195,17 @@ function ViewGridHistorico(personaId) {
 
                         table.append("<tr><td class='col-xs-12 col-md-1'>" +
                             "<div><table><tr><td class='col-xs-12 col-md-6'> " +
-                            "<a class='fa fa-search' onclick='HistoricoSelect(this)' id ='btnEdit' " +
-                            " style='color: #6A5ACD' data-assigned-id=" + result.historicoId +
+                            "<a class='fa fa-search' onclick='HistoricoSelect(this)' id ='btnEditHistorico' " +
+                            " style='color: #6A5ACD' data-assigned-id=" + result.HistoricoId +
                             " </a></td> " +
                             "<td class='col-xs-12 col-md-6'> " +
                             "<a class='fa fa-minus-circle' onclick='DeleteHistorico(this)' id ='btnElimHistorico' " +
-                            " style='color:red' data-assigned-id=" + result.historicoId +
+                            " style='color:red' data-assigned-id=" + result.HistoricoId +
                             " </a></td></tr></table></div></td>" +
-                            "<td class='col-xs-12 col-md-3'>" + result.NombreCompleto + "</td>" +
-                            "<td class='col-xs-12 col-md-4'>" + result.Diagnostico + "</td>" +
+                            "<td class='col-xs-12 col-md-3'>" + parseJsonRow(result.Diagnostico) + "</td>" +
+                            "<td class='col-xs-12 col-md-3'>" + parseJsonRow(result.observaciones) + "</td>" +
                             "<td class='col-xs-12 col-md-3'>" + parseJsonRow(result.Otros) + "</td>" +
-                            "<td class='col-xs-12 col-md-1'>" + parseJsonDate(result.Fechacreacion) + "</td></tr>");
+                            "<td class='col-xs-12 col-md-2'>" + parseJsonDate(result.Fechacreacion) + "</td></tr>");
                     });
 
                     var page = $('#hiPaginado');
@@ -254,6 +254,95 @@ function ViewGridHistorico(personaId) {
     });
 }
 
+function HistoricoSelect(id) {
+    var resultado = {
+        idHistorico: $(id).data('assigned-id')
+    };
+
+    var tab2 = document.getElementById("tab-2");
+    var tab3 = document.getElementById("tab-3");
+    var ltab2 = document.getElementById("litab2");
+    var ltab3 = document.getElementById("litab3");
+
+    tab2.classList.remove("active");
+    tab3.classList.add("active");
+    ltab2.classList.remove("active");
+    ltab3.classList.add("active");
+
+    $.ajax({
+        url: '../Historial/SearchHistorico',
+        type: 'POST',
+        data: JSON.stringify(resultado),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (data) {
+            if (data != null) {
+                if (data.Resultado.Persona.length > 0) {
+
+                    var apMaterno = data.Resultado.Persona[0].Apellidomaterno;
+                    var apPaterno = data.Resultado.Persona[0].Apellidopaterno;
+                    var nombre = data.Resultado.Persona[0].Nombre;
+                    var nroDocumento = data.Resultado.Persona[0].Nrodocumento;
+                    var tipodocumentoId = data.Resultado.Persona[0].TipodocumentoId;
+
+                    $("#DocumentypeId").val(tipodocumentoId);
+                    $("#Documento").val(nroDocumento);
+                    $("#Paciente").val(apPaterno + ' ' + apMaterno + ' ' + nombre);
+
+                    if (data.Resultado.Historico.length > 0) {
+                        var diagnostico = data.Resultado.Historico[0].Diagnostico;
+                        var observaciones = data.Resultado.Historico[0].Observaciones;
+                        var otros = data.Resultado.Historico[0].Otros;
+                        $("#Historicos_Diagnostico").val(diagnostico);
+                        $("#Historicos_Observaciones").val(observaciones);
+                    }
+
+                    if (data.Resultado.AgenteElectofisico.length > 0) {
+
+                        data.Resultado.AgenteElectofisico.forEach(function (result) {
+                            var descripcionAE = parseJsonRow(result.DescripcionAE);
+                            var condicion = result.Condicion;
+                            switch (result.SubTramiteId) {
+                                case 4:
+                                    $("#Historicos_descElectroanalgesico").val(descripcionAE);
+                                break;
+                                case 5:
+                                    $("#Historicos_descElectroestimulacion").val(descripcionAE);
+                                    document.getElementById("Historicos_checkElectroestimulacion").checked = condicion;
+                                    break;
+                                case 6:
+                                    $("#Historicos_descMagnetoterapia").val(descripcionAE);
+                                    document.getElementById("Historicos_checkMagnetoterapia").checked = condicion;
+                                    break;
+                                case 7:
+                                    $("#Historicos_descUltrasonido").val(descripcionAE);
+                                    document.getElementById("Historicos_checkUltrasonido").checked = condicion;
+                                    break;
+                                case 8:
+                                    $("#Historicos_descTCombinada").val(descripcionAE);
+                                    document.getElementById("Historicos_checkTCombinada").checked = condicion;
+                                    break;
+                                case 9:
+                                    $("#Historicos_descLaserterapia").val(descripcionAE);
+                                    document.getElementById("Historicos_checkLaserterapia").checked = condicion;
+                                    break;
+                                default:
+                            }
+                            
+                        });
+
+                    }
+                    
+                }
+            }
+
+        },
+        error: function (request, status, error) {
+            alert("dd");
+        },
+    });
+
+}
 
 //Tercer Tab.
 function SaveHistory() {
@@ -458,21 +547,22 @@ function ViewGridJson(page, countrow) {
 
                     var table = $('#tblHistoricoGrid');
                     table.find("tbody tr").remove();
+
                     data.Resultado.HistoricoGrilla.forEach(function (result) {
 
                         table.append("<tr><td class='col-xs-12 col-md-1'>" +
                             "<div><table><tr><td class='col-xs-12 col-md-6'> " +
-                            "<a class='fa fa-search' onclick='HistoricoSelect(this)' id ='btnEdit' " +
+                            "<a class='fa fa-search' onclick='HistoricoSelect(this)' id ='btnEditHistorico' " +
                             " style='color: #6A5ACD' data-assigned-id=" + result.historicoId +
                             " </a></td> " +
                             "<td class='col-xs-12 col-md-6'> " +
                             "<a class='fa fa-minus-circle' onclick='DeleteHistorico(this)' id ='btnElimHistorico' " +
                             " style='color:red' data-assigned-id=" + result.historicoId +
                             " </a></td></tr></table></div></td>" +
-                            "<td class='col-xs-12 col-md-3'>" + result.NombreCompleto + "</td>" +
-                            "<td class='col-xs-12 col-md-4'>" + result.Diagnostico + "</td>" +
+                            "<td class='col-xs-12 col-md-3'>" + parseJsonRow(result.Diagnostico) + "</td>" +
+                            "<td class='col-xs-12 col-md-3'>" + parseJsonRow(result.observaciones) + "</td>" +
                             "<td class='col-xs-12 col-md-3'>" + parseJsonRow(result.Otros) + "</td>" +
-                            "<td class='col-xs-12 col-md-1'>" + parseJsonDate(result.Fechacreacion) + "</td></tr>");
+                            "<td class='col-xs-12 col-md-2'>" + parseJsonDate(result.Fechacreacion) + "</td></tr>");
                     });
 
                     var page = $('#hiPaginado');
@@ -548,11 +638,11 @@ function ViewGrid() {
                         table.append("<tr><td class='col-xs-12 col-md-1'>" +
                             "<div><table><tr><td class='col-xs-12 col-md-6'> " +
                             "<a class='fa fa-search' onclick='HistoricoSelect(this)' id ='btnEdit' " +
-                            " style='color: #6A5ACD' data-assigned-id=" + result.historicoId +
+                            " style='color: #6A5ACD' data-assigned-id=" + result.HistoricoId +
                             " </a></td> " +
                             "<td class='col-xs-12 col-md-6'> " +
                             "<a class='fa fa-minus-circle' onclick='DeleteHistorico(this)' id ='btnElimHistorico' " +
-                            " style='color:red' data-assigned-id=" + result.historicoId +
+                            " style='color:red' data-assigned-id=" + result.HistoricoId +
                             " </a></td></tr></table></div></td>" +
                             "<td class='col-xs-12 col-md-3'>" + result.NombreCompleto + "</td>" +
                             "<td class='col-xs-12 col-md-4'>" + result.Diagnostico + "</td>" +
@@ -606,76 +696,3 @@ function ViewGrid() {
     });
 }
 
-function HistoricoSelect(id) {
-    var resultado = {
-        historicoId: $(id).data('assigned-id')
-    };
-
-    var tab1 = document.getElementById("tab-1");
-    var tab2 = document.getElementById("tab-2");
-    var ltab1 = document.getElementById("litab1");
-    var ltab2 = document.getElementById("litab2");
-
-    tab1.classList.remove("active");
-    tab2.classList.add("active");
-    ltab1.classList.remove("active");
-    ltab2.classList.add("active");
-
-    $.ajax({
-        url: '../Persona/CargarPerson',
-        type: 'POST',
-        data: JSON.stringify(resultado),
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        success: function (data) {
-            if (data != null) {
-                if (data.Resultado.length > 0) {
-                    var apMaterno = data.Resultado[0].Apellidomaterno;
-                    var apPaterno = data.Resultado[0].Apellidopaterno;
-                    var direccion = data.Resultado[0].Direccion;
-                    var distritoId = data.Resultado[0].DistritoId;
-                    var fecNacimiento = parseJsonDate(data.Resultado[0].Fecnacimiento);
-                    var nombre = data.Resultado[0].Nombre;
-                    var nroDocumento = data.Resultado[0].Nrodocumento;
-                    var nroTelefono = data.Resultado[0].Nrotelefono;
-                    var ocupacion = data.Resultado[0].Ocupacion;
-                    var personaId = data.Resultado[0].PersonaId;
-                    var sexoId = data.Resultado[0].SexoId;
-                    var tipodocumentoId = data.Resultado[0].TipodocumentoId;
-                    var nombreDistrito = data.Resultado[0].NombreDistrito;
-                    var userCreate = data.Resultado[0].Usuariocreacion;
-                    var userDate = parseJsonDate(data.Resultado[0].Fechacreacion);
-                    var userModify = data.Resultado[0].Usuariomodificacion;
-                    var userDateModify = parseJsonDate(data.Resultado[0].Fechamodificacion);
-
-                    $("#Person_Nombre").val(nombre);
-                    $("#Person_Apellidopaterno").val(apPaterno);
-                    $("#Person_Apellidomaterno").val(apMaterno);
-                    $("#Person_Direccion").val(direccion);
-                    $("#FechaNacimiento").val(fecNacimiento);
-                    $("#hdistritoId").val(distritoId);
-                    $("#Person_Nrotelefono").val(nroTelefono);
-                    $("#Person_Ocupacion").val(ocupacion);
-                    $("#Person_Nrodocumento").val(nroDocumento);
-                    $("#Person_PersonaId").val(personaId);
-
-                    $("#SexoId").val(sexoId);
-                    $("#DocumentypeId").val(tipodocumentoId);
-                    $("#Namedistrito").val(nombreDistrito);
-
-                    $("#Person_Usuariocreacion").val(userCreate);
-                    $("#Person_Fechacreacion").val(userDate);
-                    $("#Person_Usuariomodificacion").val(userModify);
-                    $("#Person_Fechamodificacion").val(userDateModify);
-
-
-                }
-            }
-
-        },
-        error: function (request, status, error) {
-            alert("dd");
-        },
-    });
-
-}

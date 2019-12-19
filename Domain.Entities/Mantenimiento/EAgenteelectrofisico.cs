@@ -7,13 +7,15 @@ using System.Threading.Tasks;
 
 namespace Domain.Entities.Mantenimiento
 {
-    public class EAgenteelectrofisico
+    public class EAgenteelectrofisico : ESubtramite
     {
         public int AgenteElectrofisicoId { get; set; }
         public int HistoricoId { get; set; }
-        public int SubTramiteId { get; set; }
+        //public int SubTramiteId { get; set; }
+        //public string Descripcion { get; set; }
+        //public string Codigo { get; set; }
         public bool Condicion { get; set; }
-        public string Descripcion { get; set; }
+        public string DescripcionAE { get; set; }
 
         [Display(Name = "Usuario Creación")]
         public string Usuariocreacion { get; set; }

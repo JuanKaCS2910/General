@@ -18,6 +18,22 @@ namespace Domain.Entities.Mantenimiento
         public int? countrow { get; set; }
     }
 
+    public class EHistoricoSearch : EPersona
+    {
+        public int HistoricoId { get; set; }
+        public string Diagnostico { get; set; }
+        public string Observaciones { get; set; }
+        public string Otros { get; set; }
+        //SubTramite
+        public int SubTramiteId { get; set; }
+        public string DescripcionST { get; set; }
+        public string CodigoST { get; set; }
+
+        //
+        public bool? CondicionAE { get; set; }
+        public string DescripcionAE { get; set; }
+    }
+
     public class EHistorico 
     {
         public int HistoricoId { get; set; }

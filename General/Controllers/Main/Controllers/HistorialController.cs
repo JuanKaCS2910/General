@@ -78,6 +78,16 @@ namespace General.Controllers.Main.Controllers
         }
         #endregion
 
+        #region Tab2
+
+        [HttpPost]
+        public JsonResult SearchHistorico(int idHistorico)
+        {
+            var result = oHistorico.SearchHistorico(idHistorico);
+            return Json(new { Resultado = result }, JsonRequestBehavior.AllowGet);
+        }
+
+        #endregion
 
         [HttpPost]
         public JsonResult SearchPerson(FiltroGrilloPerson Filtro)
