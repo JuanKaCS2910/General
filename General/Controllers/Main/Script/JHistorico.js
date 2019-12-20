@@ -297,10 +297,28 @@ function HistoricoSelect(id) {
                         $("#Historicos_Observaciones").val(observaciones);
                     }
 
-                    if (data.Resultado.AgenteElectofisico.length > 0) {
+                    if (data.Resultado.AgenteTermico.length > 0) {
+                        data.Resultado.AgenteTermico.forEach(function (result) {
+                            var condicion = result.Condicion;
+                            switch (result.SubTramiteId) {
+                                case 1:
+                                    document.getElementById("Historicos_checkCaliente").checked = condicion;
+                                    break;
+                                case 2:
+                                    document.getElementById("Historicos_checkFria").checked = condicion;
+                                    break;
+                                case 3:
+                                    document.getElementById("Historicos_checkContraste").checked = condicion;
+                                    break;
+                                default:
+                            }
 
+                        });
+                    }
+
+                    if (data.Resultado.AgenteElectofisico.length > 0) {
                         data.Resultado.AgenteElectofisico.forEach(function (result) {
-                            var descripcionAE = parseJsonRow(result.DescripcionAE);
+                            var descripcionAE = parseJsonRow(result.Descripcion);
                             var condicion = result.Condicion;
                             switch (result.SubTramiteId) {
                                 case 4:
@@ -330,9 +348,39 @@ function HistoricoSelect(id) {
                             }
                             
                         });
-
                     }
-                    
+
+                    if (data.Resultado.ManiobraTerapeutica.length > 0) {
+                        data.Resultado.ManiobraTerapeutica.forEach(function (result) {
+                            var condicion = result.Condicion;
+                            switch (result.SubTramiteId) {
+                                case 1:
+                                    document.getElementById("Historicos_checkRelajante").checked = condicion;
+                                    break;
+                                case 2:
+                                    document.getElementById("Historicos_checkDescontracturante").checked = condicion;
+                                    break;
+                                case 3:
+                                    document.getElementById("Historicos_checkEstiramiento").checked = condicion;
+                                    break;
+                                case 4:
+                                    document.getElementById("Historicos_checkFortalecimiento").checked = condicion;
+                                    break;
+                                case 5:
+                                    document.getElementById("Historicos_checkRPG").checked = condicion;
+                                    break;
+                                case 6:
+                                    document.getElementById("Historicos_checkActivacion").checked = condicion;
+                                    break;
+                                case 7:
+                                    document.getElementById("Historicos_checkTAPE").checked = condicion;
+                                    break;
+                                default:
+                            }
+
+                        });
+                    }
+
                 }
             }
 

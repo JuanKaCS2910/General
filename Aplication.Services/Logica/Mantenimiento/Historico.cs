@@ -290,51 +290,43 @@ namespace Aplication.Services.Logica.Mantenimiento
         {
             var persona = oUnitOfWork.PersonaRepository.Queryable();
             var historico = oUnitOfWork.HistoricoRepository.Queryable();
-            var agenteEle = oUnitOfWork.AgenteElectrofisicoRepository.Queryable();
-            var subTramite = oUnitOfWork.SubTramiteRepository.Queryable();
 
             var resultado = from h in historico
-                         join p in persona
-                         on h.PersonaId equals p.PersonaId
-                         join ae in agenteEle
-                         on h.HistoricoId equals ae.HistoricoId
-                         join sb in subTramite
-                         on ae.SubTramiteId equals sb.SubTramiteId
-                         where h.HistoricoId == idHistorico
-                         select new EHistoricoSearch
-                         {
-                             HistoricoId = h.HistoricoId,
-                             Diagnostico = h.Diagnostico,
-                             Observaciones = h.Observaciones,
-                             Otros = h.Otros,
-                             Nombre = p.Nombre,
-                             Apellidopaterno = p.Apellidopaterno,
-                             Apellidomaterno = p.Apellidomaterno,
-                             Nrodocumento = p.Nrodocumento,
-                             TipodocumentoId = p.TipodocumentoId,
-                             SubTramiteId = sb.SubTramiteId,
-                             DescripcionST = sb.Descripcion,
-                             CodigoST = sb.Codigo,
-                             CondicionAE = ae.Condicion,
-                             DescripcionAE = ae.Descripcion,
-                         };
+                             join p in persona
+                             on h.PersonaId equals p.PersonaId
+                             where h.HistoricoId == idHistorico
+                             select new EHistoricoSearch
+                             {
+                                 HistoricoId = h.HistoricoId,
+                                 Diagnostico = h.Diagnostico,
+                                 Observaciones = h.Observaciones,
+                                 Otros = h.Otros,
+                                 Nombre = p.Nombre,
+                                 Apellidopaterno = p.Apellidopaterno,
+                                 Apellidomaterno = p.Apellidomaterno,
+                                 Nrodocumento = p.Nrodocumento,
+                                 TipodocumentoId = p.TipodocumentoId,
+                             };
 
-            
             List<EPersona> _person = personaSearch(resultado);
             List<EHistorico> _historico = historicoSearch(resultado);
             List<EAgenteelectrofisico> _agenteEF = agenteElectrofisicoSearch(resultado);
+            List<EAgentetermico> _agenteTE = agenteTermicoSearch(resultado);
+            List<EManiobrasTerapeuticas> _maniobraTE = maniobraTerapeuticaSearch(resultado);
 
             var result = new EHistoricoView
             {
                 Persona = _person,
                 Historico = _historico,
                 AgenteElectofisico = _agenteEF,
+                AgenteTermico = _agenteTE,
+                ManiobraTerapeutica = _maniobraTE,
             };
 
             return result;
-
         }
 
+        #region ModelViewHistorico
         public List<EPersona> personaSearch(IQueryable<EHistoricoSearch> result)
         {
             var _person = (from p in result
@@ -353,31 +345,77 @@ namespace Aplication.Services.Logica.Mantenimiento
         public List<EHistorico> historicoSearch(IQueryable<EHistoricoSearch> result)
         {
             var _historico = (from h in result
-                               select new EHistorico
-                               {
-                                   HistoricoId = h.HistoricoId,
-                                   Diagnostico = h.Diagnostico,
-                                   Observaciones = h.Observaciones,
-                                   Otros = h.Otros,
-                               }).Distinct().ToList();
+                              select new EHistorico
+                              {
+                                  HistoricoId = h.HistoricoId,
+                                  Diagnostico = h.Diagnostico,
+                                  Observaciones = h.Observaciones,
+                                  Otros = h.Otros,
+                              }).Distinct().ToList();
             return _historico;
         }
 
         public List<EAgenteelectrofisico> agenteElectrofisicoSearch(IQueryable<EHistoricoSearch> result)
         {
+            var agenteEle = oUnitOfWork.AgenteElectrofisicoRepository.Queryable();
+            var subTramite = oUnitOfWork.SubTramiteRepository.Queryable();
+
             var _agenteEF = (from h in result
-                             where h.CodigoST == "AE"
-                              select new EAgenteelectrofisico
-                              {
-                                  HistoricoId = h.HistoricoId,
-                                  Condicion = (bool)h.CondicionAE,
-                                  SubTramiteId = h.SubTramiteId,
-                                  Descripcion = h.DescripcionST,
-                                  Codigo = h.CodigoST,
-                                  DescripcionAE = h.DescripcionAE
-                              }).Distinct().ToList();
+                             join ae in agenteEle
+                             on h.HistoricoId equals ae.HistoricoId
+                             join sb in subTramite
+                             on ae.SubTramiteId equals sb.SubTramiteId
+                             select new EAgenteelectrofisico
+                             {
+                                 HistoricoId = h.HistoricoId,
+                                 Condicion = (bool)ae.Condicion,
+                                 SubTramiteId = ae.SubTramiteId,
+                                 Descripcion = ae.Descripcion,
+                             }).Distinct().ToList();
             return _agenteEF;
         }
+
+        public List<EAgentetermico> agenteTermicoSearch(IQueryable<EHistoricoSearch> result)
+        {
+            var agenteTE = oUnitOfWork.AgenteTermicoRepository.Queryable();
+            var subTramite = oUnitOfWork.SubTramiteRepository.Queryable();
+
+            var _agenteTE = (from h in result
+                             join at in agenteTE
+                             on h.HistoricoId equals at.HistoricoId
+                             join sb in subTramite
+                             on at.SubTramiteId equals sb.SubTramiteId
+                             select new EAgentetermico
+                             {
+                                 HistoricoId = h.HistoricoId,
+                                 Condicion = (bool)at.Condicion,
+                                 SubTramiteId = at.SubTramiteId,
+                             }).Distinct().ToList();
+            return _agenteTE;
+        }
+
+        public List<EManiobrasTerapeuticas> maniobraTerapeuticaSearch(IQueryable<EHistoricoSearch> result)
+        {
+            var maniobraTE = oUnitOfWork.ManiobrasTerapeuticasRepository.Queryable();
+            var subTramite = oUnitOfWork.SubTramiteRepository.Queryable();
+
+            var _maniobraTE = (from h in result
+                             join ma in maniobraTE
+                             on h.HistoricoId equals ma.HistoricoId
+                             join sb in subTramite
+                             on ma.SubTramiteId equals sb.SubTramiteId
+                             select new EManiobrasTerapeuticas
+                             {
+                                 HistoricoId = h.HistoricoId,
+                                 Condicion = (bool)ma.Condicion,
+                                 SubTramiteId = ma.SubTramiteId,
+                             }).Distinct().ToList();
+            return _maniobraTE;
+        }
+
+        #endregion
+
+
 
         public IPagedList<EHistorico> HistoricoGrillaToPageList(FiltroGrilloHistorico pag)
         {

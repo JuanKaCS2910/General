@@ -56,6 +56,7 @@
     <Compile Include="Mantenimiento\EFrecuencia.cs" />
     <Compile Include="Mantenimiento\EHistorico.cs" />
     <Compile Include="Mantenimiento\EHistoricoView.cs" />
+    <Compile Include="Mantenimiento\EManiobrasTerapeuticas.cs" />
     <Compile Include="Mantenimiento\EPersona.cs" />
     <Compile Include="Mantenimiento\ESexo.cs" />
     <Compile Include="Mantenimiento\ESubtramite.cs" />

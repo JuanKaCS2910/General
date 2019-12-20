@@ -11,6 +11,8 @@ namespace Domain.Entities.Mantenimiento
         public List<EPersona> Persona { get; set; }
         public List<EHistorico> Historico { get; set; }
         public List<EAgenteelectrofisico> AgenteElectofisico { get; set; }
-        //public List<EHistoricoSearch> HistoricoSearch { get; set; }
+        public List<EAgentetermico> AgenteTermico { get; set; }
+        public List<EManiobrasTerapeuticas> ManiobraTerapeutica { get; set; }
+        
     }
 }
