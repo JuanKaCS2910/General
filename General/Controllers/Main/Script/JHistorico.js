@@ -15,6 +15,12 @@
     var filtro = document.getElementById("btnFiltro");
     filtro.addEventListener("click", FoundGrid, "");
 
+    var changePerson = document.getElementById("tblPersonGrid_length");
+    changePerson.addEventListener("change", FoundGrid, "");
+    
+    var changeHistorico = document.getElementById("tblHistoricoGrid_length");
+    changeHistorico.addEventListener("change", ViewGridH, "");
+
 }());
 
 //Utilitarios.
@@ -208,7 +214,7 @@ function ViewGridHistorico(personaId) {
                             "<td class='col-xs-12 col-md-2'>" + parseJsonDate(result.Fechacreacion) + "</td></tr>");
                     });
 
-                    var page = $('#hiPaginado');
+                    var page = $('#hiPaginadoHistorico');
                     page.find("div").remove();
                     var html = "";
                     html = "<div class='pagination-container'><ul class='pagination'>";
@@ -229,14 +235,17 @@ function ViewGridHistorico(personaId) {
 
                     var tab1 = document.getElementById("tab-1");
                     var tab2 = document.getElementById("tab-2");
+                    var tab3 = document.getElementById("tab-3");
                     var ltab1 = document.getElementById("litab1");
                     var ltab2 = document.getElementById("litab2");
+                    var ltab3 = document.getElementById("litab3");
 
                     tab1.classList.remove("active");
+                    tab3.classList.remove("active");
                     tab2.classList.add("active");
                     ltab1.classList.remove("active");
+                    ltab3.classList.remove("active");
                     ltab2.classList.add("active");
-
                 }
                 else {
                     var table = $('#tblHistoricoGrid');
@@ -254,6 +263,52 @@ function ViewGridHistorico(personaId) {
     });
 }
 
+function LimpiarTab3(condicion)
+{
+    $("#DocumentypeId").val("");
+    $("#Documento").val("");
+    $("#Paciente").val("");
+    $("#Historicos_Diagnostico").val("");
+    $("#Historicos_Observaciones").val("");
+    
+    $("#Historicos_descElectroanalgesico").val("");
+    $("#Historicos_descElectroestimulacion").val("");
+    $("#Historicos_descMagnetoterapia").val("");
+    $("#Historicos_descUltrasonido").val("");
+    $("#Historicos_descTCombinada").val("");
+    $("#Historicos_descLaserterapia").val("");
+    //Agente Térmico
+    document.getElementById("Historicos_checkCaliente").checked = condicion;
+    document.getElementById("Historicos_checkFria").checked = condicion;
+    document.getElementById("Historicos_checkContraste").checked = condicion;
+    //Agente Electrofísico
+    document.getElementById("Historicos_checkElectroestimulacion").checked = condicion;
+    document.getElementById("Historicos_checkMagnetoterapia").checked = condicion;
+    document.getElementById("Historicos_checkUltrasonido").checked = condicion;
+    document.getElementById("Historicos_checkTCombinada").checked = condicion;
+    document.getElementById("Historicos_checkLaserterapia").checked = condicion;
+    //Maniobras Terapéuticas
+    document.getElementById("Historicos_checkRelajante").checked = condicion;
+    document.getElementById("Historicos_checkDescontracturante").checked = condicion;
+    document.getElementById("Historicos_checkEstiramiento").checked = condicion;
+    document.getElementById("Historicos_checkFortalecimiento").checked = condicion;
+    document.getElementById("Historicos_checkRPG").checked = condicion;
+    document.getElementById("Historicos_checkActivacion").checked = condicion;
+    document.getElementById("Historicos_checkTAPE").checked = condicion;
+    //Antecedentes.
+    document.getElementById("Historicos_checkRCaida").checked = condicion;
+    document.getElementById("Historicos_checkEEmbarazada").checked = condicion;
+    document.getElementById("Historicos_checkTDiabetes").checked = condicion;
+    document.getElementById("Historicos_checkDCancer").checked = condicion;
+    document.getElementById("Historicos_checkTEnfCardiaca").checked = condicion;
+    document.getElementById("Historicos_checkRQuemadura").checked = condicion;
+    document.getElementById("Historicos_checkPVarices").checked = condicion;
+    document.getElementById("Historicos_checkHTA").checked = condicion;
+    document.getElementById("Historicos_checkMarcapaso").checked = condicion;
+    document.getElementById("Historicos_checkEOsteosintesis").checked = condicion;
+
+}
+
 function HistoricoSelect(id) {
     var resultado = {
         idHistorico: $(id).data('assigned-id')
@@ -269,6 +324,8 @@ function HistoricoSelect(id) {
     ltab2.classList.remove("active");
     ltab3.classList.add("active");
 
+    LimpiarTab3(false);
+    Habilitar(true);
     $.ajax({
         url: '../Historial/SearchHistorico',
         type: 'POST',
@@ -354,26 +411,66 @@ function HistoricoSelect(id) {
                         data.Resultado.ManiobraTerapeutica.forEach(function (result) {
                             var condicion = result.Condicion;
                             switch (result.SubTramiteId) {
-                                case 1:
+                                case 10:
                                     document.getElementById("Historicos_checkRelajante").checked = condicion;
                                     break;
-                                case 2:
+                                case 11:
                                     document.getElementById("Historicos_checkDescontracturante").checked = condicion;
                                     break;
-                                case 3:
+                                case 12:
                                     document.getElementById("Historicos_checkEstiramiento").checked = condicion;
                                     break;
-                                case 4:
+                                case 13:
                                     document.getElementById("Historicos_checkFortalecimiento").checked = condicion;
                                     break;
-                                case 5:
+                                case 14:
                                     document.getElementById("Historicos_checkRPG").checked = condicion;
                                     break;
-                                case 6:
+                                case 15:
                                     document.getElementById("Historicos_checkActivacion").checked = condicion;
                                     break;
-                                case 7:
+                                case 16:
                                     document.getElementById("Historicos_checkTAPE").checked = condicion;
+                                    break;
+                                default:
+                            }
+
+                        });
+                    }
+
+                    if (data.Resultado.Antecedentes.length > 0) {
+                        data.Resultado.Antecedentes.forEach(function (result) {
+                            var condicion = result.Condicion;
+                            switch (result.SubTramiteId) {
+                                case 19:
+                                    document.getElementById("Historicos_checkRCaida").checked = condicion;
+                                    break;
+                                case 20:
+                                    document.getElementById("Historicos_checkEEmbarazada").checked = condicion;
+                                    break;
+                                case 21:
+                                    document.getElementById("Historicos_checkTDiabetes").checked = condicion;
+                                    break;
+                                case 22:
+                                    document.getElementById("Historicos_checkDCancer").checked = condicion;
+                                    break;
+                                case 23:
+                                    document.getElementById("Historicos_checkTEnfCardiaca").checked = condicion;
+                                    break;
+                                case 24:
+                                    document.getElementById("Historicos_checkRQuemadura").checked = condicion;
+                                    break;
+                                case 25:
+                                    document.getElementById("Historicos_checkPVarices").checked = condicion;
+                                    break;
+                                case 26:
+                                    document.getElementById("Historicos_checkHTA").checked = condicion;
+                                    break;
+                                case 27:
+                                    document.getElementById("Historicos_checkMarcapaso").checked = condicion;
+                                    break;
+                                case 28:
+                                    document.getElementById("Historicos_checkEOsteosintesis").checked = condicion;
                                     break;
                                 default:
                             }
@@ -432,6 +529,7 @@ function SaveHistory() {
         Diagnostico: diagnostico.value,
         Paquetes: paquete.value,
         Costo: costo.value,
+        Observaciones: observaciones.value,
         checkCaliente: caliente.checked,
         checkFria: fria.checked,
         checkContraste: contraste.checked,
@@ -466,7 +564,8 @@ function SaveHistory() {
                 if (data.Resultado == "OK") {
                     $("#success").modal('show');
                     $("#SuccessResult").text('El registro se grabo exitosamente');
-                    ViewGrid();
+                    ViewGridHistorico(personaId.value);
+                    //ViewGrid();
                 }
                 else {
                     $("#ErrorResult").text(data.Resultado);
@@ -483,7 +582,8 @@ function SaveHistory() {
 }
 
 function NewHistory() {
-
+    Habilitar(false);
+    LimpiarTab3(false);
 }
 
 function ChangeDocument() {
@@ -568,9 +668,9 @@ function SearchPerson() {
 }
 
 function ViewGridJson(page, countrow) {
-    //var Fdocumento = document.getElementById("FiltroPerson_Nrodocumento");
-    //var Ftipodocumento = document.getElementById("FiltroDocumentypeId");
-    //var Fappaterno = document.getElementById("FiltroPerson_Apellidopaterno");
+    var Fdocumento = document.getElementById("NroDocumentoHistorico");
+    var Ftipodocumento = document.getElementById("TDocumentoHistorico");
+    var Fappaterno = document.getElementById("NombreCompletoHistorico");
 
     var paginacion = {
         page: page,
@@ -601,19 +701,19 @@ function ViewGridJson(page, countrow) {
                         table.append("<tr><td class='col-xs-12 col-md-1'>" +
                             "<div><table><tr><td class='col-xs-12 col-md-6'> " +
                             "<a class='fa fa-search' onclick='HistoricoSelect(this)' id ='btnEditHistorico' " +
-                            " style='color: #6A5ACD' data-assigned-id=" + result.historicoId +
+                            " style='color: #6A5ACD' data-assigned-id=" + result.HistoricoId +
                             " </a></td> " +
                             "<td class='col-xs-12 col-md-6'> " +
                             "<a class='fa fa-minus-circle' onclick='DeleteHistorico(this)' id ='btnElimHistorico' " +
-                            " style='color:red' data-assigned-id=" + result.historicoId +
+                            " style='color:red' data-assigned-id=" + result.HistoricoId +
                             " </a></td></tr></table></div></td>" +
                             "<td class='col-xs-12 col-md-3'>" + parseJsonRow(result.Diagnostico) + "</td>" +
-                            "<td class='col-xs-12 col-md-3'>" + parseJsonRow(result.observaciones) + "</td>" +
+                            "<td class='col-xs-12 col-md-3'>" + parseJsonRow(result.Observaciones) + "</td>" +
                             "<td class='col-xs-12 col-md-3'>" + parseJsonRow(result.Otros) + "</td>" +
                             "<td class='col-xs-12 col-md-2'>" + parseJsonDate(result.Fechacreacion) + "</td></tr>");
                     });
 
-                    var page = $('#hiPaginado');
+                    var page = $('#hiPaginadoHistorico');
                     page.find("div").remove();
                     var html = "";
                     html = "<div class='pagination-container'><ul class='pagination'>";
@@ -634,20 +734,24 @@ function ViewGridJson(page, countrow) {
 
                     var tab1 = document.getElementById("tab-1");
                     var tab2 = document.getElementById("tab-2");
+                    var tab3 = document.getElementById("tab-3");
                     var ltab1 = document.getElementById("litab1");
                     var ltab2 = document.getElementById("litab2");
+                    var ltab3 = document.getElementById("litab3");
 
-                    tab2.classList.remove("active");
-                    tab1.classList.add("active");
-                    ltab2.classList.remove("active");
-                    ltab1.classList.add("active");
+                    tab1.classList.remove("active");
+                    tab3.classList.remove("active");
+                    tab2.classList.add("active");
+                    ltab1.classList.remove("active");
+                    ltab3.classList.remove("active");
+                    ltab2.classList.add("active");
 
                 }
                 else {
                     var table = $('#tblHistoricoGrid');
                     table.find("tbody tr").remove();
                     $("#tblHistoricoGrid_info").html("");
-                    var page = $('#hiPaginado');
+                    var page = $('#hiPaginadoHistorico');
                     page.find("div").remove();
                 }
             }
@@ -660,10 +764,13 @@ function ViewGridJson(page, countrow) {
 
 }
 
-function ViewGrid() {
+function ViewGridH() {
+
+    var personaId = document.getElementById('PersonaId');
 
     var paginacion = {
-        countrow: $("#tblHistoricoGrid_length option:selected").text()
+        countrow: $("#tblHistoricoGrid_length option:selected").text(),
+        PersonaId: personaId.value
     };
 
     $.ajax({
@@ -685,20 +792,20 @@ function ViewGrid() {
 
                         table.append("<tr><td class='col-xs-12 col-md-1'>" +
                             "<div><table><tr><td class='col-xs-12 col-md-6'> " +
-                            "<a class='fa fa-search' onclick='HistoricoSelect(this)' id ='btnEdit' " +
+                            "<a class='fa fa-search' onclick='HistoricoSelect(this)' id ='btnEditHistorico' " +
                             " style='color: #6A5ACD' data-assigned-id=" + result.HistoricoId +
                             " </a></td> " +
                             "<td class='col-xs-12 col-md-6'> " +
                             "<a class='fa fa-minus-circle' onclick='DeleteHistorico(this)' id ='btnElimHistorico' " +
                             " style='color:red' data-assigned-id=" + result.HistoricoId +
                             " </a></td></tr></table></div></td>" +
-                            "<td class='col-xs-12 col-md-3'>" + result.NombreCompleto + "</td>" +
-                            "<td class='col-xs-12 col-md-4'>" + result.Diagnostico + "</td>" +
+                            "<td class='col-xs-12 col-md-3'>" + parseJsonRow(result.Diagnostico) + "</td>" +
+                            "<td class='col-xs-12 col-md-3'>" + parseJsonRow(result.Observaciones) + "</td>" +
                             "<td class='col-xs-12 col-md-3'>" + parseJsonRow(result.Otros) + "</td>" +
-                            "<td class='col-xs-12 col-md-1'>" + parseJsonDate(result.Fechacreacion) + "</td></tr>");
+                            "<td class='col-xs-12 col-md-2'>" + parseJsonDate(result.Fechacreacion) + "</td></tr>");
                     });
-                    
-                    var page = $('#hiPaginado');
+
+                    var page = $('#hiPaginadoHistorico');
                     page.find("div").remove();
                     var html = "";
                     html = "<div class='pagination-container'><ul class='pagination'>";
@@ -719,20 +826,23 @@ function ViewGrid() {
 
                     var tab1 = document.getElementById("tab-1");
                     var tab2 = document.getElementById("tab-2");
+                    var tab3 = document.getElementById("tab-3");
                     var ltab1 = document.getElementById("litab1");
                     var ltab2 = document.getElementById("litab2");
+                    var ltab3 = document.getElementById("litab3");
 
-                    tab2.classList.remove("active");
-                    tab1.classList.add("active");
-                    ltab2.classList.remove("active");
-                    ltab1.classList.add("active");
-
+                    tab1.classList.remove("active");
+                    tab3.classList.remove("active");
+                    tab2.classList.add("active");
+                    ltab1.classList.remove("active");
+                    ltab3.classList.remove("active");
+                    ltab2.classList.add("active");
                 }
                 else {
                     var table = $('#tblHistoricoGrid');
                     table.find("tbody tr").remove();
                     $("#tblHistoricoGrid_info").html("");
-                    var page = $('#hiPaginado');
+                    var page = $('#hiPaginadoHistorico');
                     page.find("div").remove();
                 }
             }

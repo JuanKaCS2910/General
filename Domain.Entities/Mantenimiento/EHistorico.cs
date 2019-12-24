@@ -78,7 +78,17 @@ namespace Domain.Entities.Mantenimiento
         public bool checkRPG { get; set; }
         public bool checkActivacion { get; set; }
         public bool checkTAPE { get; set; }
-
+        //Antecedentes.
+        public bool checkRCaida { get; set; }
+        public bool checkEEmbarazada { get; set; }
+        public bool checkTDiabetes { get; set; }
+        public bool checkDCancer { get; set; }
+        public bool checkTEnfCardiaca { get; set; }
+        public bool checkRQuemadura { get; set; }
+        public bool checkPVarices { get; set; }
+        public bool checkHTA { get; set; }
+        public bool checkMarcapaso {get; set; }
+        public bool checkEOsteosintesis { get; set; }
         public string NombreCompleto { get; set; }
     }
 

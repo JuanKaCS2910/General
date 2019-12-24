@@ -302,3 +302,11 @@ select.form-control-formulario {
     background-color: #6A5ACD;
     border-color: #6A5ACD;
 }
+
+/*Grilla*/
+@media only screen and (min-width: 500px) {
+
+    .grid-1 {
+        /* grid declaration styles */
+    }
+}

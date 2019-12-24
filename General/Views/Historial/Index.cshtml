@@ -318,7 +318,7 @@
                                         {
                                             foreach (var historico in Model.HistoricoGrilla)
                                             {
-                                                <tr>
+                                                <tr class="grid-1">
                                                     <td class="col-xs-12 col-md-1">
                                                         <div>
                                                             <table>
@@ -364,6 +364,23 @@
                                 </table>
                             </div>
                         </div>
+
+                        
+                        <div class="row">
+                            <div class="cols-xs-12 col-md-12" id="hiPaginadoHistorico">
+                                @if (Model.HistoricoGrilla != null)
+                                {
+                                    @Html.PagedListPager(Model.HistoricoGrilla, page => Url.Action("Index", new
+                                    {
+                                        page,
+                                        sortOrder = ViewBag.CurrentSort,
+                                        currentFilter = ViewBag.CurrentFilter
+                                    }))
+                                }
+                            </div>
+
+                        </div>
+                        
 
                     </div>
                 </div>
@@ -678,6 +695,94 @@
                                 </div>
                             </div>
 
+                            <hr />
+
+                            <div class="row">
+                                <div class="col-xs-12 col-md-3">
+                                    <div class="form-group">
+                                        <h4 style="color:red">Antecedentes</h4>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-md-9">
+
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-xs-12 col-md-3">
+                                    <div class="form-group">
+                                        @Html.CheckBoxFor(model => Model.Historicos.checkRCaida, new { disabled = "disabled" })
+                                        <label class="form-check-label" for="Historicos_checkRCaida">Riesgo de Caidas</label>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-md-3">
+                                    <div class="form-group">
+                                        @Html.CheckBoxFor(model => Model.Historicos.checkEEmbarazada, new { disabled = "disabled" })
+                                        <label class="form-check-label" for="Historicos_checkEEmbarazada">Esta embarazada</label>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-md-3">
+                                    <div class="form-group">
+                                        @Html.CheckBoxFor(model => Model.Historicos.checkTDiabetes, new { disabled = "disabled" })
+                                        <label class="form-check-label" for="Historicos_checkTDiabetes">Tiene Diabetes</label>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-md-3">
+                                    <div class="form-group">
+                                        @Html.CheckBoxFor(model => Model.Historicos.checkDCancer, new { disabled = "disabled" })
+                                        <label class="form-check-label" for="Historicos_checkDCancer">Diagnóstico de Cáncer</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-xs-12 col-md-3">
+                                    <div class="form-group">
+                                        @Html.CheckBoxFor(model => Model.Historicos.checkTEnfCardiaca, new { disabled = "disabled" })
+                                        <label class="form-check-label" for="Historicos_checkTEnfCardiaca">Enfermedad Cardiaca</label>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-md-3">
+                                    <div class="form-group">
+                                        @Html.CheckBoxFor(model => Model.Historicos.checkRQuemadura, new { disabled = "disabled" })
+                                        <label class="form-check-label" for="Historicos_checkRQuemadura">Riesgo de quemaduras</label>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-md-3">
+                                    <div class="form-group">
+                                        @Html.CheckBoxFor(model => Model.Historicos.checkPVarices, new { disabled = "disabled" })
+                                        <label class="form-check-label" for="Historicos_checkPVarices">Presenta Varices</label>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-md-3">
+                                    <div class="form-group">
+                                        @Html.CheckBoxFor(model => Model.Historicos.checkHTA, new { disabled = "disabled" })
+                                        <label class="form-check-label" for="Historicos_checkHTA">Tiene HTA</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-xs-12 col-md-3">
+                                    <div class="form-group">
+                                        @Html.CheckBoxFor(model => Model.Historicos.checkMarcapaso, new { disabled = "disabled" })
+                                        <label class="form-check-label" for="Historicos_checkMarcapaso">Usa Marcapaso</label>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-md-3">
+                                    <div class="form-group">
+                                        @Html.CheckBoxFor(model => Model.Historicos.checkEOsteosintesis, new { disabled = "disabled" })
+                                        <label class="form-check-label" for="Historicos_checkEOsteosintesis">Tiene elementos Osteosíntesis</label>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-md-3">
+                                    
+                                </div>
+                                <div class="col-xs-12 col-md-3">
+                                    
+                                </div>
+                            </div>
+
                         </div>
 
                         <div class="ibox-footer">
@@ -789,5 +894,6 @@
 @section Scripts
 {
     @Scripts.Render("~/plugins/dataPicker")
+    @Scripts.Render("~/plugins/dataTables")
     <script src="~/Controllers/Main/Script/JHistorico.js"></script>
 }

@@ -195,6 +195,76 @@ namespace Aplication.Services.Logica.Mantenimiento
                             oUnitOfWork.AgenteElectrofisicoRepository.Insert(Efisico4);
                             oUnitOfWork.AgenteElectrofisicoRepository.Insert(Efisico5);
                             oUnitOfWork.Save();
+                        }
+                        catch (Exception ex)
+                        {
+                            mensaje = "Inconveniente al grabar Agente Electrofísico";
+                            transaction.Dispose();
+                            //throw;
+                        }
+                        #endregion
+
+                        #region ManiobraTerapeuticas
+
+                        Repository.ManiobrasTerapeuticas ETerapeutica = AddManiobraTerapeutica(new EManiobrasTerapeuticas
+                        {
+                            HistoricoId = nMaxHistoricoId,
+                            SubTramiteId = 10, //Masaje Relajante
+                            Condicion = registro.checkRelajante
+                        });
+
+                        Repository.ManiobrasTerapeuticas ETerapeutica1 = AddManiobraTerapeutica(new EManiobrasTerapeuticas
+                        {
+                            HistoricoId = nMaxHistoricoId,
+                            SubTramiteId = 11, //Masaje Descontracturante
+                            Condicion = registro.checkDescontracturante
+                        });
+
+                        Repository.ManiobrasTerapeuticas ETerapeutica2 = AddManiobraTerapeutica(new EManiobrasTerapeuticas
+                        {
+                            HistoricoId = nMaxHistoricoId,
+                            SubTramiteId = 12, //Estiramiento
+                            Condicion = registro.checkEstiramiento
+                        });
+
+                        Repository.ManiobrasTerapeuticas ETerapeutica3 = AddManiobraTerapeutica(new EManiobrasTerapeuticas
+                        {
+                            HistoricoId = nMaxHistoricoId,
+                            SubTramiteId = 13, //Fortalecimiento
+                            Condicion = registro.checkFortalecimiento
+                        });
+
+                        Repository.ManiobrasTerapeuticas ETerapeutica4 = AddManiobraTerapeutica(new EManiobrasTerapeuticas
+                        {
+                            HistoricoId = nMaxHistoricoId,
+                            SubTramiteId = 14, //Fortalecimiento
+                            Condicion = registro.checkRPG
+                        });
+
+                        Repository.ManiobrasTerapeuticas ETerapeutica5 = AddManiobraTerapeutica(new EManiobrasTerapeuticas
+                        {
+                            HistoricoId = nMaxHistoricoId,
+                            SubTramiteId = 15, //Activacion Mimica F.
+                            Condicion = registro.checkActivacion
+                        });
+
+                        Repository.ManiobrasTerapeuticas ETerapeutica6 = AddManiobraTerapeutica(new EManiobrasTerapeuticas
+                        {
+                            HistoricoId = nMaxHistoricoId,
+                            SubTramiteId = 16, //TAPE
+                            Condicion = registro.checkTAPE
+                        });
+
+                        try
+                        {
+                            oUnitOfWork.ManiobrasTerapeuticasRepository.Insert(ETerapeutica);
+                            oUnitOfWork.ManiobrasTerapeuticasRepository.Insert(ETerapeutica1);
+                            oUnitOfWork.ManiobrasTerapeuticasRepository.Insert(ETerapeutica2);
+                            oUnitOfWork.ManiobrasTerapeuticasRepository.Insert(ETerapeutica3);
+                            oUnitOfWork.ManiobrasTerapeuticasRepository.Insert(ETerapeutica4);
+                            oUnitOfWork.ManiobrasTerapeuticasRepository.Insert(ETerapeutica5);
+                            oUnitOfWork.ManiobrasTerapeuticasRepository.Insert(ETerapeutica6);
+                            oUnitOfWork.Save();
                             transaction.Complete();
                             mensaje = "OK";
                         }
@@ -204,6 +274,7 @@ namespace Aplication.Services.Logica.Mantenimiento
                             transaction.Dispose();
                             //throw;
                         }
+
                         #endregion
 
                     }
@@ -267,6 +338,17 @@ namespace Aplication.Services.Logica.Mantenimiento
             return Efisico;
         }
 
+        public Repository.ManiobrasTerapeuticas AddManiobraTerapeutica(EManiobrasTerapeuticas terapeutica)
+        {
+            Repository.ManiobrasTerapeuticas ETerapeutica = new Repository.ManiobrasTerapeuticas();
+            ETerapeutica.HistoricoId = terapeutica.HistoricoId;
+            ETerapeutica.SubTramiteId = terapeutica.SubTramiteId;
+            ETerapeutica.Condicion = terapeutica.Condicion;
+            ETerapeutica.Usuariocreacion = "JUCASTRO";
+            ETerapeutica.Fechacreacion = DateTime.Now;
+            return ETerapeutica;
+        }
+
         public string CreateHistory(EHistorico registro)
         {
             string mensaje = string.Empty;
@@ -313,6 +395,7 @@ namespace Aplication.Services.Logica.Mantenimiento
             List<EAgenteelectrofisico> _agenteEF = agenteElectrofisicoSearch(resultado);
             List<EAgentetermico> _agenteTE = agenteTermicoSearch(resultado);
             List<EManiobrasTerapeuticas> _maniobraTE = maniobraTerapeuticaSearch(resultado);
+            List<EAntecedentes> _antecedente = AntecedentesSearch(resultado);
 
             var result = new EHistoricoView
             {
@@ -321,6 +404,7 @@ namespace Aplication.Services.Logica.Mantenimiento
                 AgenteElectofisico = _agenteEF,
                 AgenteTermico = _agenteTE,
                 ManiobraTerapeutica = _maniobraTE,
+                Antecedentes = _antecedente,
             };
 
             return result;
@@ -413,6 +497,25 @@ namespace Aplication.Services.Logica.Mantenimiento
             return _maniobraTE;
         }
 
+        public List<EAntecedentes> AntecedentesSearch(IQueryable<EHistoricoSearch> result)
+        {
+            var antecedentes = oUnitOfWork.ManiobrasTerapeuticasRepository.Queryable();
+            var subTramite = oUnitOfWork.SubTramiteRepository.Queryable();
+
+            var _antecedente = (from h in result
+                               join a in antecedentes
+                               on h.HistoricoId equals a.HistoricoId
+                               join sb in subTramite
+                               on a.SubTramiteId equals sb.SubTramiteId
+                               select new EAntecedentes
+                               {
+                                   HistoricoId = h.HistoricoId,
+                                   Condicion = (bool)a.Condicion,
+                                   SubTramiteId = a.SubTramiteId,
+                               }).Distinct().ToList();
+            return _antecedente;
+        }
+
         #endregion
 
 
@@ -439,8 +542,7 @@ namespace Aplication.Services.Logica.Mantenimiento
                               Observaciones = h.Observaciones,
                               Otros = h.Otros,
                               Fechacreacion = h.Fechacreacion
-                          }).OrderBy(d => d.NombreCompleto)
-                                         .ThenBy(d => d.Fechacreacion).ToList();
+                          }).OrderByDescending(d => d.Fechacreacion).ToList();
             }
             else
             {
@@ -455,8 +557,7 @@ namespace Aplication.Services.Logica.Mantenimiento
                               Observaciones = h.Observaciones,
                               Otros = h.Otros,
                               Fechacreacion = h.Fechacreacion
-                          }).OrderBy(d => d.NombreCompleto)
-                         .ThenBy(d => d.Fechacreacion).ToList();
+                          }).OrderByDescending(d => d.Fechacreacion).ToList();
             }
 
              

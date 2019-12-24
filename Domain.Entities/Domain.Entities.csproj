@@ -52,6 +52,7 @@
     <Compile Include="General\SendEmail.cs" />
     <Compile Include="Mantenimiento\EAgenteelectrofisico.cs" />
     <Compile Include="Mantenimiento\EAgentetermico.cs" />
+    <Compile Include="Mantenimiento\EAntecedentes.cs" />
     <Compile Include="Mantenimiento\EDistrito.cs" />
     <Compile Include="Mantenimiento\EFrecuencia.cs" />
     <Compile Include="Mantenimiento\EHistorico.cs" />
