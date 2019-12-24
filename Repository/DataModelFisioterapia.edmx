@@ -32,6 +32,19 @@
           <Property Name="Usuariomodificacion" Type="nvarchar" MaxLength="20" />
           <Property Name="Fechamodificacion" Type="datetime" />
         </EntityType>
+        <EntityType Name="Antecedentes">
+          <Key>
+            <PropertyRef Name="AntecedentesId" />
+          </Key>
+          <Property Name="AntecedentesId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="HistoricoId" Type="int" Nullable="false" />
+          <Property Name="SubTramiteId" Type="int" Nullable="false" />
+          <Property Name="Condicion" Type="bit" />
+          <Property Name="Usuariocreacion" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Fechacreacion" Type="datetime" Nullable="false" />
+          <Property Name="Usuariomodificacion" Type="nvarchar" MaxLength="20" />
+          <Property Name="Fechamodificacion" Type="datetime" />
+        </EntityType>
         <EntityType Name="Departamento">
           <Key>
             <PropertyRef Name="DepartamentoId" />
@@ -195,6 +208,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_dbo_Antecedentes_dbo_Historico_HistoricoId">
+          <End Role="Historico" Type="Self.Historico" Multiplicity="1" />
+          <End Role="Antecedentes" Type="Self.Antecedentes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Historico">
+              <PropertyRef Name="HistoricoId" />
+            </Principal>
+            <Dependent Role="Antecedentes">
+              <PropertyRef Name="HistoricoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Antecedentes_dbo_SubTramite_SubTramiteId">
+          <End Role="SubTramite" Type="Self.SubTramite" Multiplicity="1" />
+          <End Role="Antecedentes" Type="Self.Antecedentes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SubTramite">
+              <PropertyRef Name="SubTramiteId" />
+            </Principal>
+            <Dependent Role="Antecedentes">
+              <PropertyRef Name="SubTramiteId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_dbo_Distrito_dbo_Departamento_DepartamentoId">
           <End Role="Departamento" Type="Self.Departamento" Multiplicity="1" />
           <End Role="Distrito" Type="Self.Distrito" Multiplicity="*" />
@@ -318,6 +355,7 @@
         <EntityContainer Name="DBFisioterapiaModelStoreContainer">
           <EntitySet Name="AgenteElectrofisico" EntityType="Self.AgenteElectrofisico" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AgenteTermico" EntityType="Self.AgenteTermico" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Antecedentes" EntityType="Self.Antecedentes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Departamento" EntityType="Self.Departamento" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Distrito" EntityType="Self.Distrito" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Frecuencia" EntityType="Self.Frecuencia" Schema="dbo" store:Type="Tables" />
@@ -343,6 +381,14 @@
           <AssociationSet Name="FK_dbo_AgenteTermico_dbo_SubTramite_SubTramiteId" Association="Self.FK_dbo_AgenteTermico_dbo_SubTramite_SubTramiteId">
             <End Role="SubTramite" EntitySet="SubTramite" />
             <End Role="AgenteTermico" EntitySet="AgenteTermico" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Antecedentes_dbo_Historico_HistoricoId" Association="Self.FK_dbo_Antecedentes_dbo_Historico_HistoricoId">
+            <End Role="Historico" EntitySet="Historico" />
+            <End Role="Antecedentes" EntitySet="Antecedentes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Antecedentes_dbo_SubTramite_SubTramiteId" Association="Self.FK_dbo_Antecedentes_dbo_SubTramite_SubTramiteId">
+            <End Role="SubTramite" EntitySet="SubTramite" />
+            <End Role="Antecedentes" EntitySet="Antecedentes" />
           </AssociationSet>
           <AssociationSet Name="FK_dbo_Distrito_dbo_Departamento_DepartamentoId" Association="Self.FK_dbo_Distrito_dbo_Departamento_DepartamentoId">
             <End Role="Departamento" EntitySet="Departamento" />
@@ -457,6 +503,15 @@
           <AssociationSet Name="FK_dbo_ManiobrasTerapeuticas_dbo_SubTramite_SubTramiteId" Association="DBFisioterapiaModel.FK_dbo_ManiobrasTerapeuticas_dbo_SubTramite_SubTramiteId">
             <End Role="SubTramite" EntitySet="SubTramite" />
             <End Role="ManiobrasTerapeuticas" EntitySet="ManiobrasTerapeuticas" />
+          </AssociationSet>
+          <EntitySet Name="Antecedentes" EntityType="DBFisioterapiaModel.Antecedentes" />
+          <AssociationSet Name="FK_dbo_Antecedentes_dbo_Historico_HistoricoId" Association="DBFisioterapiaModel.FK_dbo_Antecedentes_dbo_Historico_HistoricoId">
+            <End Role="Historico" EntitySet="Historico" />
+            <End Role="Antecedentes" EntitySet="Antecedentes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Antecedentes_dbo_SubTramite_SubTramiteId" Association="DBFisioterapiaModel.FK_dbo_Antecedentes_dbo_SubTramite_SubTramiteId">
+            <End Role="SubTramite" EntitySet="SubTramite" />
+            <End Role="Antecedentes" EntitySet="Antecedentes" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="Departamento">
@@ -586,6 +641,7 @@
           <NavigationProperty Name="AgenteTermico" Relationship="DBFisioterapiaModel.FK_dbo_AgenteTermico_dbo_Historico_HistoricoId" FromRole="Historico" ToRole="AgenteTermico" />
           <NavigationProperty Name="Frecuencia" Relationship="DBFisioterapiaModel.FK_dbo_Frecuencia_dbo_Historico_HistoricoId" FromRole="Historico" ToRole="Frecuencia" />
           <NavigationProperty Name="ManiobrasTerapeuticas" Relationship="DBFisioterapiaModel.FK_dbo_ManiobrasTerapeuticas_dbo_Historico_HistoricoId" FromRole="Historico" ToRole="ManiobrasTerapeuticas" />
+          <NavigationProperty Name="Antecedentes" Relationship="DBFisioterapiaModel.FK_dbo_Antecedentes_dbo_Historico_HistoricoId" FromRole="Historico" ToRole="Antecedentes" />
         </EntityType>
         <EntityType Name="SubTramite">
           <Key>
@@ -603,6 +659,7 @@
           <NavigationProperty Name="AgenteTermico" Relationship="DBFisioterapiaModel.FK_dbo_AgenteTermico_dbo_SubTramite_SubTramiteId" FromRole="SubTramite" ToRole="AgenteTermico" />
           <NavigationProperty Name="Frecuencia" Relationship="DBFisioterapiaModel.FK_dbo_Frecuencia_dbo_SubTramite_SubTramiteId" FromRole="SubTramite" ToRole="Frecuencia" />
           <NavigationProperty Name="ManiobrasTerapeuticas" Relationship="DBFisioterapiaModel.FK_dbo_ManiobrasTerapeuticas_dbo_SubTramite_SubTramiteId" FromRole="SubTramite" ToRole="ManiobrasTerapeuticas" />
+          <NavigationProperty Name="Antecedentes" Relationship="DBFisioterapiaModel.FK_dbo_Antecedentes_dbo_SubTramite_SubTramiteId" FromRole="SubTramite" ToRole="Antecedentes" />
         </EntityType>
         <EntityType Name="Tramite">
           <Key>
@@ -797,6 +854,45 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Antecedentes">
+          <Key>
+            <PropertyRef Name="AntecedentesId" />
+          </Key>
+          <Property Name="AntecedentesId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="HistoricoId" Type="Int32" Nullable="false" />
+          <Property Name="SubTramiteId" Type="Int32" Nullable="false" />
+          <Property Name="Condicion" Type="Boolean" />
+          <Property Name="Usuariocreacion" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Fechacreacion" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Usuariomodificacion" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Fechamodificacion" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Historico" Relationship="DBFisioterapiaModel.FK_dbo_Antecedentes_dbo_Historico_HistoricoId" FromRole="Antecedentes" ToRole="Historico" />
+          <NavigationProperty Name="SubTramite" Relationship="DBFisioterapiaModel.FK_dbo_Antecedentes_dbo_SubTramite_SubTramiteId" FromRole="Antecedentes" ToRole="SubTramite" />
+        </EntityType>
+        <Association Name="FK_dbo_Antecedentes_dbo_Historico_HistoricoId">
+          <End Type="DBFisioterapiaModel.Historico" Role="Historico" Multiplicity="1" />
+          <End Type="DBFisioterapiaModel.Antecedentes" Role="Antecedentes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Historico">
+              <PropertyRef Name="HistoricoId" />
+            </Principal>
+            <Dependent Role="Antecedentes">
+              <PropertyRef Name="HistoricoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Antecedentes_dbo_SubTramite_SubTramiteId">
+          <End Type="DBFisioterapiaModel.SubTramite" Role="SubTramite" Multiplicity="1" />
+          <End Type="DBFisioterapiaModel.Antecedentes" Role="Antecedentes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SubTramite">
+              <PropertyRef Name="SubTramiteId" />
+            </Principal>
+            <Dependent Role="Antecedentes">
+              <PropertyRef Name="SubTramiteId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -954,6 +1050,20 @@
                 <ScalarProperty Name="SubTramiteId" ColumnName="SubTramiteId" />
                 <ScalarProperty Name="HistoricoId" ColumnName="HistoricoId" />
                 <ScalarProperty Name="ManiobrasTerapeuticasId" ColumnName="ManiobrasTerapeuticasId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Antecedentes">
+            <EntityTypeMapping TypeName="DBFisioterapiaModel.Antecedentes">
+              <MappingFragment StoreEntitySet="Antecedentes">
+                <ScalarProperty Name="Fechamodificacion" ColumnName="Fechamodificacion" />
+                <ScalarProperty Name="Usuariomodificacion" ColumnName="Usuariomodificacion" />
+                <ScalarProperty Name="Fechacreacion" ColumnName="Fechacreacion" />
+                <ScalarProperty Name="Usuariocreacion" ColumnName="Usuariocreacion" />
+                <ScalarProperty Name="Condicion" ColumnName="Condicion" />
+                <ScalarProperty Name="SubTramiteId" ColumnName="SubTramiteId" />
+                <ScalarProperty Name="HistoricoId" ColumnName="HistoricoId" />
+                <ScalarProperty Name="AntecedentesId" ColumnName="AntecedentesId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

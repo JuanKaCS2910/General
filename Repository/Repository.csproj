@@ -56,6 +56,9 @@
     <Compile Include="AgenteTermico.cs">
       <DependentUpon>DataModelFisioterapia.tt</DependentUpon>
     </Compile>
+    <Compile Include="Antecedentes.cs">
+      <DependentUpon>DataModelFisioterapia.tt</DependentUpon>
+    </Compile>
     <Compile Include="DataModelFisioterapia.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

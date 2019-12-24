@@ -19,7 +19,7 @@ namespace Repository
             : base(name)
         {
         }
-    
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             throw new UnintentionalCodeFirstException();
@@ -37,5 +37,6 @@ namespace Repository
         public virtual DbSet<AgenteTermico> AgenteTermico { get; set; }
         public virtual DbSet<Frecuencia> Frecuencia { get; set; }
         public virtual DbSet<ManiobrasTerapeuticas> ManiobrasTerapeuticas { get; set; }
+        public virtual DbSet<Antecedentes> Antecedentes { get; set; }
     }
 }

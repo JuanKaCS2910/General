@@ -21,6 +21,7 @@ namespace Repository
             this.AgenteTermico = new HashSet<AgenteTermico>();
             this.Frecuencia = new HashSet<Frecuencia>();
             this.ManiobrasTerapeuticas = new HashSet<ManiobrasTerapeuticas>();
+            this.Antecedentes = new HashSet<Antecedentes>();
         }
     
         public int HistoricoId { get; set; }
@@ -42,5 +43,7 @@ namespace Repository
         public virtual ICollection<Frecuencia> Frecuencia { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ManiobrasTerapeuticas> ManiobrasTerapeuticas { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Antecedentes> Antecedentes { get; set; }
     }
 }

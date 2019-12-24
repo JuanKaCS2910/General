@@ -77,6 +77,10 @@
       <Project>{0874BBA5-5932-40BF-A281-EEBEC6AD182A}</Project>
       <Name>Repository</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Utility\Utility.csproj">
+      <Project>{7b2a196b-e558-4bc1-9533-6859ef37a455}</Project>
+      <Name>Utility</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\PagedList.css" />

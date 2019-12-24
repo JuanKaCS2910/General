@@ -621,6 +621,17 @@ function Habilitar(condicion) {
 
     //
     document.getElementById('Historicos_Observaciones').disabled = condicion;
+    //Antecedentes.
+    document.getElementById('Historicos_checkRCaida').disabled = condicion;
+    document.getElementById('Historicos_checkEEmbarazada').disabled = condicion;
+    document.getElementById('Historicos_checkTDiabetes').disabled = condicion;
+    document.getElementById('Historicos_checkDCancer').disabled = condicion;
+    document.getElementById('Historicos_checkTEnfCardiaca').disabled = condicion;
+    document.getElementById('Historicos_checkRQuemadura').disabled = condicion;
+    document.getElementById('Historicos_checkPVarices').disabled = condicion;
+    document.getElementById('Historicos_checkHTA').disabled = condicion;
+    document.getElementById('Historicos_checkMarcapaso').disabled = condicion;
+    document.getElementById('Historicos_checkEOsteosintesis').disabled = condicion;
 }
 
 function SearchPerson() {

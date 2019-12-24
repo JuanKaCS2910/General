@@ -276,6 +276,8 @@ function SavePerson() {
             personaId: persona.value
         };
 
+        document.getElementById("FiltroDocumentypeId").value = "";
+
         if (persona.value == "0") {
 
             $.ajax({

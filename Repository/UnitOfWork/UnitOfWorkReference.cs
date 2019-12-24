@@ -17,6 +17,7 @@
         private GenericRepository<AgenteElectrofisico> agenteelectrofisicoRepository;
         private GenericRepository<AgenteTermico> agentetermicoRepository;
         private GenericRepository<ManiobrasTerapeuticas> maniobrasterapeuticasRepository;
+        private GenericRepository<Antecedentes> antecedentesRepository;
 
         private GenericRepository<SubTramite> subtramiteRepository;
         #endregion
@@ -141,6 +142,18 @@
                     this.subtramiteRepository = new GenericRepository<SubTramite>(context);
                 }
                 return subtramiteRepository;
+            }
+        }
+
+        public GenericRepository<Antecedentes> AntecedentesRepository
+        {
+            get
+            {
+                if (this.antecedentesRepository == null)
+                {
+                    this.antecedentesRepository = new GenericRepository<Antecedentes>(context);
+                }
+                return antecedentesRepository;
             }
         }
 
