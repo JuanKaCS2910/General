@@ -21,6 +21,7 @@
     var changeHistorico = document.getElementById("tblHistoricoGrid_length");
     changeHistorico.addEventListener("change", ViewGridH, "");
 
+    Habilitar(true);
 }());
 
 //Utilitarios.
@@ -302,9 +303,15 @@ function LimpiarTab3(condicion)
     document.getElementById('PersonaId').value = "";
     document.getElementById('Historicos_Paquetes').value = "";
     document.getElementById('Historicos_Costo').value = "";
-    $("#DocumentypeId").val("");
-    $("#Documento").val("");
-    $("#Paciente").val("");
+    //$("#DocumentypeId").val("");
+    //$("#Documento").val("");
+    //$("#Paciente").val("");
+    document.getElementById('DocumentypeId').value = "";
+    document.getElementById('Documento').value = "";
+    document.getElementById('Paciente').value = "";
+    document.getElementById('Frecuencia').value = "";
+    
+
     $("#Historicos_Diagnostico").val("");
     $("#Historicos_Observaciones").val("");
     $("#Historicos_Otros").val("");
@@ -654,6 +661,9 @@ function ChangeDocument() {
 }
 
 function Habilitar(condicion) {
+
+    document.getElementById('Frecuencia').disabled = condicion;
+
     document.getElementById('Historicos_Diagnostico').disabled = condicion;
     document.getElementById('Historicos_Paquetes').disabled = condicion;
     document.getElementById('Historicos_Costo').disabled = condicion;

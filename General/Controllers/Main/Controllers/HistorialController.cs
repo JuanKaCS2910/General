@@ -14,12 +14,14 @@ namespace General.Controllers.Main.Controllers
         private IPersona oPersona;
         private IHistorico oHistorico;
         private ITipodocumento oTipodocumento;
+        private ISubTramite oSubTramite;
 
         public HistorialController()
         {
             this.oPersona = new Persona();
             this.oTipodocumento = new Tipodocumento();
             this.oHistorico = new Historico();
+            this.oSubTramite = new SubTramite();
             //this.oHistorico = new 
         }
 
@@ -34,6 +36,9 @@ namespace General.Controllers.Main.Controllers
                 "TipodocumentoId", "Descripcion");
             ViewBag.DocumentypeId = new SelectList(oTipodocumento.Cargardocumento(),
                 "TipodocumentoId", "Descripcion");
+
+            ViewBag.Frecuencia = new SelectList(oSubTramite.CargarSubtTramite("FR"),
+                "SubTramiteId", "Descripcion");
 
             var result = new ViewModelHistorico
             {

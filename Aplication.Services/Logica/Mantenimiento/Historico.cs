@@ -493,6 +493,7 @@ namespace Aplication.Services.Logica.Mantenimiento
             hist.Diagnostico = registro.Diagnostico == null ? "" : registro.Diagnostico.ToUpper();
             hist.Observaciones = registro.Observaciones == null ? "" : registro.Observaciones.ToUpper();
             hist.Otros = registro.Otros == null ? "" : registro.Otros.ToUpper();
+            
             hist.Fechacreacion = DateTime.Now;
             hist.Usuariocreacion = "JUCASTRO";
 

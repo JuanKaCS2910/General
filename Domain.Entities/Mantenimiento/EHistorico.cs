@@ -46,6 +46,8 @@ namespace Domain.Entities.Mantenimiento
 
         public float Costo { get; set; }
 
+        public string Frecuencia { get; set; }
+
         [Display(Name = "Usuario Creación")]
         public string Usuariocreacion { get; set; }
         public DateTime Fechacreacion { get; set; }

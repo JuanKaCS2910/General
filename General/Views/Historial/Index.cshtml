@@ -453,7 +453,7 @@
                                 </div>
                                 <div class="col-xs-12 col-md-9">
                                     <div class="form-group">
-                                        @Html.EditorFor(model => Model.Historicos.Diagnostico, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
+                                        @Html.EditorFor(model => Model.Historicos.Diagnostico, new { htmlAttributes = new { @class = "form-control" } })
                                     </div>
                                 </div>
                             </div>
@@ -464,7 +464,7 @@
                                 </div>
                                 <div class="col-xs-12 col-md-3">
                                     <div class="form-group">
-                                        @Html.EditorFor(model => Model.Historicos.Paquetes, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
+                                        @Html.EditorFor(model => Model.Historicos.Paquetes, new { htmlAttributes = new { @class = "form-control" } })
                                     </div>
                                 </div>
                                 <div class="col-xs-12 col-md-3">
@@ -472,9 +472,31 @@
                                 </div>
                                 <div class="col-xs-12 col-md-3">
                                     <div class="form-group">
-                                        @Html.EditorFor(model => Model.Historicos.Costo, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
+                                        @Html.EditorFor(model => Model.Historicos.Costo, new { htmlAttributes = new { @class = "form-control"} })
                                     </div>
                                 </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-xs-12 col-md-3">
+                                    @Html.LabelFor(model => Model.Historicos.Frecuencia, htmlAttributes: new { @class = "control-label input-style" })
+                                </div>
+                                <div class="col-xs-12 col-md-3">
+                                    <div class="form-group">
+                                        <div class="form-group">
+                                            @Html.DropDownList("Frecuencia", null, htmlAttributes: new { @class = "form-control-formulario" })
+                                        </div>
+                                        @*@Html.EditorFor(model => Model.Historicos.Paquetes, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })*@
+                                    </div>
+                                </div>
+                                @*<div class="col-xs-12 col-md-3">
+                                    @Html.LabelFor(model => Model.Historicos.Costo, htmlAttributes: new { @class = "control-label input-style" })
+                                </div>
+                                <div class="col-xs-12 col-md-3">
+                                    <div class="form-group">
+                                        @Html.EditorFor(model => Model.Historicos.Costo, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
+                                    </div>
+                                </div>*@
                             </div>
 
                             <div class="row">
@@ -494,14 +516,14 @@
                             <div class="row">
                                 <div class="col-xs-12 col-md-3">
                                     <div class="form-group">
-                                        @Html.CheckBoxFor(model => Model.Historicos.checkCaliente, new { disabled = "disabled", @checked = false })
+                                        @Html.CheckBoxFor(model => Model.Historicos.checkCaliente, new { @checked = false })
                                         @*<input type="checkbox" class="form-check-input" id="checkCaliente">*@
                                         <label class="form-check-label" for="Historicos_checkCaliente">Compresa Caliente</label>
                                     </div>
                                 </div>
                                 <div class="col-xs-12 col-md-3">
                                     <div class="form-group">
-                                        @Html.CheckBoxFor(model => Model.Historicos.checkFria, new { disabled = "disabled", @checked = false })
+                                        @Html.CheckBoxFor(model => Model.Historicos.checkFria, new { @checked = false })
                                         @*<input type="checkbox" class="form-check-input" id="checkFria">*@
                                         <label class="form-check-label" for="Historicos_checkFria">Compresa Fría</label>
                                     </div>
@@ -509,7 +531,7 @@
                                 <div class="col-xs-12 col-md-3">
                                     <div class="form-group">
                                         @*<input id="Historicos_checkContraste" name="Historicos_checkContraste" type="checkbox"/>*@
-                                        @Html.CheckBoxFor(model => Model.Historicos.checkContraste, new { disabled = "disabled", @checked = "checked" })
+                                        @Html.CheckBoxFor(model => Model.Historicos.checkContraste, new { @checked = "checked" })
                                         @*<input type="checkbox" class="form-check-input" id="checkContraste">*@
                                         <label class="form-check-label" for="Historicos_checkContraste">Contraste</label>
                                     </div>
@@ -540,7 +562,7 @@
                                 </div>
                                 <div class="col-xs-12 col-md-3">
                                     <div class="form-group">
-                                        @Html.EditorFor(model => Model.Historicos.descElectroanalgesico, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
+                                        @Html.EditorFor(model => Model.Historicos.descElectroanalgesico, new { htmlAttributes = new { @class = "form-control" } })
                                         @*<input class="form-control text-box single-line" id="Historicos_Paquetes" name="Historicos.Paquetes" type="text" value="">*@
                                     </div>
                                 </div>
@@ -553,7 +575,7 @@
                                 </div>
                                 <div class="col-xs-12 col-md-3">
                                     <div class="form-group">
-                                        @Html.EditorFor(model => Model.Historicos.descElectroestimulacion, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
+                                        @Html.EditorFor(model => Model.Historicos.descElectroestimulacion, new { htmlAttributes = new { @class = "form-control" } })
                                         @*<input class="form-control text-box single-line" id="Historicos_Paquetes" name="Historicos.Paquetes" type="text" value="">*@
                                     </div>
                                 </div>
@@ -563,24 +585,24 @@
                                 <div class="col-xs-12 col-md-3">
                                     <div class="form-group">
                                         @*<input type="checkbox" class="form-check-input" id="checkMagnetoterapia">*@
-                                        @Html.CheckBoxFor(model => Model.Historicos.checkMagnetoterapia, new { disabled = "disabled" })
+                                        @Html.CheckBoxFor(model => Model.Historicos.checkMagnetoterapia )
                                         <label class="form-check-label" for="Historicos_checkMagnetoterapia">Magnetoterapia</label>
                                     </div>
                                 </div>
                                 <div class="col-xs-12 col-md-3">
                                     <div class="form-group">
-                                        @Html.EditorFor(model => Model.Historicos.descMagnetoterapia, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
+                                        @Html.EditorFor(model => Model.Historicos.descMagnetoterapia, new { htmlAttributes = new { @class = "form-control" } })
                                     </div>
                                 </div>
                                 <div class="col-xs-12 col-md-3">
                                     <div class="form-group">
-                                        @Html.CheckBoxFor(model => Model.Historicos.checkUltrasonido, new { disabled = "disabled" })
+                                        @Html.CheckBoxFor(model => Model.Historicos.checkUltrasonido)
                                         <label class="form-check-label" for="Historicos_checkUltrasonido">Ultrasonido</label>
                                     </div>
                                 </div>
                                 <div class="col-xs-12 col-md-3">
                                     <div class="form-group">
-                                        @Html.EditorFor(model => Model.Historicos.descUltrasonido, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
+                                        @Html.EditorFor(model => Model.Historicos.descUltrasonido, new { htmlAttributes = new { @class = "form-control" } })
                                     </div>
                                 </div>
                             </div>
@@ -588,14 +610,14 @@
                             <div class="row">
                                 <div class="col-xs-12 col-md-3">
                                     <div class="form-group">
-                                        @Html.CheckBoxFor(model => Model.Historicos.checkTCombinada, new { disabled = "disabled" })
+                                        @Html.CheckBoxFor(model => Model.Historicos.checkTCombinada)
                                         <label class="form-check-label" for="Historicos_checkTCombinada">T. Combinada</label>
                                     </div>
                                 </div>
 
                                 <div class="col-xs-12 col-md-3">
                                     <div class="form-group">
-                                        @Html.EditorFor(model => Model.Historicos.descTCombinada, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
+                                        @Html.EditorFor(model => Model.Historicos.descTCombinada, new { htmlAttributes = new { @class = "form-control" } })
                                     </div>
                                 </div>
                                 <div class="col-xs-12 col-md-3">
@@ -606,7 +628,7 @@
                                 </div>
                                 <div class="col-xs-12 col-md-3">
                                     <div class="form-group">
-                                        @Html.EditorFor(model => Model.Historicos.descLaserterapia, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
+                                        @Html.EditorFor(model => Model.Historicos.descLaserterapia, new { htmlAttributes = new { @class = "form-control" } })
                                     </div>
                                 </div>
                             </div>
@@ -624,25 +646,25 @@
                             <div class="row">
                                 <div class="col-xs-12 col-md-3">
                                     <div class="form-group">
-                                        @Html.CheckBoxFor(model => Model.Historicos.checkRelajante, new { disabled = "disabled" })
+                                        @Html.CheckBoxFor(model => Model.Historicos.checkRelajante)
                                         <label class="form-check-label" for="Historicos_checkRelajante">Masaje Relajante</label>
                                     </div>
                                 </div>
                                 <div class="col-xs-12 col-md-3">
                                     <div class="form-group">
-                                        @Html.CheckBoxFor(model => Model.Historicos.checkDescontracturante, new { disabled = "disabled" })
+                                        @Html.CheckBoxFor(model => Model.Historicos.checkDescontracturante)
                                         <label class="form-check-label" for="Historicos_checkDescontracturante">Masaje Descontracturante</label>
                                     </div>
                                 </div>
                                 <div class="col-xs-12 col-md-3">
                                     <div class="form-group">
-                                        @Html.CheckBoxFor(model => Model.Historicos.checkEstiramiento, new { disabled = "disabled" })
+                                        @Html.CheckBoxFor(model => Model.Historicos.checkEstiramiento)
                                         <label class="form-check-label" for="Historicos_checkEstiramiento">Estiramiento</label>
                                     </div>
                                 </div>
                                 <div class="col-xs-12 col-md-3">
                                     <div class="form-group">
-                                        @Html.CheckBoxFor(model => Model.Historicos.checkFortalecimiento, new { disabled = "disabled" })
+                                        @Html.CheckBoxFor(model => Model.Historicos.checkFortalecimiento)
                                         <label class="form-check-label" for="Historicos_checkFortalecimiento">Fortalecimiento</label>
                                     </div>
                                 </div>
@@ -651,19 +673,19 @@
                             <div class="row">
                                 <div class="col-xs-12 col-md-3">
                                     <div class="form-group">
-                                        @Html.CheckBoxFor(model => Model.Historicos.checkRPG, new { disabled = "disabled" })
+                                        @Html.CheckBoxFor(model => Model.Historicos.checkRPG)
                                         <label class="form-check-label" for="Historicos_checkRPG">RPG</label>
                                     </div>
                                 </div>
                                 <div class="col-xs-12 col-md-3">
                                     <div class="form-group">
-                                        @Html.CheckBoxFor(model => Model.Historicos.checkActivacion, new { disabled = "disabled" })
+                                        @Html.CheckBoxFor(model => Model.Historicos.checkActivacion)
                                         <label class="form-check-label" for="Historicos_checkActivacion">Activacion Mimica F.</label>
                                     </div>
                                 </div>
                                 <div class="col-xs-12 col-md-3">
                                     <div class="form-group">
-                                        @Html.CheckBoxFor(model => Model.Historicos.checkTAPE, new { disabled = "disabled" })
+                                        @Html.CheckBoxFor(model => Model.Historicos.checkTAPE)
                                         <label class="form-check-label" for="Historicos_checkTAPE">TAPE</label>
                                     </div>
                                 </div>
@@ -690,7 +712,7 @@
                                 </div>
                                 <div class="col-xs-12 col-md-9">
                                     <div class="form-group">
-                                        @Html.EditorFor(model => Model.Historicos.Observaciones, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
+                                        @Html.EditorFor(model => Model.Historicos.Observaciones, new { htmlAttributes = new { @class = "form-control" } })
                                     </div>
                                 </div>
                             </div>
@@ -711,25 +733,25 @@
                             <div class="row">
                                 <div class="col-xs-12 col-md-3">
                                     <div class="form-group">
-                                        @Html.CheckBoxFor(model => Model.Historicos.checkRCaida, new { disabled = "disabled" })
+                                        @Html.CheckBoxFor(model => Model.Historicos.checkRCaida)
                                         <label class="form-check-label" for="Historicos_checkRCaida">Riesgo de Caidas</label>
                                     </div>
                                 </div>
                                 <div class="col-xs-12 col-md-3">
                                     <div class="form-group">
-                                        @Html.CheckBoxFor(model => Model.Historicos.checkEEmbarazada, new { disabled = "disabled" })
+                                        @Html.CheckBoxFor(model => Model.Historicos.checkEEmbarazada)
                                         <label class="form-check-label" for="Historicos_checkEEmbarazada">Esta embarazada</label>
                                     </div>
                                 </div>
                                 <div class="col-xs-12 col-md-3">
                                     <div class="form-group">
-                                        @Html.CheckBoxFor(model => Model.Historicos.checkTDiabetes, new { disabled = "disabled" })
+                                        @Html.CheckBoxFor(model => Model.Historicos.checkTDiabetes)
                                         <label class="form-check-label" for="Historicos_checkTDiabetes">Tiene Diabetes</label>
                                     </div>
                                 </div>
                                 <div class="col-xs-12 col-md-3">
                                     <div class="form-group">
-                                        @Html.CheckBoxFor(model => Model.Historicos.checkDCancer, new { disabled = "disabled" })
+                                        @Html.CheckBoxFor(model => Model.Historicos.checkDCancer)
                                         <label class="form-check-label" for="Historicos_checkDCancer">Diagnóstico de Cáncer</label>
                                     </div>
                                 </div>
@@ -738,25 +760,25 @@
                             <div class="row">
                                 <div class="col-xs-12 col-md-3">
                                     <div class="form-group">
-                                        @Html.CheckBoxFor(model => Model.Historicos.checkTEnfCardiaca, new { disabled = "disabled" })
+                                        @Html.CheckBoxFor(model => Model.Historicos.checkTEnfCardiaca)
                                         <label class="form-check-label" for="Historicos_checkTEnfCardiaca">Enfermedad Cardiaca</label>
                                     </div>
                                 </div>
                                 <div class="col-xs-12 col-md-3">
                                     <div class="form-group">
-                                        @Html.CheckBoxFor(model => Model.Historicos.checkRQuemadura, new { disabled = "disabled" })
+                                        @Html.CheckBoxFor(model => Model.Historicos.checkRQuemadura)
                                         <label class="form-check-label" for="Historicos_checkRQuemadura">Riesgo de quemaduras</label>
                                     </div>
                                 </div>
                                 <div class="col-xs-12 col-md-3">
                                     <div class="form-group">
-                                        @Html.CheckBoxFor(model => Model.Historicos.checkPVarices, new { disabled = "disabled" })
+                                        @Html.CheckBoxFor(model => Model.Historicos.checkPVarices)
                                         <label class="form-check-label" for="Historicos_checkPVarices">Presenta Varices</label>
                                     </div>
                                 </div>
                                 <div class="col-xs-12 col-md-3">
                                     <div class="form-group">
-                                        @Html.CheckBoxFor(model => Model.Historicos.checkHTA, new { disabled = "disabled" })
+                                        @Html.CheckBoxFor(model => Model.Historicos.checkHTA)
                                         <label class="form-check-label" for="Historicos_checkHTA">Tiene HTA</label>
                                     </div>
                                 </div>
@@ -765,13 +787,13 @@
                             <div class="row">
                                 <div class="col-xs-12 col-md-3">
                                     <div class="form-group">
-                                        @Html.CheckBoxFor(model => Model.Historicos.checkMarcapaso, new { disabled = "disabled" })
+                                        @Html.CheckBoxFor(model => Model.Historicos.checkMarcapaso)
                                         <label class="form-check-label" for="Historicos_checkMarcapaso">Usa Marcapaso</label>
                                     </div>
                                 </div>
                                 <div class="col-xs-12 col-md-3">
                                     <div class="form-group">
-                                        @Html.CheckBoxFor(model => Model.Historicos.checkEOsteosintesis, new { disabled = "disabled" })
+                                        @Html.CheckBoxFor(model => Model.Historicos.checkEOsteosintesis)
                                         <label class="form-check-label" for="Historicos_checkEOsteosintesis">Tiene elementos Osteosíntesis</label>
                                     </div>
                                 </div>
@@ -791,7 +813,7 @@
                                 </div>
                                 <div class="col-xs-12 col-md-9">
                                     <div class="form-group">
-                                        @Html.EditorFor(model => Model.Historicos.Otros, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
+                                        @Html.EditorFor(model => Model.Historicos.Otros, new { htmlAttributes = new { @class = "form-control" } })
                                     </div>
                                 </div>
                             </div>
