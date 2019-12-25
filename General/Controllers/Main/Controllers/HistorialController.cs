@@ -43,9 +43,8 @@ namespace General.Controllers.Main.Controllers
             var result = new ViewModelHistorico
             {
                 PersonaGrilla = oPersona.PersonaHistoricoGrillaToPageList(paginacion),
-                HistoricoGrilla = null,//oHistorico.HistoricoGrillaToPageList(paginacion),
+                HistoricoGrilla = null,
                 Historicos = new EHistorico(),
-                //Person = new EPersona(),
                 FiltroPerson = new EPersona(),
                 cantGrid = paginacion.countrow,
                 cantTotal = 0
@@ -166,6 +165,35 @@ namespace General.Controllers.Main.Controllers
             return Json(new { Resultado = result }, JsonRequestBehavior.AllowGet);
         }
         #endregion
+
+        #region GrillaPersona
+        /*
+        [HttpPost]
+        public JsonResult CargarGrillaPersona(Grilla paginacion)
+        {
+            if (paginacion.countrow == null)
+                paginacion.countrow = int.Parse(WebConfigurationManager.AppSettings["CountRow"]);
+
+            ViewBag.Cantidad = paginacion.countrow;
+
+            var result = new ViewModelHistorico
+            {
+                PersonaGrilla = oPersona.PersonaHistoricoGrillaToPageList(paginacion),
+                HistoricoGrilla = null,
+                Historicos = new EHistorico(),
+                FiltroPerson = new EPersona(),
+                cantGrid = paginacion.countrow,
+                cantTotal = 0
+            };
+            
+            result.cantTotal = result.PersonaGrilla.TotalItemCount;
+            result.cantPage = ((paginacion.countrow > result.cantTotal) == true ? 1 : (result.cantTotal) / ((int)paginacion.countrow) + 1);
+            result.pageView = result.PersonaGrilla.PageNumber;
+            return Json(new { Resultado = result }, JsonRequestBehavior.AllowGet);
+        }
+        */
+        #endregion
+
         // GET: Historial
 
     }

@@ -33,6 +33,9 @@ namespace Repository
         public System.DateTime Fechacreacion { get; set; }
         public string Usuariomodificacion { get; set; }
         public Nullable<System.DateTime> Fechamodificacion { get; set; }
+        public string Paquetes { get; set; }
+        public Nullable<decimal> Costo { get; set; }
+        public string Frecuencia1 { get; set; }
     
         public virtual Persona Persona { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

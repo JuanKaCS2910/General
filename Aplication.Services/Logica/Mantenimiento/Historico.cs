@@ -493,7 +493,9 @@ namespace Aplication.Services.Logica.Mantenimiento
             hist.Diagnostico = registro.Diagnostico == null ? "" : registro.Diagnostico.ToUpper();
             hist.Observaciones = registro.Observaciones == null ? "" : registro.Observaciones.ToUpper();
             hist.Otros = registro.Otros == null ? "" : registro.Otros.ToUpper();
-            
+            hist.Paquetes = registro.Paquetes;
+            hist.Costo = registro.Costo;
+            hist.Frecuencia1 = registro.Frecuencia;
             hist.Fechacreacion = DateTime.Now;
             hist.Usuariocreacion = "JUCASTRO";
 
@@ -591,6 +593,9 @@ namespace Aplication.Services.Logica.Mantenimiento
                                  Diagnostico = h.Diagnostico,
                                  Observaciones = h.Observaciones,
                                  Otros = h.Otros,
+                                 Paquetes = h.Paquetes,
+                                 Costo = h.Costo == null ? 0 : h.Costo,
+                                 Frecuencia = h.Frecuencia1,
                                  Nombre = p.Nombre,
                                  Apellidopaterno = p.Apellidopaterno,
                                  Apellidomaterno = p.Apellidomaterno,
@@ -643,6 +648,9 @@ namespace Aplication.Services.Logica.Mantenimiento
                                   Diagnostico = h.Diagnostico,
                                   Observaciones = h.Observaciones,
                                   Otros = h.Otros,
+                                  Paquetes = h.Paquetes,
+                                  Costo = (decimal)h.Costo,
+                                  Frecuencia = h.Frecuencia
                               }).Distinct().ToList();
             return _historico;
         }

@@ -82,6 +82,9 @@
           <Property Name="Diagnostico" Type="nvarchar" MaxLength="250" />
           <Property Name="Observaciones" Type="nvarchar" MaxLength="250" />
           <Property Name="Otros" Type="nvarchar" MaxLength="250" />
+          <Property Name="Paquetes" Type="nvarchar" MaxLength="50" />
+          <Property Name="Costo" Type="decimal" Precision="10" Scale="1" />
+          <Property Name="Frecuencia" Type="nvarchar" MaxLength="50" />
           <Property Name="Usuariocreacion" Type="nvarchar" MaxLength="20" Nullable="false" />
           <Property Name="Fechacreacion" Type="datetime" Nullable="false" />
           <Property Name="Usuariomodificacion" Type="nvarchar" MaxLength="20" />
@@ -642,6 +645,9 @@
           <NavigationProperty Name="Frecuencia" Relationship="DBFisioterapiaModel.FK_dbo_Frecuencia_dbo_Historico_HistoricoId" FromRole="Historico" ToRole="Frecuencia" />
           <NavigationProperty Name="ManiobrasTerapeuticas" Relationship="DBFisioterapiaModel.FK_dbo_ManiobrasTerapeuticas_dbo_Historico_HistoricoId" FromRole="Historico" ToRole="ManiobrasTerapeuticas" />
           <NavigationProperty Name="Antecedentes" Relationship="DBFisioterapiaModel.FK_dbo_Antecedentes_dbo_Historico_HistoricoId" FromRole="Historico" ToRole="Antecedentes" />
+          <Property Name="Paquetes" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Costo" Type="Decimal" Precision="10" Scale="1" />
+          <Property Name="Frecuencia1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="SubTramite">
           <Key>
@@ -959,6 +965,9 @@
           <EntitySetMapping Name="Historico">
             <EntityTypeMapping TypeName="DBFisioterapiaModel.Historico">
               <MappingFragment StoreEntitySet="Historico">
+                <ScalarProperty Name="Frecuencia1" ColumnName="Frecuencia" />
+                <ScalarProperty Name="Costo" ColumnName="Costo" />
+                <ScalarProperty Name="Paquetes" ColumnName="Paquetes" />
                 <ScalarProperty Name="Fechamodificacion" ColumnName="Fechamodificacion" />
                 <ScalarProperty Name="Usuariomodificacion" ColumnName="Usuariomodificacion" />
                 <ScalarProperty Name="Fechacreacion" ColumnName="Fechacreacion" />

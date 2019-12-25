@@ -24,6 +24,11 @@ namespace Domain.Entities.Mantenimiento
         public string Diagnostico { get; set; }
         public string Observaciones { get; set; }
         public string Otros { get; set; }
+        public string Paquetes { get; set; }
+
+        public decimal? Costo { get; set; }
+
+        public string Frecuencia { get; set; }
         //SubTramite
         public int SubTramiteId { get; set; }
         public string DescripcionST { get; set; }
@@ -44,7 +49,7 @@ namespace Domain.Entities.Mantenimiento
 
         public string Paquetes { get; set; }
 
-        public float Costo { get; set; }
+        public decimal Costo { get; set; }
 
         public string Frecuencia { get; set; }
 
