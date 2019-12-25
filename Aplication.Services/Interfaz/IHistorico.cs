@@ -11,5 +11,6 @@ namespace Aplication.Services.Interfaz
         List<EPersona> PersonaHistoricoGrilla(int? personId);
         IPagedList<EHistorico> HistoricoGrillaToPageList(FiltroGrilloHistorico pag);
         EHistoricoView SearchHistorico(int idHistorico);
+        string DeleteHistory(int idHistorico);
     }
 }

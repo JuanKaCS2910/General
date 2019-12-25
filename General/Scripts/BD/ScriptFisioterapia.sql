@@ -194,6 +194,22 @@ CREATE TABLE Frecuencia
 	)
 )
 GO
+CREATE TABLE Antecedentes
+(
+	AntecedentesId int IDENTITY(1,1) NOT NULL,
+	HistoricoId int NOT NULL,
+	SubTramiteId int NOT NULL,
+	Condicion bit,
+	Usuariocreacion nvarchar(20) NOT NULL,
+	Fechacreacion datetime NOT NULL,
+	Usuariomodificacion nvarchar(20),
+	Fechamodificacion datetime,
+	CONSTRAINT [PK_dbo.Antecedentes] PRIMARY KEY CLUSTERED 
+	(
+		AntecedentesId ASC
+	)
+)
+GO
 /*
 CREATE TABLE AgenteTermico
 (
@@ -430,6 +446,18 @@ ADD  CONSTRAINT [FK_dbo.Frecuencia_dbo.SubTramite_SubTramiteId]
 FOREIGN KEY(SubTramiteId)
 REFERENCES SubTramite (SubTramiteId)
 GO
+--Antecedentes
+ALTER TABLE Antecedentes  WITH CHECK 
+ADD  CONSTRAINT [FK_dbo.Antecedentes_dbo.Historico_HistoricoId] 
+FOREIGN KEY(HistoricoId)
+REFERENCES Historico (HistoricoId)
+GO
+ALTER TABLE Antecedentes  WITH CHECK 
+ADD  CONSTRAINT [FK_dbo.Antecedentes_dbo.SubTramite_SubTramiteId] 
+FOREIGN KEY(SubTramiteId)
+REFERENCES SubTramite (SubTramiteId)
+GO
+
 --INSERT INTO 
 --Departamento
 INSERT Departamento (Nombre) VALUES (N'Lima')

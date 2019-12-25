@@ -374,6 +374,113 @@ namespace Aplication.Services.Logica.Mantenimiento
 
         }
 
+        public string Delete(int idHistorico)
+        {
+            string mensaje = "";
+
+            using (var transaction = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
+            {
+                using (var context = new UnitOfWork())
+                {
+                    var agenteT = oUnitOfWork.AgenteTermicoRepository.Queryable();
+                    var agenteE = oUnitOfWork.AgenteElectrofisicoRepository.Queryable();
+                    var maniobra = oUnitOfWork.ManiobrasTerapeuticasRepository.Queryable();
+                    var antecedente = oUnitOfWork.AntecedentesRepository.Queryable();
+
+                    #region Agente Térmico
+                    try
+                    {
+                        var _result = agenteT.Where(x => x.HistoricoId == idHistorico).Select(x => x.AgenteTermicoId);
+
+                        foreach (var idAgenteTermico in _result)
+                        {
+                            oUnitOfWork.AgenteTermicoRepository.Delete(idAgenteTermico);
+                            oUnitOfWork.Save();
+                        }
+                        
+                    }
+                    catch (Exception ex)
+                    {
+                        mensaje = "Inconveniente al eliminar Agente Térmico";
+                        transaction.Dispose();
+                        //throw;
+                    }
+                    #endregion
+
+                    #region AgenteElectrofísico
+                    try
+                    {
+                        var _result = agenteE.Where(x => x.HistoricoId == idHistorico).Select(x => x.AgenteElectrofisicoId);
+                        foreach (var idAgenteElectrofisico in _result)
+                        {
+                            oUnitOfWork.AgenteElectrofisicoRepository.Delete(idAgenteElectrofisico);
+                            oUnitOfWork.Save();
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        mensaje = "Inconveniente al eliminar Agente Electrofísico";
+                        transaction.Dispose();
+                        //throw;
+                    }
+                    #endregion
+
+                    #region ManiobraTerapeuticas
+                    try
+                    {
+                        var _result = maniobra.Where(x => x.HistoricoId == idHistorico).Select(x => x.ManiobrasTerapeuticasId);
+                        foreach (var idManiobra in _result)
+                        {
+                            oUnitOfWork.ManiobrasTerapeuticasRepository.Delete(idManiobra);
+                            oUnitOfWork.Save();
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        mensaje = "Inconveniente al eliminar Maniobras Terapeuticas";
+                        transaction.Dispose();
+                        //throw;
+                    }
+                    #endregion
+
+                    #region Antecedentes
+                    try
+                    {
+                        var _result = antecedente.Where(x => x.HistoricoId == idHistorico).Select(x => x.AntecedentesId);
+                        foreach (var idAntecedente in _result)
+                        {
+                            oUnitOfWork.AntecedentesRepository.Delete(idAntecedente);
+                            oUnitOfWork.Save();
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        mensaje = "Inconveniente al eliminar Antecedentes";
+                        transaction.Dispose();
+                        //throw;
+                    }
+                    #endregion
+
+                    #region Histórico
+                    try
+                    {
+                        oUnitOfWork.HistoricoRepository.Delete(idHistorico);
+                        oUnitOfWork.Save();
+                        transaction.Complete();
+                        mensaje = "OK";
+                    }
+                    catch (Exception ex)
+                    {
+                        mensaje = "Inconveniente al eliminar Histórico";
+                        transaction.Dispose();
+                    }
+                    #endregion
+                }
+            }
+
+            return mensaje;
+        }
+
         /// <summary>
         /// Agregar Historico
         /// </summary>
@@ -446,6 +553,13 @@ namespace Aplication.Services.Logica.Mantenimiento
         {
             string mensaje = string.Empty;
             mensaje = Save(registro);
+            return mensaje;
+        }
+
+        public string DeleteHistory(int idHistorico)
+        {
+            string mensaje = string.Empty;
+            mensaje = Delete(idHistorico);
             return mensaje;
         }
 

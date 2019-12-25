@@ -175,6 +175,41 @@ function PersonSelect(id) {
 }
 
 //Segundo Tab.
+
+function DeleteHistorico(id) {
+    var resultado = {
+        idHistorico: $(id).data('assigned-id')
+    };
+    var personaId = document.getElementById('PersonaId');
+
+    $.ajax({
+        url: '../Historial/DeleteHistorico',
+        type: 'POST',
+        data: JSON.stringify(resultado),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (data) {
+            if (data != null) {
+                if (data.Resultado == "OK") {
+                    $("#success").modal('show');
+                    $("#SuccessResult").text('El registro se elimino exitosamente');
+                    ViewGridHistorico(personaId.value);
+                }
+                else {
+                    $("#ErrorResult").text(data.Resultado);
+                    $("#error").modal('show');
+                }
+            }
+
+        },
+        error: function (request, status, error) {
+            alert("dd");
+        },
+    });
+
+
+}
+
 function ViewGridHistorico(personaId) {
 
     var paginacion = {
@@ -209,7 +244,7 @@ function ViewGridHistorico(personaId) {
                             " style='color:red' data-assigned-id=" + result.HistoricoId +
                             " </a></td></tr></table></div></td>" +
                             "<td class='col-xs-12 col-md-3'>" + parseJsonRow(result.Diagnostico) + "</td>" +
-                            "<td class='col-xs-12 col-md-3'>" + parseJsonRow(result.observaciones) + "</td>" +
+                            "<td class='col-xs-12 col-md-3'>" + parseJsonRow(result.Observaciones) + "</td>" +
                             "<td class='col-xs-12 col-md-3'>" + parseJsonRow(result.Otros) + "</td>" +
                             "<td class='col-xs-12 col-md-2'>" + parseJsonDate(result.Fechacreacion) + "</td></tr>");
                     });
@@ -232,7 +267,6 @@ function ViewGridHistorico(personaId) {
                     page.append(html);
 
                     //LimpiarCampos();
-
                     var tab1 = document.getElementById("tab-1");
                     var tab2 = document.getElementById("tab-2");
                     var tab3 = document.getElementById("tab-3");
@@ -265,11 +299,15 @@ function ViewGridHistorico(personaId) {
 
 function LimpiarTab3(condicion)
 {
+    document.getElementById('PersonaId').value = "";
+    document.getElementById('Historicos_Paquetes').value = "";
+    document.getElementById('Historicos_Costo').value = "";
     $("#DocumentypeId").val("");
     $("#Documento").val("");
     $("#Paciente").val("");
     $("#Historicos_Diagnostico").val("");
     $("#Historicos_Observaciones").val("");
+    $("#Historicos_Otros").val("");
     
     $("#Historicos_descElectroanalgesico").val("");
     $("#Historicos_descElectroestimulacion").val("");
@@ -352,6 +390,7 @@ function HistoricoSelect(id) {
                         var otros = data.Resultado.Historico[0].Otros;
                         $("#Historicos_Diagnostico").val(diagnostico);
                         $("#Historicos_Observaciones").val(observaciones);
+                        $("#Historicos_Otros").val(otros);
                     }
 
                     if (data.Resultado.AgenteTermico.length > 0) {
@@ -523,6 +562,19 @@ function SaveHistory() {
     var tape = document.getElementById('Historicos_checkTAPE');
     //
     var observaciones = document.getElementById('Historicos_Observaciones');
+    var otros = document.getElementById('Historicos_Otros');
+    
+    //Antecedentes.
+    var caida = document.getElementById('Historicos_checkRCaida');
+    var embarazada = document.getElementById('Historicos_checkEEmbarazada');
+    var diabetes = document.getElementById('Historicos_checkTDiabetes');
+    var cancer = document.getElementById('Historicos_checkDCancer');
+    var cardiaca = document.getElementById('Historicos_checkTEnfCardiaca');
+    var quemadura = document.getElementById('Historicos_checkRQuemadura');
+    var varices = document.getElementById('Historicos_checkPVarices');
+    var hta = document.getElementById('Historicos_checkHTA');
+    var marcapaso = document.getElementById('Historicos_checkMarcapaso');
+    var osteosintesis = document.getElementById('Historicos_checkEOsteosintesis');
 
     var param = {
         PersonaId: personaId.value,
@@ -530,6 +582,7 @@ function SaveHistory() {
         Paquetes: paquete.value,
         Costo: costo.value,
         Observaciones: observaciones.value,
+        Otros: otros.value,
         checkCaliente: caliente.checked,
         checkFria: fria.checked,
         checkContraste: contraste.checked,
@@ -551,6 +604,16 @@ function SaveHistory() {
         checkRPG: rpg.checked,
         checkActivacion: activacion.checked,
         checkTAPE: tape.checked,
+        checkRCaida: caida.checked,
+        checkEEmbarazada: embarazada.checked,
+        checkTDiabetes: diabetes.checked,
+        checkDCancer: cancer.checked,
+        checkTEnfCardiaca: cardiaca.checked,
+        checkRQuemadura: quemadura.checked,
+        checkPVarices: varices.checked,
+        checkHTA: hta.checked,
+        checkMarcapaso: marcapaso.checked,
+        checkEOsteosintesis: osteosintesis.checked,
     };
 
     $.ajax({
@@ -618,8 +681,8 @@ function Habilitar(condicion) {
     document.getElementById('Historicos_checkRPG').disabled = condicion;
     document.getElementById('Historicos_checkActivacion').disabled = condicion;
     document.getElementById('Historicos_checkTAPE').disabled = condicion;
-
     //
+    document.getElementById('Historicos_Otros').disabled = condicion;
     document.getElementById('Historicos_Observaciones').disabled = condicion;
     //Antecedentes.
     document.getElementById('Historicos_checkRCaida').disabled = condicion;

@@ -105,6 +105,15 @@ namespace General.Controllers.Main.Controllers
             var result = oHistorico.CreateHistory(registro);
             return Json(new { Resultado = result }, JsonRequestBehavior.AllowGet);
         }
+
+        [HttpPost]
+        public JsonResult DeleteHistorico(int idHistorico)
+        {
+            var result = oHistorico.DeleteHistory(idHistorico);
+            return Json(new { Resultado = result }, JsonRequestBehavior.AllowGet);
+        }
+        
+
         #endregion
 
         #region Historico
