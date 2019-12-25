@@ -3,6 +3,9 @@
     var historico = document.getElementById("hisearch");
     historico.addEventListener("click", SearchPerson, "");
 
+    var tab3 = document.getElementById("litab3")
+    tab3.addEventListener("click", Tab3Click, "");
+
     var documentypeId = document.getElementById("DocumentypeId");
     documentypeId.addEventListener("change", ChangeDocument, "");
 
@@ -23,6 +26,10 @@
 
     Habilitar(true);
 }());
+
+function Tab3Click() {
+    LimpiarTab3(false);
+}
 
 function ViewGridH() {
 
@@ -114,6 +121,106 @@ function ViewGridH() {
     });
 }
 
+function ViewGridJson(page, countrow) {
+    var Fdocumento = document.getElementById("NroDocumentoHistorico");
+    var Ftipodocumento = document.getElementById("TDocumentoHistorico");
+    var Fappaterno = document.getElementById("NombreCompletoHistorico");
+
+    var paginacion = {
+        page: page,
+        countrow: countrow,
+        TipodocumentoId: Ftipodocumento.value,
+        Nrodocumento: Fdocumento.value,
+        Apellidopaterno: Fappaterno.value,
+    };
+
+    $.ajax({
+        url: '../Historial/CargarGrilla',
+        type: 'POST',
+        data: JSON.stringify(paginacion),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (data) {
+            if (data != null) {
+                if (data.Resultado.HistoricoGrilla.length > 0) {
+
+                    var mostrar = "Mostrando 1 a " + data.Resultado.HistoricoGrilla.length + " de " + data.Resultado.cantTotal + " registros";
+                    $("#tblHistoricoGrid_info").html(mostrar);
+
+                    var table = $('#tblHistoricoGrid');
+                    table.find("tbody tr").remove();
+
+                    data.Resultado.HistoricoGrilla.forEach(function (result) {
+
+                        table.append("<tr><td class='col-xs-12 col-md-1'>" +
+                            "<div><table><tr><td class='col-xs-12 col-md-6'> " +
+                            "<a class='fa fa-search' onclick='HistoricoSelect(this)' id ='btnEditHistorico' " +
+                            " style='color: #6A5ACD' data-assigned-id=" + result.HistoricoId +
+                            " </a></td> " +
+                            "<td class='col-xs-12 col-md-6'> " +
+                            "<a class='fa fa-minus-circle' onclick='DeleteHistorico(this)' id ='btnElimHistorico' " +
+                            " style='color:red' data-assigned-id=" + result.HistoricoId +
+                            " </a></td></tr></table></div></td>" +
+                            "<td class='col-xs-12 col-md-3'>" + parseJsonRow(result.Diagnostico) + "</td>" +
+                            "<td class='col-xs-12 col-md-3'>" + parseJsonRow(result.Observaciones) + "</td>" +
+                            "<td class='col-xs-12 col-md-3'>" + parseJsonRow(result.Otros) + "</td>" +
+                            "<td class='col-xs-12 col-md-2'>" + parseJsonDate(result.Fechacreacion) + "</td></tr>");
+                    });
+
+                    var page = $('#hiPaginadoHistorico');
+                    page.find("div").remove();
+                    var html = "";
+                    html = "<div class='pagination-container'><ul class='pagination'>";
+                    for (var i = 1; i < data.Resultado.cantPage + 1; i++) {
+                        if (i == data.Resultado.pageView) {
+                            html = html + "<li class='active'><a>" + i + "</a></li>"
+                        }
+                        else {
+                            //html = html + "<li class=''><a href='/Historico/Index?page=" + i + "'>" + i + "</a></li>"
+                            html = html + "<li class=''><a href='javaScript:ViewGridJson(" + i + "," + $("#tblPersonGrid_length").val() + ")'>" + i + "</a></li>"
+                        }
+                    }
+
+                    html = html + "</ul></div>";
+                    page.append(html);
+
+                    //LimpiarCampos();
+
+                    var tab1 = document.getElementById("tab-1");
+                    var tab2 = document.getElementById("tab-2");
+                    var tab3 = document.getElementById("tab-3");
+                    var ltab1 = document.getElementById("litab1");
+                    var ltab2 = document.getElementById("litab2");
+                    var ltab3 = document.getElementById("litab3");
+
+                    tab1.classList.remove("active");
+                    tab3.classList.remove("active");
+                    tab2.classList.add("active");
+                    ltab1.classList.remove("active");
+                    ltab3.classList.remove("active");
+                    ltab2.classList.add("active");
+
+                }
+                else {
+                    var table = $('#tblHistoricoGrid');
+                    table.find("tbody tr").remove();
+                    $("#tblHistoricoGrid_info").html("");
+                    var page = $('#hiPaginadoHistorico');
+                    page.find("div").remove();
+                }
+            }
+
+        },
+        error: function (request, status, error) {
+            alert("Inconveniente al cargar Grilla");
+        },
+    });
+
+}
+
+//Persona
+
+
 //Utilitarios.
 function parseJsonRow(jsonRowString) {
     if (!jsonRowString) {
@@ -199,7 +306,85 @@ function FoundGrid() {
                             html = html + "<li class='active'><a>" + i + "</a></li>"
                         }
                         else {
-                            html = html + "<li class=''><a href='javaScript:FoundGrid(" + i + "," + $("#tblPersonGrid_length").val() + ")'>" + i + "</a></li>"
+                            html = html + "<li class=''><a href='javaScript:FoundGridJson(" + i + "," + $("#tblPersonGrid_length").val() + ")'>" + i + "</a></li>"
+                        }
+                    }
+                    html = html + "</ul></div>";
+                    page.append(html);
+
+
+                }
+            }
+
+        },
+        error: function (request, status, error) {
+            alert("dd");
+        },
+    });
+
+}
+
+function FoundGridJson(page, countrow) {
+
+    var Fdocumento = document.getElementById("FiltroPerson_Nrodocumento");
+    var Ftipodocumento = document.getElementById("FiltroDocumentypeId");
+    var Fappaterno = document.getElementById("FiltroPerson_Apellidopaterno");
+
+    var filtro = {
+        TipodocumentoId: Ftipodocumento.value,
+        Nrodocumento: Fdocumento.value,
+        Apellidopaterno: Fappaterno.value,
+        page: page,
+        countrow: countrow,
+    };
+
+    $.ajax({
+        url: '../Historial/CargarBusquedaGrilla',
+        type: 'POST',
+        data: JSON.stringify(filtro),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (data) {
+            if (data != null) {
+
+                if (data.Resultado.PersonaGrilla.length == 0) {
+                    $("#tblPersonGrid_info").html("");
+                    var table = $('#tblPersonGrid');
+                    table.find("tbody tr").remove();
+                    var page = $('#hiPaginado');
+                    page.find("div").remove();
+                }
+
+                if (data.Resultado.PersonaGrilla.length > 0) {
+
+                    var mostrar = "Mostrando 1 a " + data.Resultado.PersonaGrilla.length + " de " + data.Resultado.cantTotal + " registros";
+                    $("#tblPersonGrid_info").html(mostrar);
+
+                    var table = $('#tblPersonGrid');
+                    table.find("tbody tr").remove();
+                    data.Resultado.PersonaGrilla.forEach(function (result) {
+
+                        table.append("<tr><td class='col-xs-12 col-md-1'>" +
+                            "<div><table><tr><td class='col-xs-12 col-md-12'> " +
+                            "<a class='fa fa-search' onclick='PersonSelect(this)' id ='btnEditPerson' " +
+                            " style='color: #6A5ACD' data-assigned-id=" + result.PersonaId +
+                            " </a></td> </tr></table></div></td>" +
+                            "<td class='col-xs-12 col-md-4'>" + result.Apellidopaterno + " " + result.Apellidomaterno + " , " + result.Nombre + "</td>" +
+                            "<td class='col-xs-12 col-md-2'>" + result.Nrodocumento + "</td>" +
+                            "<td class='col-xs-12 col-md-1'>" + parseJsonRow(result.Nrotelefono) + "</td>" +
+                            "<td class='col-xs-12 col-md-4'>" + parseJsonRow(result.Direccion) + "</td></tr>");
+                    });
+                    //"<td class='col-xs-12 col-md-2'>" + result.Nombre + "</td>" +
+                    var page = $('#hiPaginado');
+                    page.find("div").remove();
+                    var html = "";
+                    html = "<div class='pagination-container'><ul class='pagination'>";
+                    for (var i = 1; i < data.Resultado.cantPage + 1; i++) {
+                        if (i == data.Resultado.pageView) {
+                            html = html + "<li class='active'><a>" + i + "</a></li>"
+                        }
+                        else {
+                            html = html + "<li class=''><a href='javaScript:FoundGridJson(" + i + "," + $("#tblPersonGrid_length").val() + ")'>" + i + "</a></li>"
                         }
                     }
                     html = html + "</ul></div>";
@@ -734,6 +919,13 @@ function SaveHistory() {
                     $("#success").modal('show');
                     $("#SuccessResult").text('El registro se grabo exitosamente');
                     ViewGridHistorico(personaId.value);
+
+                    $("#TDocumentoHistorico").val($("#DocumentypeId").val());
+                    $("#NroDocumentoHistorico").val($("#Documento").val());
+                    $("#NombreCompletoHistorico").val($("#Paciente").val());
+
+                    document.getElementById("FiltroDocumentypeId").value = "";
+                    FoundGrid();
                     //ViewGrid();
                 }
                 else {
@@ -850,102 +1042,7 @@ function SearchPerson() {
 
 }
 
-function ViewGridJson(page, countrow) {
-    var Fdocumento = document.getElementById("NroDocumentoHistorico");
-    var Ftipodocumento = document.getElementById("TDocumentoHistorico");
-    var Fappaterno = document.getElementById("NombreCompletoHistorico");
 
-    var paginacion = {
-        page: page,
-        countrow: countrow,
-        TipodocumentoId: Ftipodocumento.value,
-        Nrodocumento: Fdocumento.value,
-        Apellidopaterno: Fappaterno.value,
-    };
-
-    $.ajax({
-        url: '../Historial/CargarGrilla',
-        type: 'POST',
-        data: JSON.stringify(paginacion),
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        success: function (data) {
-            if (data != null) {
-                if (data.Resultado.HistoricoGrilla.length > 0) {
-
-                    var mostrar = "Mostrando 1 a " + data.Resultado.HistoricoGrilla.length + " de " + data.Resultado.cantTotal + " registros";
-                    $("#tblHistoricoGrid_info").html(mostrar);
-
-                    var table = $('#tblHistoricoGrid');
-                    table.find("tbody tr").remove();
-
-                    data.Resultado.HistoricoGrilla.forEach(function (result) {
-
-                        table.append("<tr><td class='col-xs-12 col-md-1'>" +
-                            "<div><table><tr><td class='col-xs-12 col-md-6'> " +
-                            "<a class='fa fa-search' onclick='HistoricoSelect(this)' id ='btnEditHistorico' " +
-                            " style='color: #6A5ACD' data-assigned-id=" + result.HistoricoId +
-                            " </a></td> " +
-                            "<td class='col-xs-12 col-md-6'> " +
-                            "<a class='fa fa-minus-circle' onclick='DeleteHistorico(this)' id ='btnElimHistorico' " +
-                            " style='color:red' data-assigned-id=" + result.HistoricoId +
-                            " </a></td></tr></table></div></td>" +
-                            "<td class='col-xs-12 col-md-3'>" + parseJsonRow(result.Diagnostico) + "</td>" +
-                            "<td class='col-xs-12 col-md-3'>" + parseJsonRow(result.Observaciones) + "</td>" +
-                            "<td class='col-xs-12 col-md-3'>" + parseJsonRow(result.Otros) + "</td>" +
-                            "<td class='col-xs-12 col-md-2'>" + parseJsonDate(result.Fechacreacion) + "</td></tr>");
-                    });
-
-                    var page = $('#hiPaginadoHistorico');
-                    page.find("div").remove();
-                    var html = "";
-                    html = "<div class='pagination-container'><ul class='pagination'>";
-                    for (var i = 1; i < data.Resultado.cantPage + 1; i++) {
-                        if (i == data.Resultado.pageView) {
-                            html = html + "<li class='active'><a>" + i + "</a></li>"
-                        }
-                        else {
-                            //html = html + "<li class=''><a href='/Historico/Index?page=" + i + "'>" + i + "</a></li>"
-                            html = html + "<li class=''><a href='javaScript:ViewGridJson(" + i + "," + $("#tblPersonGrid_length").val() + ")'>" + i + "</a></li>"
-                        }
-                    }
-
-                    html = html + "</ul></div>";
-                    page.append(html);
-
-                    //LimpiarCampos();
-
-                    var tab1 = document.getElementById("tab-1");
-                    var tab2 = document.getElementById("tab-2");
-                    var tab3 = document.getElementById("tab-3");
-                    var ltab1 = document.getElementById("litab1");
-                    var ltab2 = document.getElementById("litab2");
-                    var ltab3 = document.getElementById("litab3");
-
-                    tab1.classList.remove("active");
-                    tab3.classList.remove("active");
-                    tab2.classList.add("active");
-                    ltab1.classList.remove("active");
-                    ltab3.classList.remove("active");
-                    ltab2.classList.add("active");
-
-                }
-                else {
-                    var table = $('#tblHistoricoGrid');
-                    table.find("tbody tr").remove();
-                    $("#tblHistoricoGrid_info").html("");
-                    var page = $('#hiPaginadoHistorico');
-                    page.find("div").remove();
-                }
-            }
-
-        },
-        error: function (request, status, error) {
-            alert("Inconveniente al cargar Grilla");
-        },
-    });
-
-}
 
 
 
