@@ -6,6 +6,7 @@ using Domain.Entities.ViewModel;
 using PagedList;
 using System.Web.Configuration;
 using System.Web.Mvc;
+using System.Data.Entity.Validation;
 
 namespace General.Controllers.Main.Controllers
 {
@@ -107,6 +108,13 @@ namespace General.Controllers.Main.Controllers
         public JsonResult SaveHistorico(EHistorico registro)
         {
             var result = oHistorico.CreateHistory(registro);
+            return Json(new { Resultado = result }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public JsonResult EditHistorico(EHistorico registro)
+        {
+            var result = oHistorico.EditHistory(registro);
             return Json(new { Resultado = result }, JsonRequestBehavior.AllowGet);
         }
 

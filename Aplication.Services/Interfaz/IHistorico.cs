@@ -12,5 +12,6 @@ namespace Aplication.Services.Interfaz
         IPagedList<EHistorico> HistoricoGrillaToPageList(FiltroGrilloHistorico pag);
         EHistoricoView SearchHistorico(int idHistorico);
         string DeleteHistory(int idHistorico);
+        string EditHistory(EHistorico registro);
     }
 }

@@ -1,5 +1,4 @@
 ﻿using Aplication.Services.Interfaz;
-using AutoMapper;
 using Domain.Entities.General;
 using Domain.Entities.Mantenimiento;
 using PagedList;
@@ -7,8 +6,6 @@ using Repository.UnitOfWork;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Aplication.Services.Logica.Mantenimiento
 {

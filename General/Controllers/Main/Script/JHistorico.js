@@ -418,6 +418,8 @@ function PersonSelect(id) {
     ltab1.classList.remove("active");
     ltab2.classList.add("active");
 
+    document.getElementById("PersonaId").value = "";
+
     $.ajax({
         url: '../Persona/CargarPerson',
         type: 'POST',
@@ -434,6 +436,7 @@ function PersonSelect(id) {
                     var tipodocumentoId = data.Resultado[0].TipodocumentoId;
                     var personaId = data.Resultado[0].PersonaId;
 
+                    document.getElementById("PersonaId").value = personaId;
                     $("#TDocumentoHistorico").val(tipodocumentoId);
                     $("#NroDocumentoHistorico").val(nroDocumento);
                     $("#NombreCompletoHistorico").val(apPaterno + ' ' + apMaterno + ' ' + nombre);
@@ -575,6 +578,7 @@ function ViewGridHistorico(personaId) {
 
 function LimpiarTab3(condicion)
 {
+    document.getElementById('historicoId').value = "";
     document.getElementById('PersonaId').value = "";
     document.getElementById('Historicos_Paquetes').value = "";
     document.getElementById('Historicos_Costo').value = "";
@@ -673,11 +677,13 @@ function HistoricoSelect(id) {
                         var paquete = data.Resultado.Historico[0].Paquetes;
                         var costo = data.Resultado.Historico[0].Costo;
                         var frecuencia = data.Resultado.Historico[0].Frecuencia;
+                        var historiaID = data.Resultado.Historico[0].HistoricoId;
 
                         $("#Historicos_Diagnostico").val(diagnostico);
                         $("#Historicos_Observaciones").val(observaciones);
                         $("#Historicos_Otros").val(otros);
                         $("#Frecuencia").val(frecuencia);
+                        document.getElementById('historicoId').value = historiaID;
                         document.getElementById('Historicos_Paquetes').value = paquete;
                         document.getElementById('Historicos_Costo').value = costo;
                     }
@@ -821,6 +827,8 @@ function HistoricoSelect(id) {
 function SaveHistory() {
 
     var personaId = document.getElementById('PersonaId');
+    var historiaID = document.getElementById('historicoId');
+    
     //
     var diagnostico = document.getElementById('Historicos_Diagnostico');
     var paquete = document.getElementById('Historicos_Paquetes');
@@ -867,6 +875,7 @@ function SaveHistory() {
     var osteosintesis = document.getElementById('Historicos_checkEOsteosintesis');
 
     var param = {
+        HistoricoId: historiaID.value,
         PersonaId: personaId.value,
         Diagnostico: diagnostico.value,
         Paquetes: paquete.value,
@@ -907,38 +916,75 @@ function SaveHistory() {
         checkEOsteosintesis: osteosintesis.checked,
     };
 
-    $.ajax({
-        url: '../Historial/SaveHistorico',
-        type: 'POST',
-        data: JSON.stringify(param),
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        success: function (data) {
-            if (data != null) {
-                if (data.Resultado == "OK") {
-                    $("#success").modal('show');
-                    $("#SuccessResult").text('El registro se grabo exitosamente');
-                    ViewGridHistorico(personaId.value);
 
-                    $("#TDocumentoHistorico").val($("#DocumentypeId").val());
-                    $("#NroDocumentoHistorico").val($("#Documento").val());
-                    $("#NombreCompletoHistorico").val($("#Paciente").val());
+    if (historiaID.value == "") {
+        $.ajax({
+            url: '../Historial/SaveHistorico',
+            type: 'POST',
+            data: JSON.stringify(param),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (data) {
+                if (data != null) {
+                    if (data.Resultado == "OK") {
+                        $("#success").modal('show');
+                        $("#SuccessResult").text('El registro se grabo exitosamente');
+                        ViewGridHistorico(personaId.value);
 
-                    document.getElementById("FiltroDocumentypeId").value = "";
-                    FoundGrid();
-                    //ViewGrid();
+                        $("#TDocumentoHistorico").val($("#DocumentypeId").val());
+                        $("#NroDocumentoHistorico").val($("#Documento").val());
+                        $("#NombreCompletoHistorico").val($("#Paciente").val());
+
+                        document.getElementById("FiltroDocumentypeId").value = "";
+                        FoundGrid();
+                    }
+                    else {
+                        $("#ErrorResult").text(data.Resultado);
+                        $("#error").modal('show');
+                    }
                 }
-                else {
-                    $("#ErrorResult").text(data.Resultado);
-                    $("#error").modal('show');
-                }
-            }
 
-        },
-        error: function (request, status, error) {
-            alert("dd");
-        },
-    });
+            },
+            error: function (request, status, error) {
+                alert("dd");
+            },
+        });
+    }
+    else {
+        $.ajax({
+            url: '../Historial/EditHistorico',
+            type: 'POST',
+            data: JSON.stringify(param),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (data) {
+                if (data != null) {
+                    if (data.Resultado == "OK") {
+                        $("#success").modal('show');
+                        $("#SuccessResult").text('El registro se grabo exitosamente');
+                        ViewGridHistorico(personaId.value);
+
+                        $("#TDocumentoHistorico").val($("#DocumentypeId").val());
+                        $("#NroDocumentoHistorico").val($("#Documento").val());
+                        $("#NombreCompletoHistorico").val($("#Paciente").val());
+
+                        document.getElementById("FiltroDocumentypeId").value = "";
+                        FoundGrid();
+                    }
+                    else {
+                        $("#ErrorResult").text(data.Resultado);
+                        $("#error").modal('show');
+                    }
+                }
+
+            },
+            error: function (request, status, error) {
+                alert("dd");
+            },
+        });
+    }
+
+    
 
 }
 
