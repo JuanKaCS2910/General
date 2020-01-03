@@ -649,7 +649,8 @@ function HistoricoSelect(id) {
     ltab3.classList.add("active");
 
     LimpiarTab3(false);
-    Habilitar(true);
+    //Habilitar los campos cuando es para editar.
+    Habilitar(false);
     $.ajax({
         url: '../Historial/SearchHistorico',
         type: 'POST',
