@@ -53,8 +53,9 @@
       <Name>Domain.Entities</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="Dll\" />
+    <Content Include="Dll\AutoMapper.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -665,11 +665,13 @@ function HistoricoSelect(id) {
                     var nombre = data.Resultado.Persona[0].Nombre;
                     var nroDocumento = data.Resultado.Persona[0].Nrodocumento;
                     var tipodocumentoId = data.Resultado.Persona[0].TipodocumentoId;
-                    
+                    var personaId = data.Resultado.Persona[0].PersonaId;
+
                     $("#DocumentypeId").val(tipodocumentoId);
                     $("#Documento").val(nroDocumento);
                     $("#Paciente").val(apPaterno + ' ' + apMaterno + ' ' + nombre);
-                   
+                    document.getElementById('PersonaId').value = personaId;
+
                     if (data.Resultado.Historico.length > 0) {
                         var diagnostico = data.Resultado.Historico[0].Diagnostico;
                         var observaciones = data.Resultado.Historico[0].Observaciones;
@@ -961,7 +963,7 @@ function SaveHistory() {
                 if (data != null) {
                     if (data.Resultado == "OK") {
                         $("#success").modal('show');
-                        $("#SuccessResult").text('El registro se grabo exitosamente');
+                        $("#SuccessResult").text('El registro se actualizó exitosamente');
                         ViewGridHistorico(personaId.value);
 
                         $("#TDocumentoHistorico").val($("#DocumentypeId").val());

@@ -1,10 +1,12 @@
 ﻿using Aplication.Services.Interfaz;
+using AutoMapper;
 using Domain.Entities.Mantenimiento;
 using PagedList;
 using Repository.UnitOfWork;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Entity.Infrastructure;
 using System.Data.Entity.Validation;
 using System.Linq;
 //using System.Activities.Statements;
@@ -384,6 +386,8 @@ namespace Aplication.Services.Logica.Mantenimiento
         public string Edit(EHistorico registro)
         {
             string mensaje = "";
+            registro.Usuariocreacion = "SYSTEM";
+
             using (var transaction = new TransactionScope())
             {
                 using (var context = new UnitOfWork())
@@ -396,20 +400,32 @@ namespace Aplication.Services.Logica.Mantenimiento
 
                     #region Agente Térmico
 
-                    var _result = agenteT.Where(x => x.HistoricoId == registro.HistoricoId)
-                            .Select(x => new {
-                                AgenteTermicoId = x.AgenteTermicoId,
-                                HistoricoId = x.HistoricoId,
-                                SubTramiteId = x.SubTramiteId,
-                                Condicion = x.Condicion
-                            });
+                    var _result = (from a in agenteT
+                                   where a.HistoricoId == registro.HistoricoId
+                                    select new EAgentetermico
+                                    {
+                                        AgenteTermicoId = a.AgenteTermicoId,
+                                        HistoricoId = a.HistoricoId,
+                                        SubTramiteId = a.SubTramiteId,
+                                        Condicion = (bool)a.Condicion,
+                                        Usuariocreacion = a.Usuariocreacion,
+                                        Fechacreacion = a.Fechacreacion
+                                    }).ToList();
+
 
                     foreach (var item in _result)
                     {
                         Repository.AgenteTermico agenT = new Repository.AgenteTermico();
                         agenT.AgenteTermicoId = item.AgenteTermicoId;
                         agenT.SubTramiteId = item.SubTramiteId;
+                        agenT.HistoricoId = item.HistoricoId;
+                        agenT.Condicion = item.Condicion;
+                        
+                        agenT.Usuariocreacion = item.Usuariocreacion;
+                        agenT.Fechacreacion = item.Fechacreacion;
                         agenT.Fechamodificacion = DateTime.Now;
+                        agenT.Usuariomodificacion = registro.Usuariocreacion;
+
                         if (item.SubTramiteId == (int)SubTramites.CompresaCaliente)
                         {
                             agenT.Condicion = registro.checkCaliente;
@@ -433,27 +449,39 @@ namespace Aplication.Services.Logica.Mantenimiento
                             mensaje = "Inconveniente al Actualizar Agente Térmico";
                             transaction.Dispose();
                         }
-                        
                     }
 
                     #endregion
 
                     #region AgenteElectrofísico
-                    var _resultE = agenteE.Where(x => x.HistoricoId == registro.HistoricoId)
-                                    .Select(x => new {
-                                        AgenteElectrofisicoId = x.AgenteElectrofisicoId,
-                                        HistoricoId = x.HistoricoId,
-                                        SubTramiteId = x.SubTramiteId,
-                                        Condicion = x.Condicion,
-                                        Descripcion = x.Descripcion
-                                    });
+
+                    var _resultE = (from a in agenteE
+                                    where a.HistoricoId == registro.HistoricoId
+                                    select new EAgenteelectrofisico
+                                    {
+                                        AgenteElectrofisicoId = a.AgenteElectrofisicoId,
+                                        HistoricoId = a.HistoricoId,
+                                        SubTramiteId = a.SubTramiteId,
+                                        Condicion = (bool)a.Condicion,
+                                        Descripcion = a.Descripcion,
+                                        Usuariocreacion = a.Usuariocreacion,
+                                        Fechacreacion = a.Fechacreacion
+                                    }).ToList();
 
                     foreach (var item in _resultE)
                     {
                         Repository.AgenteElectrofisico agenE = new Repository.AgenteElectrofisico();
                         agenE.AgenteElectrofisicoId = item.AgenteElectrofisicoId;
+                        agenE.HistoricoId = item.HistoricoId;
                         agenE.SubTramiteId = item.SubTramiteId;
+                        agenE.Condicion = item.Condicion;
+                        agenE.Descripcion = item.Descripcion;
+                        
+                        agenE.Usuariocreacion = item.Usuariocreacion;
+                        agenE.Fechacreacion = item.Fechacreacion;
                         agenE.Fechamodificacion = DateTime.Now;
+                        agenE.Usuariomodificacion = registro.Usuariocreacion;
+
                         switch (item.SubTramiteId)
                         {
                             case (int)SubTramites.Electroanalgesico:
@@ -500,20 +528,30 @@ namespace Aplication.Services.Logica.Mantenimiento
                     #endregion
 
                     #region Maniobra
-                    var _resultM = maniobra.Where(x => x.HistoricoId == registro.HistoricoId)
-                                    .Select(x => new {
-                                        ManiobrasTerapeuticasId = x.ManiobrasTerapeuticasId,
-                                        HistoricoId = x.HistoricoId,
-                                        SubTramiteId = x.SubTramiteId,
-                                        Condicion = x.Condicion
-                                    });
+                    var _resultM = (from a in maniobra
+                                    where a.HistoricoId == registro.HistoricoId
+                                    select new EManiobrasTerapeuticas
+                                    {
+                                        ManiobrasTerapeuticasId = a.ManiobrasTerapeuticasId,
+                                        HistoricoId = a.HistoricoId,
+                                        SubTramiteId = a.SubTramiteId,
+                                        Condicion = (bool)a.Condicion,
+                                        Usuariocreacion = a.Usuariocreacion,
+                                        Fechacreacion = a.Fechacreacion
+                                    }).ToList();
 
                     foreach (var item in _resultM)
                     {
                         Repository.ManiobrasTerapeuticas maniobraT = new Repository.ManiobrasTerapeuticas();
                         maniobraT.ManiobrasTerapeuticasId = item.ManiobrasTerapeuticasId;
+                        maniobraT.HistoricoId = item.HistoricoId;
                         maniobraT.SubTramiteId = item.SubTramiteId;
+                        maniobraT.Condicion = item.Condicion;
+                        
+                        maniobraT.Usuariocreacion = item.Usuariocreacion;
+                        maniobraT.Fechacreacion = item.Fechacreacion;
                         maniobraT.Fechamodificacion = DateTime.Now;
+                        maniobraT.Usuariomodificacion = registro.Usuariocreacion;
 
                         switch (item.SubTramiteId)
                         {
@@ -571,24 +609,19 @@ namespace Aplication.Services.Logica.Mantenimiento
                                         Fechacreacion = a.Fechacreacion
                                     }).ToList();
 
-                    string resultadoAntec = saveAntecedentes(_resultA, registro);
-
                     foreach (var item in _resultA)
                     {
                         Repository.Antecedentes antece = new Repository.Antecedentes();
                         antece.AntecedentesId = item.AntecedentesId;
-                        antece.SubTramiteId = item.SubTramiteId;
                         antece.HistoricoId = item.HistoricoId;
-                        antece.Usuariocreacion = item.Usuariocreacion;
-                        antece.Fechacreacion = DateTime.Now;//item.Fechacreacion;
-                        antece.Fechamodificacion = DateTime.Now;
-                        antece.Usuariomodificacion = "JUCASTRO";
+                        antece.SubTramiteId = item.SubTramiteId;
+                        antece.Condicion = item.Condicion;
 
-                        if (item.SubTramiteId == (int)SubTramites.RiesgoCaida)
-                        {
-                            antece.Condicion = registro.checkRCaida;
-                        }
-                        /*
+                        antece.Usuariocreacion = item.Usuariocreacion;
+                        antece.Fechacreacion = item.Fechacreacion;
+                        antece.Fechamodificacion = DateTime.Now;
+                        antece.Usuariomodificacion = registro.Usuariocreacion;
+
                         switch (item.SubTramiteId)
                         {
                             case (int)SubTramites.RiesgoCaida:
@@ -624,32 +657,12 @@ namespace Aplication.Services.Logica.Mantenimiento
                             default:
                                 break;
                                 
-                        }*/
+                        }
                         
-
                         try
                         {
                             oUnitOfWork.AntecedentesRepository.Update(antece);
-                            oUnitOfWork.Save();
-                        }
-                        catch (DbEntityValidationException e)
-                        {
-                            foreach (var eve in e.EntityValidationErrors)
-                            {
-                                Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
-                                    eve.Entry.Entity.GetType().Name, eve.Entry.State);
-                                foreach (var ve in eve.ValidationErrors)
-                                {
-                                    Console.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
-                                        ve.PropertyName, ve.ErrorMessage);
-                                }
-                            }
-                            transaction.Dispose();
-                        }
-
-                        try
-                        {
-                            oUnitOfWork.Save();
+                            oUnitOfWork.Save(); 
                         }
                         catch (Exception ex)
                         {
@@ -657,29 +670,58 @@ namespace Aplication.Services.Logica.Mantenimiento
                                 "";
                             
                         }
+                        //catch (DbEntityValidationException e)
+                        //{
+                        //    foreach (var eve in e.EntityValidationErrors)
+                        //    {
+                        //        Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
+                        //            eve.Entry.Entity.GetType().Name, eve.Entry.State);
+                        //        foreach (var ve in eve.ValidationErrors)
+                        //        {
+                        //            Console.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
+                        //                ve.PropertyName, ve.ErrorMessage);
+                        //        }
+                        //    }
+                        //    transaction.Dispose();
+                        //}
+                        
                     }
 
                     #endregion
-
+                    
                     #region Historico
-                    var _history = history.Where(x => x.HistoricoId == registro.HistoricoId)
-                                    .Select(x => new {
-                                        HistoricoId = x.HistoricoId,
-                                        PersonaId = x.PersonaId
-                                    });
+                    var _history = (from a in history
+                                    where a.HistoricoId == registro.HistoricoId
+                                    select new EHistorico
+                                    {
+                                        HistoricoId = a.HistoricoId,
+                                        PersonaId = a.PersonaId,
+                                        Diagnostico = a.Diagnostico,
+                                        Observaciones = a.Observaciones,
+                                        Otros = a.Otros,
+                                        Paquetes = a.Paquetes,
+                                        Costo = a.Costo,
+                                        Frecuencia = a.Frecuencia1,
+                                        Usuariocreacion = a.Usuariocreacion,
+                                        Fechacreacion = a.Fechacreacion
+                                    }).ToList();
 
                     foreach (var item in _history)
                     {
                         Repository.Historico historicoU = new Repository.Historico();
                         historicoU.HistoricoId = item.HistoricoId;
-                        historicoU.HistoricoId = item.PersonaId;
+                        historicoU.PersonaId = item.PersonaId;
                         historicoU.Diagnostico = registro.Diagnostico;
                         historicoU.Observaciones = registro.Observaciones;
                         historicoU.Otros = registro.Otros;
                         historicoU.Paquetes = registro.Paquetes;
                         historicoU.Costo = registro.Costo;
                         historicoU.Frecuencia1 = registro.Frecuencia;
+
+                        historicoU.Usuariocreacion = item.Usuariocreacion;
+                        historicoU.Fechacreacion = item.Fechacreacion;
                         historicoU.Fechamodificacion = DateTime.Now;
+                        historicoU.Usuariomodificacion = registro.Usuariocreacion;
 
                         try
                         {
@@ -693,105 +735,18 @@ namespace Aplication.Services.Logica.Mantenimiento
                             mensaje = "Inconveniente al Actualizar el Histórico";
                             transaction.Dispose();
                         }
+                        //catch (DbUpdateConcurrencyException ex)
+                        //{
+                        //    var entry = ex.Entries.Single();
+                        //    entry.OriginalValues.SetValues(entry.GetDatabaseValues());
+                        //}
 
                     }
                     #endregion
+    
                 }
             }
             return mensaje;
-        }
-
-        public string saveAntecedentes(List<EAntecedentes> _result, EHistorico registro)
-        {
-
-            string resultado = string.Empty;
-
-            foreach (var item in _result)
-            {
-                Repository.Antecedentes antece = new Repository.Antecedentes();
-                antece.AntecedentesId = item.AntecedentesId;
-                antece.SubTramiteId = item.SubTramiteId;
-                antece.HistoricoId = item.HistoricoId;
-                antece.Usuariocreacion = item.Usuariocreacion;
-                antece.Fechacreacion = DateTime.Now;//item.Fechacreacion;
-                antece.Fechamodificacion = DateTime.Now;
-                antece.Usuariomodificacion = "JUCASTRO";
-
-                //if (item.SubTramiteId == (int)SubTramites.RiesgoCaida)
-                //{
-                //    antece.Condicion = registro.checkRCaida;
-                //}
-                
-                switch (item.SubTramiteId)
-                {
-                    case (int)SubTramites.RiesgoCaida:
-                        antece.Condicion = registro.checkRCaida;
-                        break;
-                    case (int)SubTramites.EstaEmbarazada:
-                        antece.Condicion = registro.checkEEmbarazada;
-                        break;
-                    case (int)SubTramites.TieneDiabetes:
-                        antece.Condicion = registro.checkTDiabetes;
-                        break;
-                    case (int)SubTramites.DiagnosticoCancer:
-                        antece.Condicion = registro.checkTDiabetes;
-                        break;
-                    case (int)SubTramites.EnfermedadCardiaca:
-                        antece.Condicion = registro.checkTEnfCardiaca;
-                        break;
-                    case (int)SubTramites.RiesgoQuemadura:
-                        antece.Condicion = registro.checkRQuemadura;
-                        break;
-                    case (int)SubTramites.Varices:
-                        antece.Condicion = registro.checkPVarices;
-                        break;
-                    case (int)SubTramites.HTA:
-                        antece.Condicion = registro.checkHTA;
-                        break;
-                    case (int)SubTramites.Marcapaso:
-                        antece.Condicion = registro.checkMarcapaso;
-                        break;
-                    case (int)SubTramites.Osteosintesis:
-                        antece.Condicion = registro.checkEOsteosintesis;
-                        break;
-                    default:
-                        break;
-
-                }
-
-                try
-                {
-                    oUnitOfWork.AntecedentesRepository.Update(antece);
-                    oUnitOfWork.Save();
-                }
-                catch (DbEntityValidationException e)
-                {
-                    foreach (var eve in e.EntityValidationErrors)
-                    {
-                        Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
-                            eve.Entry.Entity.GetType().Name, eve.Entry.State);
-                        foreach (var ve in eve.ValidationErrors)
-                        {
-                            Console.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
-                                ve.PropertyName, ve.ErrorMessage);
-                        }
-                    }
-                    //transaction.Dispose();
-                }
-
-                try
-                {
-                    oUnitOfWork.Save();
-                }
-                catch (Exception ex)
-                {
-                    resultado = "Inconveniente al Actualizar los antecedentes" +
-                        "";
-
-                }
-            }
-
-            return resultado;
         }
 
         public string Delete(int idHistorico)
@@ -1030,6 +985,7 @@ namespace Aplication.Services.Logica.Mantenimiento
                                  Apellidomaterno = p.Apellidomaterno,
                                  Nrodocumento = p.Nrodocumento,
                                  TipodocumentoId = p.TipodocumentoId,
+                                 PersonaId = p.PersonaId
                              };
 
             List<EPersona> _person = personaSearch(resultado);
@@ -1062,7 +1018,8 @@ namespace Aplication.Services.Logica.Mantenimiento
                                Apellidopaterno = p.Apellidopaterno,
                                Apellidomaterno = p.Apellidomaterno,
                                Nrodocumento = p.Nrodocumento,
-                               TipodocumentoId = p.TipodocumentoId
+                               TipodocumentoId = p.TipodocumentoId,
+                               PersonaId = p.PersonaId
                            }).Distinct().ToList();
 
             return _person;

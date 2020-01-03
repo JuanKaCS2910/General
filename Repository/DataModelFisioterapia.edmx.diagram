@@ -34,7 +34,7 @@
         <EntityTypeShape EntityType="DBFisioterapiaModel.Antecedentes" Width="1.5" PointX="10.875" PointY="14.625" />
         <AssociationConnector Association="DBFisioterapiaModel.FK_dbo_Antecedentes_dbo_Historico_HistoricoId" />
         <AssociationConnector Association="DBFisioterapiaModel.FK_dbo_Antecedentes_dbo_SubTramite_SubTramiteId" />
-      </Diagram>
+        </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

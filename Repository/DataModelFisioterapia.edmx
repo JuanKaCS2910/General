@@ -40,7 +40,7 @@
           <Property Name="HistoricoId" Type="int" Nullable="false" />
           <Property Name="SubTramiteId" Type="int" Nullable="false" />
           <Property Name="Condicion" Type="bit" />
-          <Property Name="Usuariocreacion" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Usuariocreacion" Type="nvarchar" MaxLength="20" />
           <Property Name="Fechacreacion" Type="datetime" Nullable="false" />
           <Property Name="Usuariomodificacion" Type="nvarchar" MaxLength="20" />
           <Property Name="Fechamodificacion" Type="datetime" />
@@ -644,10 +644,10 @@
           <NavigationProperty Name="AgenteTermico" Relationship="DBFisioterapiaModel.FK_dbo_AgenteTermico_dbo_Historico_HistoricoId" FromRole="Historico" ToRole="AgenteTermico" />
           <NavigationProperty Name="Frecuencia" Relationship="DBFisioterapiaModel.FK_dbo_Frecuencia_dbo_Historico_HistoricoId" FromRole="Historico" ToRole="Frecuencia" />
           <NavigationProperty Name="ManiobrasTerapeuticas" Relationship="DBFisioterapiaModel.FK_dbo_ManiobrasTerapeuticas_dbo_Historico_HistoricoId" FromRole="Historico" ToRole="ManiobrasTerapeuticas" />
-          <NavigationProperty Name="Antecedentes" Relationship="DBFisioterapiaModel.FK_dbo_Antecedentes_dbo_Historico_HistoricoId" FromRole="Historico" ToRole="Antecedentes" />
           <Property Name="Paquetes" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Costo" Type="Decimal" Precision="10" Scale="1" />
           <Property Name="Frecuencia1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Antecedentes" Relationship="DBFisioterapiaModel.FK_dbo_Antecedentes_dbo_Historico_HistoricoId" FromRole="Historico" ToRole="Antecedentes" />
         </EntityType>
         <EntityType Name="SubTramite">
           <Key>
@@ -868,7 +868,7 @@
           <Property Name="HistoricoId" Type="Int32" Nullable="false" />
           <Property Name="SubTramiteId" Type="Int32" Nullable="false" />
           <Property Name="Condicion" Type="Boolean" />
-          <Property Name="Usuariocreacion" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Usuariocreacion" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="Fechacreacion" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Usuariomodificacion" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="Fechamodificacion" Type="DateTime" Precision="3" />

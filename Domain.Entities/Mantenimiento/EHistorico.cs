@@ -49,7 +49,7 @@ namespace Domain.Entities.Mantenimiento
 
         public string Paquetes { get; set; }
 
-        public decimal Costo { get; set; }
+        public decimal? Costo { get; set; }
 
         public string Frecuencia { get; set; }
 
