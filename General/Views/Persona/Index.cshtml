@@ -1,7 +1,10 @@
 ﻿@model Domain.Entities.ViewModel.ViewModelPerson
 @*//PagedList.IPagedList<Domain.Entities.Mantenimiento.EPersona>
     @using PagedList.Mvc*@
-@using PagedList.Mvc    
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using PagedList.Mvc
 @{
     ViewBag.Title = "Persona";
 }
@@ -92,11 +95,11 @@
                                 <div class="cols-xs-12 col-md-3">
                                     <table>
                                         <tr>
-                                            <td class="dataTables_length"  width="75px;">
+                                            <td class="dataTables_length" width="75px;">
                                                 <label class="control-label input-style" for="NombreFiltro">Mostrar : </label>
                                             </td>
                                             <td width="75px;">
-                                                <select id="tblPersonGrid_length" aria-controls="tblPersonGrid" class="form-control form-control-sm" >
+                                                <select id="tblPersonGrid_length" aria-controls="tblPersonGrid" class="form-control form-control-sm">
                                                     <option value="10">10</option>
                                                     <option value="25">25</option>
                                                     <option value="50">50</option>
@@ -105,10 +108,10 @@
                                             </td>
                                             <td width="10px;"></td>
                                             <td width="100px;">
-                                                <label class="control-label input-style" for="NombreFiltro" >registros.</label>
+                                                <label class="control-label input-style" for="NombreFiltro">registros.</label>
                                             </td>
                                         </tr>
-                                        
+
                                     </table>
 
                                 </div>
@@ -134,8 +137,8 @@
                                                     Nombre Completo
                                                 </th>
                                                 @*<th class="col-xs-12 col-md-2">
-                                                    @Html.DisplayNameFor(model => Model.PersonaGrilla.FirstOrDefault().Nombre)
-                                                </th>*@
+                                                        @Html.DisplayNameFor(model => Model.PersonaGrilla.FirstOrDefault().Nombre)
+                                                    </th>*@
                                                 <th class="col-xs-12 col-md-2">
                                                     @Html.DisplayNameFor(model => Model.PersonaGrilla.FirstOrDefault().Nrodocumento)
                                                 </th>
@@ -174,8 +177,8 @@
                                                         @Html.DisplayFor(model => person.Apellidopaterno) @Html.DisplayFor(model => person.Apellidomaterno) , @Html.DisplayFor(model => person.Nombre)
                                                     </td>
                                                     @*<td class="col-xs-12 col-md-2">
-                                                        @Html.DisplayFor(model => person.Nombre)
-                                                    </td>*@
+                                                            @Html.DisplayFor(model => person.Nombre)
+                                                        </td>*@
                                                     <td class="col-xs-12 col-md-2">
                                                         @Html.DisplayFor(model => person.Nrodocumento)
                                                     </td>
@@ -200,8 +203,8 @@
                                                     Nombre Completo
                                                 </th>
                                                 @*<th class="col-xs-12 col-md-2">
-                                                    @Html.DisplayNameFor(model => Model.PersonaGrilla.FirstOrDefault().Nombre)
-                                                </th>*@
+                                                        @Html.DisplayNameFor(model => Model.PersonaGrilla.FirstOrDefault().Nombre)
+                                                    </th>*@
                                                 <th class="col-xs-12 col-md-2">
                                                     @Html.DisplayNameFor(model => Model.PersonaGrilla.FirstOrDefault().Nrodocumento)
                                                 </th>

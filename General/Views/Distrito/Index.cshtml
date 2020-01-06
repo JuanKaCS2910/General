@@ -1,6 +1,9 @@
 ﻿@model PagedList.IPagedList<Domain.Entities.Mantenimiento.EDistritoView>
 @using PagedList.Mvc
 @{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
     ViewBag.Title = "Distrito";
 }
 
@@ -68,27 +71,27 @@
                                 </div>
                             </div>
                             @*<div class="row">
-                                <div class="ibox-title">
-                                    <h5>Filtros</h5>
+                                    <div class="ibox-title">
+                                        <h5>Filtros</h5>
 
-                                </div>
-                                <div class="col-xs-12 col-md-12">
-                                    <div class="col-xs-12 col-md-3">
-                                        @Html.LabelFor(model => Model.FirstOrDefault().Nombre, htmlAttributes: new { @class = "control-label" })
                                     </div>
-                                    <div class="col-xs-12 col-md-3">
-                                        <div>
-                                            @Html.EditorFor(model => Model.FirstOrDefault().FiltroNombre, new { htmlAttributes = new { @class = "form-control col-xs-12 col-md-3" } })
+                                    <div class="col-xs-12 col-md-12">
+                                        <div class="col-xs-12 col-md-3">
+                                            @Html.LabelFor(model => Model.FirstOrDefault().Nombre, htmlAttributes: new { @class = "control-label" })
+                                        </div>
+                                        <div class="col-xs-12 col-md-3">
+                                            <div>
+                                                @Html.EditorFor(model => Model.FirstOrDefault().FiltroNombre, new { htmlAttributes = new { @class = "form-control col-xs-12 col-md-3" } })
+                                            </div>
+                                        </div>
+
+                                        <div class="col-xs-12 col-md-6">
+                                            <div>
+                                                <input type="submit" value="Filter" class="btn btn-info" />
+                                            </div>
                                         </div>
                                     </div>
-
-                                    <div class="col-xs-12 col-md-6">
-                                        <div>
-                                            <input type="submit" value="Filter" class="btn btn-info" />
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>*@
+                                </div>*@
 
                             <br />
 
@@ -150,26 +153,26 @@
 
                                             @*<tr class="EstiloCabecera">
 
-                                                <th class="col-xs-12 col-md-6">
-                                                    Página: @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) de: @Model.PageCount
-                                                    @Html.PagedListPager(Model, page => Url.Action("Index", new
-                                                    {
-                                                        page,
-                                                        sortOrder = ViewBag.CurrentSort,
-                                                        currentFilter = ViewBag.CurrentFilter
-                                                    }))
-                                                    Cantidad de Registros: @Model.TotalItemCount
-                                                </th>
-                                                <th class="col-xs-12 col-md-3">
-                                                </th>
-                                                <th class="col-xs-12 col-md-2">
-                                                </th>
-                                                <th class="col-xs-12 col-md-1">
-                                                    <a href="@Url.Action("Index", "Distrito")" class="btn btn-success">
-                                                        <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
-                                                    </a>
-                                                </th>
-                                            </tr>*@
+                                                    <th class="col-xs-12 col-md-6">
+                                                        Página: @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) de: @Model.PageCount
+                                                        @Html.PagedListPager(Model, page => Url.Action("Index", new
+                                                        {
+                                                            page,
+                                                            sortOrder = ViewBag.CurrentSort,
+                                                            currentFilter = ViewBag.CurrentFilter
+                                                        }))
+                                                        Cantidad de Registros: @Model.TotalItemCount
+                                                    </th>
+                                                    <th class="col-xs-12 col-md-3">
+                                                    </th>
+                                                    <th class="col-xs-12 col-md-2">
+                                                    </th>
+                                                    <th class="col-xs-12 col-md-1">
+                                                        <a href="@Url.Action("Index", "Distrito")" class="btn btn-success">
+                                                            <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
+                                                        </a>
+                                                    </th>
+                                                </tr>*@
                                         </tbody>
                                     </table>
                                 </div>
