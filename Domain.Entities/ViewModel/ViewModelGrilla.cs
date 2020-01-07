@@ -12,5 +12,6 @@ namespace Domain.Entities.ViewModel
         public int cantPage { get; set; }
         public int cantTotal { get; set; }
         public int pageView { get; set; }
+        public string Url { get; set; }
     }
 }

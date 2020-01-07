@@ -5,6 +5,7 @@ using Domain.Entities.Mantenimiento;
 using Domain.Entities.ViewModel;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Web;
 using System.Web.Configuration;
@@ -170,8 +171,9 @@ namespace General.Controllers.Main.Controllers
                 Person = new EPersona(),
                 FiltroPerson = new EPersona(),
                 cantGrid = paginacion.countrow,
-                cantTotal = 0
-            };
+                cantTotal = 0,
+                Url = ConfigurationManager.AppSettings["Url"]
+        };
             result.cantTotal = result.PersonaGrilla.TotalItemCount;
             result.pageView = result.PersonaGrilla.PageNumber;
             return View(result);

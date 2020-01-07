@@ -23,6 +23,7 @@
         <div class="col-lg-12">
             @Html.HiddenFor(model => model.Person.PersonaId)
             @Html.HiddenFor(model => model.cantTotal)
+            @Html.HiddenFor(model => model.Url)
             <div class="tabs-container">
                 <ul class="nav nav-tabs">
                     <li id="litab1" class="active">
@@ -137,8 +138,8 @@
                                                     Nombre Completo
                                                 </th>
                                                 @*<th class="col-xs-12 col-md-2">
-                                                        @Html.DisplayNameFor(model => Model.PersonaGrilla.FirstOrDefault().Nombre)
-                                                    </th>*@
+                                                @Html.DisplayNameFor(model => Model.PersonaGrilla.FirstOrDefault().Nombre)
+                                            </th>*@
                                                 <th class="col-xs-12 col-md-2">
                                                     @Html.DisplayNameFor(model => Model.PersonaGrilla.FirstOrDefault().Nrodocumento)
                                                 </th>
@@ -177,8 +178,8 @@
                                                         @Html.DisplayFor(model => person.Apellidopaterno) @Html.DisplayFor(model => person.Apellidomaterno) , @Html.DisplayFor(model => person.Nombre)
                                                     </td>
                                                     @*<td class="col-xs-12 col-md-2">
-                                                            @Html.DisplayFor(model => person.Nombre)
-                                                        </td>*@
+                                                    @Html.DisplayFor(model => person.Nombre)
+                                                </td>*@
                                                     <td class="col-xs-12 col-md-2">
                                                         @Html.DisplayFor(model => person.Nrodocumento)
                                                     </td>
@@ -203,8 +204,8 @@
                                                     Nombre Completo
                                                 </th>
                                                 @*<th class="col-xs-12 col-md-2">
-                                                        @Html.DisplayNameFor(model => Model.PersonaGrilla.FirstOrDefault().Nombre)
-                                                    </th>*@
+                                                @Html.DisplayNameFor(model => Model.PersonaGrilla.FirstOrDefault().Nombre)
+                                            </th>*@
                                                 <th class="col-xs-12 col-md-2">
                                                     @Html.DisplayNameFor(model => Model.PersonaGrilla.FirstOrDefault().Nrodocumento)
                                                 </th>
@@ -263,16 +264,16 @@
                                     </button>
                                 </div>
                                 @*
-                                    <div class="col-xs-12 col-md-1 div-btn-img">
-                                        <button class="btn-img">
-                                            <img src="~/Content/Iconos/edit.png" class="img-button" id="btnUpdate" title="Editar">
-                                        </button>
-                                    </div>
-                                    <div class="col-xs-12 col-md-1 div-btn-img">
-                                            <button class="btn-img">
-                                                <img src="~/Content/Iconos/delete.png" class="img-button" id="btnDelete" title="Eliminar">
-                                            </button>
-                                        </div>
+                            <div class="col-xs-12 col-md-1 div-btn-img">
+                                <button class="btn-img">
+                                    <img src="~/Content/Iconos/edit.png" class="img-button" id="btnUpdate" title="Editar">
+                                </button>
+                            </div>
+                            <div class="col-xs-12 col-md-1 div-btn-img">
+                                    <button class="btn-img">
+                                        <img src="~/Content/Iconos/delete.png" class="img-button" id="btnDelete" title="Eliminar">
+                                    </button>
+                                </div>
                                 *@
                                 <div class="col-xs-12 col-md-9">
                                 </div>
@@ -422,21 +423,21 @@
                                 </div>
 
                                 @*<div class="col-xs-12 col-md-2">
-                                        @Html.LabelForModel(Model.Person.Usuariocreacion, htmlAttributes: new { @class = "control-label input-style" })
-                                    </div>
-                                    <div class="col-xs-12 col-md-2">
-                                        @Html.LabelFor(model => Model.Person.Fechacreacion, htmlAttributes: new { @class = "control-label input-style" })
-                                        |
-                                    </div>
-                                    <div class="col-xs-12 col-md-2">
-                                        @Html.LabelFor(model => Model.Person.Usuariomodificacion, htmlAttributes: new { @class = "control-label input-style" })
-                                    </div>
-                                    <div class="col-xs-12 col-md-2">
-                                        <div class="form-group">
-                                            @Html.LabelFor(model => Model.Person.Fechamodificacion, htmlAttributes: new { @class = "control-label input-style" })
-                                        </div>
+                                @Html.LabelForModel(Model.Person.Usuariocreacion, htmlAttributes: new { @class = "control-label input-style" })
+                            </div>
+                            <div class="col-xs-12 col-md-2">
+                                @Html.LabelFor(model => Model.Person.Fechacreacion, htmlAttributes: new { @class = "control-label input-style" })
+                                |
+                            </div>
+                            <div class="col-xs-12 col-md-2">
+                                @Html.LabelFor(model => Model.Person.Usuariomodificacion, htmlAttributes: new { @class = "control-label input-style" })
+                            </div>
+                            <div class="col-xs-12 col-md-2">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => Model.Person.Fechamodificacion, htmlAttributes: new { @class = "control-label input-style" })
+                                </div>
 
-                                    </div>*@
+                            </div>*@
                             </div>
                         </div>
 

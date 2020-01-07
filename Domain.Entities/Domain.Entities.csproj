@@ -64,6 +64,7 @@
     <Compile Include="Mantenimiento\ETipodocumento.cs" />
     <Compile Include="Mantenimiento\HMain.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModel\ViewModelDistrito.cs" />
     <Compile Include="ViewModel\ViewModelGrilla.cs" />
     <Compile Include="ViewModel\ViewModelHistorico.cs" />
     <Compile Include="ViewModel\ViewModelPerson.cs" />

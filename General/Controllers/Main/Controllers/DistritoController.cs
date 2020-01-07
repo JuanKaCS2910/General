@@ -6,6 +6,8 @@ using System.Web.Mvc;
 using System;
 using Aplication.Services.Interfaz;
 using System.Threading.Tasks;
+using System.Configuration;
+using Domain.Entities.ViewModel;
 
 namespace General.Controllers.Main.Controllers
 {
@@ -91,7 +93,14 @@ namespace General.Controllers.Main.Controllers
 
             ViewBag.Cantidad = paginacion.countrow;
 
-            var result = oDistrito.DistritoGrillaToPageList(paginacion);
+            var result = new ViewModelDistrito
+            {
+                Url = ConfigurationManager.AppSettings["Url"],
+                DistritoGrilla = oDistrito.DistritoGrillaToPageList(paginacion),
+                Distrito = new EDistritoView()
+            };
+
+            //var result = oDistrito.DistritoGrillaToPageList(paginacion);
             
             return View(result);
         }

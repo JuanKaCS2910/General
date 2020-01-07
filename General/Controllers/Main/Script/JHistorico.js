@@ -40,8 +40,10 @@ function ViewGridH() {
         PersonaId: personaId.value
     };
 
+    var urlT = document.getElementById("urlId").value + "Historial/CargarGrilla";
+    //'../Historial/CargarGrilla'
     $.ajax({
-        url: '../Historial/CargarGrilla',
+        url: urlT,
         type: 'POST',
         data: JSON.stringify(paginacion),
         contentType: "application/json; charset=utf-8",
@@ -134,8 +136,10 @@ function ViewGridJson(page, countrow) {
         Apellidopaterno: Fappaterno.value,
     };
 
+    var urlG = document.getElementById("urlId").value + "Historial/CargarGrilla";
+    //../Historial/CargarGrilla
     $.ajax({
-        url: '../Historial/CargarGrilla',
+        url: urlG,
         type: 'POST',
         data: JSON.stringify(paginacion),
         contentType: "application/json; charset=utf-8",
@@ -260,8 +264,10 @@ function FoundGrid() {
         countrow: $("#tblPersonGrid_length option:selected").text()
     };
 
+    var urlB = document.getElementById("urlId").value + "Historial/CargarBusquedaGrilla";
+    //../Historial/CargarBusquedaGrilla
     $.ajax({
-        url: '../Historial/CargarBusquedaGrilla',
+        url: urlB,
         type: 'POST',
         data: JSON.stringify(filtro),
         contentType: "application/json; charset=utf-8",
@@ -311,7 +317,6 @@ function FoundGrid() {
                     }
                     html = html + "</ul></div>";
                     page.append(html);
-
 
                 }
             }
@@ -338,8 +343,10 @@ function FoundGridJson(page, countrow) {
         countrow: countrow,
     };
 
+    var urlFG = document.getElementById("urlId").value + "Historial/CargarBusquedaGrilla";
+    //../Historial/CargarBusquedaGrilla
     $.ajax({
-        url: '../Historial/CargarBusquedaGrilla',
+        url: urlFG,
         type: 'POST',
         data: JSON.stringify(filtro),
         contentType: "application/json; charset=utf-8",
@@ -389,7 +396,6 @@ function FoundGridJson(page, countrow) {
                     }
                     html = html + "</ul></div>";
                     page.append(html);
-
 
                 }
             }
@@ -420,8 +426,10 @@ function PersonSelect(id) {
 
     document.getElementById("PersonaId").value = "";
 
+    var urlP = document.getElementById("urlId").value + "Persona/CargarPerson";
+    //'../Persona/CargarPerson'
     $.ajax({
-        url: '../Persona/CargarPerson',
+        url: urlP,
         type: 'POST',
         data: JSON.stringify(resultado),
         contentType: "application/json; charset=utf-8",
@@ -461,8 +469,10 @@ function DeleteHistorico(id) {
     };
     var personaId = document.getElementById('PersonaId');
 
+    var urlD = document.getElementById("urlId").value + "Historial/DeleteHistorico";
+    //../Historial/DeleteHistorico
     $.ajax({
-        url: '../Historial/DeleteHistorico',
+        url: urlD,
         type: 'POST',
         data: JSON.stringify(resultado),
         contentType: "application/json; charset=utf-8",
@@ -495,9 +505,10 @@ function ViewGridHistorico(personaId) {
         countrow: $("#tblHistoricoGrid_length option:selected").text(),
         PersonaId: personaId
     };
-
+    var urlCG = document.getElementById("urlId").value + "Historial/CargarGrilla";
+    //../Historial/CargarGrilla
     $.ajax({
-        url: '../Historial/CargarGrilla',
+        url: urlCG,
         type: 'POST',
         data: JSON.stringify(paginacion),
         contentType: "application/json; charset=utf-8",
@@ -582,9 +593,7 @@ function LimpiarTab3(condicion)
     document.getElementById('PersonaId').value = "";
     document.getElementById('Historicos_Paquetes').value = "";
     document.getElementById('Historicos_Costo').value = "";
-    //$("#DocumentypeId").val("");
-    //$("#Documento").val("");
-    //$("#Paciente").val("");
+    
     document.getElementById('DocumentypeId').value = "";
     document.getElementById('Documento').value = "";
     document.getElementById('Paciente').value = "";
@@ -651,8 +660,11 @@ function HistoricoSelect(id) {
     LimpiarTab3(false);
     //Habilitar los campos cuando es para editar.
     Habilitar(false);
+
+    var urlCG = document.getElementById("urlId").value + "Historial/SearchHistorico";
+    //../Historial/SearchHistorico
     $.ajax({
-        url: '../Historial/SearchHistorico',
+        url: urlCG,
         type: 'POST',
         data: JSON.stringify(resultado),
         contentType: "application/json; charset=utf-8",
@@ -919,10 +931,13 @@ function SaveHistory() {
         checkEOsteosintesis: osteosintesis.checked,
     };
 
-
+    var urlA = document.getElementById("urlId").value + "Historial/SaveHistorico";
+    var urlE = document.getElementById("urlId").value + "Historial/EditHistorico";
+    //../Historial/SaveHistorico
+    //../Historial/EditHistorico
     if (historiaID.value == "") {
         $.ajax({
-            url: '../Historial/SaveHistorico',
+            url: urlA,
             type: 'POST',
             data: JSON.stringify(param),
             contentType: "application/json; charset=utf-8",
@@ -955,7 +970,7 @@ function SaveHistory() {
     }
     else {
         $.ajax({
-            url: '../Historial/EditHistorico',
+            url: urlE,
             type: 'POST',
             data: JSON.stringify(param),
             contentType: "application/json; charset=utf-8",
@@ -1057,9 +1072,11 @@ function SearchPerson() {
         Nrodocumento: Fdocumento.value,
         countrow: 5
     };
+    var urlS = document.getElementById("urlId").value + "Historial/SearchPerson";
+    //../Historial/SearchPerson
 
     $.ajax({
-        url: '../Historial/SearchPerson',
+        url: urlS,
         type: 'POST',
         data: JSON.stringify(filtro),
         contentType: "application/json; charset=utf-8",

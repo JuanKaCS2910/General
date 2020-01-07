@@ -95,8 +95,10 @@ function FoundGrid() {
         countrow: $("#tblPersonGrid_length option:selected").text()
     };
 
+    var urlT = document.getElementById("Url").value + "Persona/CargarBusquedaGrilla";
+    //../Persona/CargarBusquedaGrilla
     $.ajax({
-        url: '../Persona/CargarBusquedaGrilla',
+        url: urlT,
         type: 'POST',
         data: JSON.stringify(filtro),
         contentType: "application/json; charset=utf-8",
@@ -278,10 +280,14 @@ function SavePerson() {
 
         document.getElementById("FiltroDocumentypeId").value = "";
 
+        var urlA = document.getElementById("Url").value + "Persona/SavePerson";
+        var urlE = document.getElementById("Url").value + "Persona/EditPerson";
+        //../Persona/SavePerson
+        //../Persona/EditPerson
         if (persona.value == "0") {
-
+            
             $.ajax({
-                url: '../Persona/SavePerson',
+                url: urlA,
                 type: 'POST',
                 data: JSON.stringify(param),
                 contentType: "application/json; charset=utf-8",
@@ -309,7 +315,7 @@ function SavePerson() {
         else {
             
             $.ajax({
-                url: '../Persona/EditPerson',
+                url: urlE,
                 type: 'POST',
                 data: JSON.stringify(param),
                 contentType: "application/json; charset=utf-8",
@@ -351,8 +357,10 @@ function ViewGridJson(page, countrow)
         Apellidopaterno: Fappaterno.value,
     };
 
+    var urlVJ = document.getElementById("Url").value + "Persona/CargarGrillaJson";
+    //../Persona/CargarGrillaJson
     $.ajax({
-        url: '../Persona/CargarGrillaJson',
+        url: urlVJ,
         type: 'POST',
         data: JSON.stringify(paginacion),
         contentType: "application/json; charset=utf-8",
@@ -383,7 +391,6 @@ function ViewGridJson(page, countrow)
                             "<td class='col-xs-12 col-md-3'>" + parseJsonRow(result.Direccion) + "</td>" +
                             "<td class='col-xs-12 col-md-2'>" + parseJsonDate(result.Fecnacimiento) + "</td></tr>");
                     });
-                    //"<td class='col-xs-12 col-md-2'>" + result.Nombre + "</td>" +
                     var page = $('#hiPaginado');
                     page.find("div").remove();
                     var html = "";
@@ -393,11 +400,9 @@ function ViewGridJson(page, countrow)
                             html = html + "<li class='active'><a>" + i + "</a></li>"
                         }
                         else {
-                            //html = html + "<li class=''><a href='/Persona/Index?page=" + i + "&countrow=" + $("#tblPersonGrid_length").val() +"'>" + i + "</a></li>"
                             html = html + "<li class=''><a href='javaScript:ViewGridJson(" + i + "," + $("#tblPersonGrid_length").val() + ")'>" + i + "</a></li>"
                         }
                     }
-                    //html = html + "<li class='PagedList-skipToNext'><a href='/Persona/Index?page=" + i + "' rel='next' >»" + i + "</a></li>"
                     html = html + "</ul></div>";
                     page.append(html);
 
@@ -433,7 +438,6 @@ function ViewGridJson(page, countrow)
 
 function ViewGrid()
 {
-
     var Fdocumento = document.getElementById("FiltroPerson_Nrodocumento");
     var Ftipodocumento = document.getElementById("FiltroDocumentypeId");
     var Fappaterno = document.getElementById("FiltroPerson_Apellidopaterno");
@@ -444,9 +448,10 @@ function ViewGrid()
         Nrodocumento: Fdocumento.value,
         Apellidopaterno: Fappaterno.value,
     };
-
+    var urlCG = document.getElementById("Url").value + "Persona/CargarGrilla";
+    //../Persona/CargarGrilla
     $.ajax({
-        url: '../Persona/CargarGrilla',
+        url: urlCG,
         type: 'POST',
         data: JSON.stringify(paginacion),
         contentType: "application/json; charset=utf-8",
@@ -477,7 +482,6 @@ function ViewGrid()
                             "<td class='col-xs-12 col-md-3'>" + parseJsonRow(result.Direccion) + "</td>" +
                             "<td class='col-xs-12 col-md-2'>" + parseJsonDate(result.Fecnacimiento) + "</td></tr>");
                     });
-                    //"<td class='col-xs-12 col-md-2'>" + result.Nombre + "</td>" +
                     var page = $('#hiPaginado');
                     page.find("div").remove();
                     var html = "";
@@ -488,12 +492,10 @@ function ViewGrid()
                             html = html +"<li class='active'><a>" + i + "</a></li>"
                         }
                         else {
-                            //html = html + "<li class=''><a href='/Persona/Index?page=" + i + "&countrow=" + $("#tblPersonGrid_length").val() +"'>" + i + "</a></li>"
                             html = html + "<li class=''><a href='javaScript:ViewGridJson(" + i + "," + $("#tblPersonGrid_length").val() + ")'>" + i + "</a></li>"
                            
                         } 
                     }
-                    //html = html + "<li class='PagedList-skipToNext'><a href='/Persona/Index?page=" + i + "' rel='next' >»" + i + "</a></li>"
                     html = html + "</ul></div>";
                     page.append(html);
 
@@ -631,9 +633,11 @@ function DeletePerson(id)
     var resultado = {
         personaId: $(id).data('assigned-id')
     };
+    var urlD = document.getElementById("Url").value + "Persona/DeletePerson";
+    //../Persona/DeletePerson
 
     $.ajax({
-        url: '../Persona/DeletePerson',
+        url: urlD,
         type: 'POST',
         data: JSON.stringify(resultado),
         contentType: "application/json; charset=utf-8",
@@ -650,7 +654,6 @@ function DeletePerson(id)
                     $("#error").modal('show');
                 }
             }
-
         },
         error: function (request, status, error) {
             alert("dd");
@@ -670,14 +673,15 @@ function PersonSelect(id)
     var ltab1 = document.getElementById("litab1");
     var ltab2 = document.getElementById("litab2");
     
-
     tab1.classList.remove("active");
     tab2.classList.add("active");
     ltab1.classList.remove("active");
     ltab2.classList.add("active");
 
+    var urlCG = document.getElementById("Url").value + "Persona/CargarPerson";
+    //../Persona/CargarPerson
     $.ajax({
-        url: '../Persona/CargarPerson',
+        url: urlCG,
         type: 'POST',
         data: JSON.stringify(resultado),
         contentType: "application/json; charset=utf-8",
@@ -723,7 +727,6 @@ function PersonSelect(id)
                     $("#Person_Usuariomodificacion").val(userModify);
                     $("#Person_Fechamodificacion").val(userDateModify);
 
-                    
                 }
             }
 
@@ -741,8 +744,11 @@ function BusquedaGrilla() {
         rows: $("#tblFiltro_length option:selected").text()
     };
 
+    var urlCF = document.getElementById("Url").value + "Persona/CargarFiltro";
+    //../Persona/CargarFiltro
+
     $.ajax({
-        url: '../Persona/CargarFiltro',
+        url: urlCF,
         type: 'POST',
         data: JSON.stringify(parametros),
         contentType: "application/json; charset=utf-8",
@@ -775,8 +781,11 @@ function SeleccionarDistrito(id) {
         distritoId: $(id).data('assigned-id')
     };
 
+    var urlDE = document.getElementById("Url").value + "Distrito/Edit";
+    //../Distrito/Edit
+
     $.ajax({
-        url: '../Distrito/Edit',
+        url: urlDE,
         type: 'POST',
         dataType: "json",
         contentType: "application/json; charset=utf-8",

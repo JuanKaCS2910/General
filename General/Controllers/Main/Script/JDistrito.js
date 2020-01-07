@@ -52,8 +52,10 @@
             DistritoId: $("#hdistritoId").val(),
         };
 
+        var urlU = document.getElementById("Url").value + "Distrito/Actualizar";
+        //'../Distrito/Actualizar'
         $.ajax({
-            url: '../Distrito/Actualizar',
+            url: urlU,
             type: 'POST',
             dataType: "json",
             contentType: "application/json; charset=utf-8",
@@ -73,8 +75,6 @@
                 //$("#dvActualizar").modal("hide");
             },
 
-
-
         });
     });
 
@@ -89,12 +89,14 @@
     $("#btnCreate").click(function () {
 
         var EDistrito = {
-            Nombre: $("#RegistroNombre").val(),
+            Nombre: $("#Distrito_RegistroNombre").val(),
             DepartamentoId: 1
         };
+        var urlC = document.getElementById("Url").value + "Distrito/Grabar";
+        //'../Distrito/Grabar'
 
         $.ajax({
-            url: '../Distrito/Grabar',
+            url: urlC,
             type: 'POST',
             data: JSON.stringify(EDistrito),
             contentType: "application/json; charset=utf-8",
@@ -105,6 +107,7 @@
                     if (data.Resultado == "OK") {
                         $("#success").modal('show');
                         $("#SuccessResult").text('El registro se grabo exitosamente');
+                        document.getElementById("Distrito_RegistroNombre").value = "";
                         ViewGrilla();
                     }
                     else {
@@ -128,9 +131,11 @@ function ViewGrilla()
     var paginacion = {
         countrow: $("#tblGrilla_length option:selected").text()
     };
+    var urlCG = document.getElementById("Url").value + "Distrito/CargarGrilla";
+    //'../Distrito/CargarGrilla'
 
     $.ajax({
-        url: '../Distrito/CargarGrilla',
+        url: urlCG,
         type: 'POST',
         data: JSON.stringify(paginacion),
         contentType: "application/json; charset=utf-8",
@@ -164,9 +169,10 @@ function Delete(id) {
     var resultado = {
         distritoId: $(id).data('assigned-id')
     };
-
+    var urlD = document.getElementById("Url").value + "Distrito/Delete";
+    //'../Distrito/Delete'
     $.ajax({
-        url: '../Distrito/Delete',
+        url: urlD,
         type: 'POST',
         dataType: "json",
         contentType: "application/json; charset=utf-8",
@@ -202,9 +208,10 @@ function Edit(id) {
     var resultado = {
         distritoId: $(id).data('assigned-id')
     };
-
+    var urlU = document.getElementById("Url").value + "Distrito/Edit";
+    //'../Distrito/Edit'
     $.ajax({
-        url: '../Distrito/Edit',
+        url: urlU,
         type: 'POST',
         dataType: "json",
         contentType: "application/json; charset=utf-8",
@@ -238,9 +245,10 @@ function CargarGrilla() {
     var paginacion = {
         countrow: $("#ChangeRow").val()
     };
-
+    var urlG = document.getElementById("Url").value + "Distrito/Index";
+    //'../Distrito/Index'
     $.ajax({
-        url: '../Distrito/Index',
+        url: urlG,
         type: 'POST',
         data: JSON.stringify(paginacion),
         contentType: "application/json; charset=utf-8",

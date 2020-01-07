@@ -3,10 +3,9 @@ using Aplication.Services.Logica.Mantenimiento;
 using Domain.Entities.General;
 using Domain.Entities.Mantenimiento;
 using Domain.Entities.ViewModel;
-using PagedList;
+using System.Configuration;
 using System.Web.Configuration;
 using System.Web.Mvc;
-using System.Data.Entity.Validation;
 
 namespace General.Controllers.Main.Controllers
 {
@@ -48,7 +47,8 @@ namespace General.Controllers.Main.Controllers
                 Historicos = new EHistorico(),
                 FiltroPerson = new EPersona(),
                 cantGrid = paginacion.countrow,
-                cantTotal = 0
+                cantTotal = 0,
+                Url = ConfigurationManager.AppSettings["Url"]
             };
             result.cantTotal = result.PersonaGrilla.TotalItemCount;
             result.pageView = result.PersonaGrilla.PageNumber;
