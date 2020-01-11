@@ -53,6 +53,7 @@
     <Compile Include="Mantenimiento\EAgenteelectrofisico.cs" />
     <Compile Include="Mantenimiento\EAgentetermico.cs" />
     <Compile Include="Mantenimiento\EAntecedentes.cs" />
+    <Compile Include="Mantenimiento\EAudioria.cs" />
     <Compile Include="Mantenimiento\EDistrito.cs" />
     <Compile Include="Mantenimiento\EFrecuencia.cs" />
     <Compile Include="Mantenimiento\EHistorico.cs" />
@@ -62,6 +63,7 @@
     <Compile Include="Mantenimiento\ESexo.cs" />
     <Compile Include="Mantenimiento\ESubtramite.cs" />
     <Compile Include="Mantenimiento\ETipodocumento.cs" />
+    <Compile Include="Mantenimiento\EUsuario.cs" />
     <Compile Include="Mantenimiento\HMain.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModel\ViewModelDistrito.cs" />

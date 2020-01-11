@@ -18,6 +18,7 @@ namespace Repository
         public Persona()
         {
             this.Historico = new HashSet<Historico>();
+            this.Usuario = new HashSet<Usuario>();
         }
     
         public int PersonaId { get; set; }
@@ -42,5 +43,7 @@ namespace Repository
         public virtual Tipodocumento Tipodocumento { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Historico> Historico { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Usuario> Usuario { get; set; }
     }
 }

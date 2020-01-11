@@ -28,6 +28,9 @@ namespace General.Controllers.Main.Controllers
         // GET: Persona
         public ActionResult Index(Grilla paginacion)
         {
+            if (Session["data"] == null)
+                return RedirectToAction("Index", "Login");
+
             if (paginacion.countrow == null)
                 paginacion.countrow = int.Parse(WebConfigurationManager.AppSettings["CountRow"]);
 
@@ -131,6 +134,9 @@ namespace General.Controllers.Main.Controllers
         #region Historico
         public ActionResult Index1(FiltroGrilloHistorico paginacion)
         {
+            if (Session["data"] == null)
+                return RedirectToAction("Index", "Login");
+
             if (paginacion.countrow == null)
                 paginacion.countrow = int.Parse(WebConfigurationManager.AppSettings["CountRow"]);
 

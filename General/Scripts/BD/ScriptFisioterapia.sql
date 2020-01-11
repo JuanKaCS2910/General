@@ -81,6 +81,23 @@ CREATE TABLE Persona
 	)
 )
 GO
+CREATE TABLE Usuario
+(
+	UsuarioId int IDENTITY(1,1) NOT NULL,
+	PersonaId int NOT NULL,
+	CodUsuario nvarchar(10) NOT NULL,
+	Contrasena nvarchar(250) NOT NULL,
+	Correo	nvarchar(100) NOT NULL,
+	Usuariocreacion nvarchar(20) NOT NULL,
+	Fechacreacion datetime NOT NULL,
+	Usuariomodificacion nvarchar(20),
+	Fechamodificacion datetime,
+	CONSTRAINT [PK_dbo.Usuario] PRIMARY KEY CLUSTERED 
+	(
+		UsuarioId ASC
+	)
+)
+GO
 --
 CREATE TABLE Tramite
 (
@@ -324,6 +341,16 @@ CREATE UNIQUE NONCLUSTERED INDEX [Persona_Nrodocumento_Index] ON Persona
 	Nrodocumento ASC
 )
 GO
+CREATE UNIQUE NONCLUSTERED INDEX [Usuario_CodUsuario_Index] ON Usuario
+(
+	CodUsuario ASC
+)
+GO
+CREATE UNIQUE NONCLUSTERED INDEX [Usuario_Correo_Index] ON Usuario
+(
+	Correo ASC
+)
+GO
 /*
 CREATE UNIQUE NONCLUSTERED INDEX [AgenteTermico_Nombre_Index] ON AgenteTermico
 (
@@ -392,6 +419,11 @@ ALTER TABLE Persona  WITH CHECK
 ADD  CONSTRAINT [FK_dbo.Persona_dbo.Tipodocumento_TipodocumentoId] 
 FOREIGN KEY(TipodocumentoId)
 REFERENCES Tipodocumento (TipodocumentoId)
+GO
+ALTER TABLE Usuario  WITH CHECK 
+ADD  CONSTRAINT [FK_dbo.Usuario_dbo.Persona_PersonaId] 
+FOREIGN KEY(PersonaId)
+REFERENCES Persona (PersonaId)
 GO
 --SubTramite
 ALTER TABLE SubTramite  WITH CHECK 
@@ -523,6 +555,11 @@ INSERT SubTramite (Codigo,Descripcion,Usuariocreacion,Fechacreacion) VALUES ('AN
 INSERT SubTramite (Codigo,Descripcion,Usuariocreacion,Fechacreacion) VALUES ('AN','TIENE HTA','SYSTEM',GETDATE())
 INSERT SubTramite (Codigo,Descripcion,Usuariocreacion,Fechacreacion) VALUES ('AN','USA MARCAPASO','SYSTEM',GETDATE())
 INSERT SubTramite (Codigo,Descripcion,Usuariocreacion,Fechacreacion) VALUES ('AN','TIENE ELEMENTOS OSTEOSINTESIS','SYSTEM',GETDATE())
+--
+INSERT INTO Persona (TipodocumentoId,Nrodocumento,Nombre,Apellidopaterno,Apellidomaterno,Nrotelefono,DistritoId,Direccion,SexoId,Usuariocreacion,Fechacreacion)VALUES (2,'45997399','JUAN CARLOS','CASTRO','SOCLA','986445123',1,'PALMERAS',1,'JUCASTRO',GETDATE())
+INSERT INTO Persona (TipodocumentoId,Nrodocumento,Nombre,Apellidopaterno,Apellidomaterno,Nrotelefono,DistritoId,Direccion,SexoId,Usuariocreacion,Fechacreacion)VALUES (2,'12134255','MARLITH','CASTRO','SOCLA','555555',1,'PALMERAS',1,'JUCASTRO',GETDATE())
+INSERT INTO Usuario (PersonaId,CodUsuario,Contrasena,Correo,Usuariocreacion,Fechacreacion) VALUES (1,'JUCASTRO','123456','juansocla@hotmail.com','JUCASTRO',GETDATE())
+INSERT INTO Usuario (PersonaId,CodUsuario,Contrasena,Correo,Usuariocreacion,Fechacreacion) VALUES (2,'MARAMOS','123456','xxy@hotmail.com','JUCASTRO',GETDATE())
 /*
 --AgenteTermico
 INSERT AgenteTermico (Nombre,Usuariocreacion,Fechacreacion) VALUES ('Compresa Caliente','SYSTEM',GETDATE())

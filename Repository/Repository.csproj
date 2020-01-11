@@ -108,6 +108,9 @@
     <Compile Include="UnitOfWork\UnitOfWorkReference.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UnitOfWork\UnitOfWork.cs" />
+    <Compile Include="Usuario.cs">
+      <DependentUpon>DataModelFisioterapia.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EntityDeploy Include="DataModelFisioterapia.edmx">

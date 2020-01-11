@@ -38,5 +38,6 @@ namespace Repository
         public virtual DbSet<Frecuencia> Frecuencia { get; set; }
         public virtual DbSet<ManiobrasTerapeuticas> ManiobrasTerapeuticas { get; set; }
         public virtual DbSet<Antecedentes> Antecedentes { get; set; }
+        public virtual DbSet<Usuario> Usuario { get; set; }
     }
 }

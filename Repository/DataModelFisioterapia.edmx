@@ -163,6 +163,20 @@
           <Property Name="Usuariomodificacion" Type="nvarchar" MaxLength="20" />
           <Property Name="Fechamodificacion" Type="datetime" />
         </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="UsuarioId" />
+          </Key>
+          <Property Name="UsuarioId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PersonaId" Type="int" Nullable="false" />
+          <Property Name="CodUsuario" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="Contrasena" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="Correo" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Usuariocreacion" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Fechacreacion" Type="datetime" Nullable="false" />
+          <Property Name="Usuariomodificacion" Type="nvarchar" MaxLength="20" />
+          <Property Name="Fechamodificacion" Type="datetime" />
+        </EntityType>
         <Association Name="FK_dbo_AgenteElectrofisico_dbo_Historico_HistoricoId">
           <End Role="Historico" Type="Self.Historico" Multiplicity="1" />
           <End Role="AgenteElectrofisico" Type="Self.AgenteElectrofisico" Multiplicity="*" />
@@ -355,6 +369,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_dbo_Usuario_dbo_Persona_PersonaId">
+          <End Role="Persona" Type="Self.Persona" Multiplicity="1" />
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Persona">
+              <PropertyRef Name="PersonaId" />
+            </Principal>
+            <Dependent Role="Usuario">
+              <PropertyRef Name="PersonaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="DBFisioterapiaModelStoreContainer">
           <EntitySet Name="AgenteElectrofisico" EntityType="Self.AgenteElectrofisico" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AgenteTermico" EntityType="Self.AgenteTermico" Schema="dbo" store:Type="Tables" />
@@ -369,6 +395,7 @@
           <EntitySet Name="SubTramite" EntityType="Self.SubTramite" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tipodocumento" EntityType="Self.Tipodocumento" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tramite" EntityType="Self.Tramite" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_dbo_AgenteElectrofisico_dbo_Historico_HistoricoId" Association="Self.FK_dbo_AgenteElectrofisico_dbo_Historico_HistoricoId">
             <End Role="Historico" EntitySet="Historico" />
             <End Role="AgenteElectrofisico" EntitySet="AgenteElectrofisico" />
@@ -432,6 +459,10 @@
           <AssociationSet Name="FK_dbo_SubTramite_dbo_Tramite_Codigo" Association="Self.FK_dbo_SubTramite_dbo_Tramite_Codigo">
             <End Role="Tramite" EntitySet="Tramite" />
             <End Role="SubTramite" EntitySet="SubTramite" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Usuario_dbo_Persona_PersonaId" Association="Self.FK_dbo_Usuario_dbo_Persona_PersonaId">
+            <End Role="Persona" EntitySet="Persona" />
+            <End Role="Usuario" EntitySet="Usuario" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -516,6 +547,11 @@
             <End Role="SubTramite" EntitySet="SubTramite" />
             <End Role="Antecedentes" EntitySet="Antecedentes" />
           </AssociationSet>
+          <EntitySet Name="Usuario" EntityType="DBFisioterapiaModel.Usuario" />
+          <AssociationSet Name="FK_dbo_Usuario_dbo_Persona_PersonaId" Association="DBFisioterapiaModel.FK_dbo_Usuario_dbo_Persona_PersonaId">
+            <End Role="Persona" EntitySet="Persona" />
+            <End Role="Usuario" EntitySet="Usuario" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="Departamento">
           <Key>
@@ -559,6 +595,7 @@
           <NavigationProperty Name="Sexo" Relationship="DBFisioterapiaModel.FK_dbo_Persona_dbo_Sexo_SexoId" FromRole="Persona" ToRole="Sexo" />
           <NavigationProperty Name="Tipodocumento" Relationship="DBFisioterapiaModel.FK_dbo_Persona_dbo_Tipodocumento_TipodocumentoId" FromRole="Persona" ToRole="Tipodocumento" />
           <NavigationProperty Name="Historico" Relationship="DBFisioterapiaModel.FK_dbo_Historico_dbo_Persona_PersonaId" FromRole="Persona" ToRole="Historico" />
+          <NavigationProperty Name="Usuario" Relationship="DBFisioterapiaModel.FK_dbo_Usuario_dbo_Persona_PersonaId" FromRole="Persona" ToRole="Usuario" />
         </EntityType>
         <Association Name="FK_dbo_Distrito_dbo_Departamento_DepartamentoId">
           <End Type="DBFisioterapiaModel.Departamento" Role="Departamento" Multiplicity="1" />
@@ -899,6 +936,33 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="UsuarioId" />
+          </Key>
+          <Property Name="UsuarioId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PersonaId" Type="Int32" Nullable="false" />
+          <Property Name="CodUsuario" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Contrasena" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Correo" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Usuariocreacion" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Fechacreacion" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Usuariomodificacion" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Fechamodificacion" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Persona" Relationship="DBFisioterapiaModel.FK_dbo_Usuario_dbo_Persona_PersonaId" FromRole="Usuario" ToRole="Persona" />
+        </EntityType>
+        <Association Name="FK_dbo_Usuario_dbo_Persona_PersonaId">
+          <End Type="DBFisioterapiaModel.Persona" Role="Persona" Multiplicity="1" />
+          <End Type="DBFisioterapiaModel.Usuario" Role="Usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Persona">
+              <PropertyRef Name="PersonaId" />
+            </Principal>
+            <Dependent Role="Usuario">
+              <PropertyRef Name="PersonaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1073,6 +1137,21 @@
                 <ScalarProperty Name="SubTramiteId" ColumnName="SubTramiteId" />
                 <ScalarProperty Name="HistoricoId" ColumnName="HistoricoId" />
                 <ScalarProperty Name="AntecedentesId" ColumnName="AntecedentesId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Usuario">
+            <EntityTypeMapping TypeName="DBFisioterapiaModel.Usuario">
+              <MappingFragment StoreEntitySet="Usuario">
+                <ScalarProperty Name="Fechamodificacion" ColumnName="Fechamodificacion" />
+                <ScalarProperty Name="Usuariomodificacion" ColumnName="Usuariomodificacion" />
+                <ScalarProperty Name="Fechacreacion" ColumnName="Fechacreacion" />
+                <ScalarProperty Name="Usuariocreacion" ColumnName="Usuariocreacion" />
+                <ScalarProperty Name="Correo" ColumnName="Correo" />
+                <ScalarProperty Name="Contrasena" ColumnName="Contrasena" />
+                <ScalarProperty Name="CodUsuario" ColumnName="CodUsuario" />
+                <ScalarProperty Name="PersonaId" ColumnName="PersonaId" />
+                <ScalarProperty Name="UsuarioId" ColumnName="UsuarioId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

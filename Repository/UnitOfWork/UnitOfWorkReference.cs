@@ -20,6 +20,7 @@
         private GenericRepository<Antecedentes> antecedentesRepository;
 
         private GenericRepository<SubTramite> subtramiteRepository;
+        private GenericRepository<Usuario> usuarioRepository;
         #endregion
 
         #region Public
@@ -154,6 +155,18 @@
                     this.antecedentesRepository = new GenericRepository<Antecedentes>(context);
                 }
                 return antecedentesRepository;
+            }
+        }
+
+        public GenericRepository<Usuario> UsuarioRepository
+        {
+            get
+            {
+                if (this.usuarioRepository == null)
+                {
+                    this.usuarioRepository = new GenericRepository<Usuario>(context);
+                }
+                return usuarioRepository;
             }
         }
 

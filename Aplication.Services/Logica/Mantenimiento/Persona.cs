@@ -449,6 +449,12 @@ namespace Aplication.Services.Logica.Mantenimiento
                 {
                     mensaje = "La Persona no se puede eliminar porque esta asociado con algún Histórico";
                 }
+                else if (ex.InnerException != null &&
+                        ex.InnerException.InnerException != null &&
+                        ex.InnerException.InnerException.Message.Contains("FK_dbo.Usuario"))
+                {
+                    mensaje = "La Persona no se puede eliminar porque esta asociado con algún Usuario";
+                }
                 else
                 {
                     mensaje = ex.Message;

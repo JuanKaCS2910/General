@@ -22,6 +22,9 @@ namespace General.Controllers
 
         public ActionResult Main()
         {
+            if (Session["data"] == null)
+                return RedirectToAction("Index", "Login");
+
             var Main = new HMain()
             {
                 Personas = oIPersona.PersonaGrilla(null).Count(),
@@ -29,6 +32,7 @@ namespace General.Controllers
             };
 
             return View(Main);
+
         }
 
     }
