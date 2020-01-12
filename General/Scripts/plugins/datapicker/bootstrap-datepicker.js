@@ -1443,6 +1443,15 @@
             daysMin: ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"],
             months: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
             monthsShort: ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"],
+            today: "Hoy D\u00EDa",
+            clear: "Clear"
+        },
+        es: {
+            days: ["Domingo", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado", "Domingo"],
+            daysShort: ["Dom", "Lun", "Mar", "Mie", "Jue", "Vie", "Sab", "Dom"],
+            daysMin: ["Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa"],
+            months: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
+            monthsShort: ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"],
             today: "Today",
             clear: "Clear"
         }
@@ -1617,14 +1626,14 @@
 			return date.join('');
 		},
 		headTemplate: '<thead>'+
-							'<tr>'+
+							'<tr style="background-color:#e7eaec">'+
 								'<th class="prev">&laquo;</th>'+
 								'<th colspan="5" class="datepicker-switch"></th>'+
 								'<th class="next">&raquo;</th>'+
 							'</tr>'+
 						'</thead>',
 		contTemplate: '<tbody><tr><td colspan="7"></td></tr></tbody>',
-		footTemplate: '<tfoot>'+
+        footTemplate: '<tfoot style="background-color:#e7eaec">'+
 							'<tr>'+
 								'<th colspan="7" class="today"></th>'+
 							'</tr>'+

@@ -502,9 +502,54 @@
                                     <label class="control-label input-style" for="Historicos_Frecuencia">F. Cita</label>
                                 </div>
                                 <div class="col-xs-12 col-md-3">
-                                    <div class="form-group">
-                                        @Html.EditorFor(model => Model.Historicos.Costo, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
+                                    <div class="row">
+                                        <div class="col-xs-12 col-md-8">
+                                            <div class="form-group" id="date_1">
+                                                <div class="input-group date">
+                                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="text" class="form-control" value="" id="FechaCita">
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 col-md-4 numberH">
+                                            <div class="form-group">
+                                                <div class="input-group">
+                                                    <input type="number" class="form-control text-box single-line" style="border-radius:4px;" id="HCita" name="HCita" min="9" max="21" maxlength="2" onKeyDown="if(this.value.length==2) return false;"  >
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        @*<div class="col-xs-12 col-md-1">
+                                        </div>*@
+
                                     </div>
+
+
+                                </div>
+                                @*<div class="col-xs-12 col-md-1">
+            <div class="form-group">
+                <div class="input-group">
+                    <input type="number" class="form-control text-box single-line numberH" id="HCita" name="HCita" min="9" max="21" maxlength="2">
+                </div>
+
+            </div>
+        </div>*@
+                            </div>
+
+                            <div class="row">
+                                <div class="col-xs-12 col-md-3">
+                                    
+                                </div>
+                                <div class="col-xs-12 col-md-3">
+                                    
+                                </div>
+                                <div class="col-xs-12 col-md-3">
+                                    @*<label class="control-label input-style" for="Historicos_Frecuencia">H. Cita</label>*@
+                                </div>
+                                <div class="col-xs-12 col-md-3">
+                                    @*<div class="form-group">
+                                        <input type="number" id="HCita" name="HCita" min="9" max="21">
+                                    </div>*@
                                 </div>
                             </div>
 
@@ -926,6 +971,10 @@
         </div>
     </div>
 </div>
+
+@section Styles {
+    @Styles.Render("~/plugins/dataPickerStyles")
+}
 
 @section Scripts
 {
