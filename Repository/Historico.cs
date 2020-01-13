@@ -36,8 +36,9 @@ namespace Repository
         public string Paquetes { get; set; }
         public Nullable<decimal> Costo { get; set; }
         public string Frecuencia1 { get; set; }
+        public Nullable<System.DateTime> Fechacita { get; set; }
+        public Nullable<int> Horacita { get; set; }
     
-        public virtual Persona Persona { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AgenteElectrofisico> AgenteElectrofisico { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -48,5 +49,6 @@ namespace Repository
         public virtual ICollection<ManiobrasTerapeuticas> ManiobrasTerapeuticas { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Antecedentes> Antecedentes { get; set; }
+        public virtual Persona Persona { get; set; }
     }
 }

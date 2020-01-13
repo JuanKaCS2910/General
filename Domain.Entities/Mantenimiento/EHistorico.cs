@@ -29,6 +29,9 @@ namespace Domain.Entities.Mantenimiento
         public decimal? Costo { get; set; }
 
         public string Frecuencia { get; set; }
+        public DateTime? Fechacita { get; set; }
+
+        public int? Horacita { get; set; }
         //SubTramite
         public int SubTramiteId { get; set; }
         public string DescripcionST { get; set; }
@@ -52,6 +55,10 @@ namespace Domain.Entities.Mantenimiento
         public decimal? Costo { get; set; }
 
         public string Frecuencia { get; set; }
+
+        public DateTime? Fechacita { get; set; }
+
+        public int? Horacita { get; set; }
 
         [Display(Name = "Usuario Creación")]
         public string Usuariocreacion { get; set; }

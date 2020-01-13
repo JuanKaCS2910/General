@@ -139,6 +139,8 @@ CREATE TABLE Historico
 	Paquetes nvarchar(50),
 	Costo	decimal(10,1),
 	Frecuencia nvarchar(50),
+	Fechacita datetime,
+	Horacita int,
 	Usuariocreacion nvarchar(20) NOT NULL,
 	Fechacreacion datetime NOT NULL,
 	Usuariomodificacion nvarchar(20),

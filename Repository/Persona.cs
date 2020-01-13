@@ -39,10 +39,10 @@ namespace Repository
         public Nullable<System.DateTime> Fechamodificacion { get; set; }
     
         public virtual Distrito Distrito { get; set; }
-        public virtual Sexo Sexo { get; set; }
-        public virtual Tipodocumento Tipodocumento { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Historico> Historico { get; set; }
+        public virtual Sexo Sexo { get; set; }
+        public virtual Tipodocumento Tipodocumento { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Usuario> Usuario { get; set; }
     }

@@ -101,7 +101,7 @@ function ViewGridH() {
                             "<td class='col-xs-12 col-md-3'>" + parseJsonRow(result.Diagnostico) + "</td>" +
                             "<td class='col-xs-12 col-md-3'>" + parseJsonRow(result.Observaciones) + "</td>" +
                             "<td class='col-xs-12 col-md-3'>" + parseJsonRow(result.Otros) + "</td>" +
-                            "<td class='col-xs-12 col-md-2'>" + parseJsonDate(result.Fechacreacion) + "</td></tr>");
+                            "<td class='col-xs-12 col-md-2'>" + parseJsonDate(result.Fechacita) + "</td></tr>");
                     });
 
                     var page = $('#hiPaginadoHistorico');
@@ -198,7 +198,7 @@ function ViewGridJson(page, countrow) {
                             "<td class='col-xs-12 col-md-3'>" + parseJsonRow(result.Diagnostico) + "</td>" +
                             "<td class='col-xs-12 col-md-3'>" + parseJsonRow(result.Observaciones) + "</td>" +
                             "<td class='col-xs-12 col-md-3'>" + parseJsonRow(result.Otros) + "</td>" +
-                            "<td class='col-xs-12 col-md-2'>" + parseJsonDate(result.Fechacreacion) + "</td></tr>");
+                            "<td class='col-xs-12 col-md-2'>" + parseJsonDate(result.Fechacita) + "</td></tr>");
                     });
 
                     var page = $('#hiPaginadoHistorico');
@@ -566,7 +566,7 @@ function ViewGridHistorico(personaId) {
                             "<td class='col-xs-12 col-md-3'>" + parseJsonRow(result.Diagnostico) + "</td>" +
                             "<td class='col-xs-12 col-md-3'>" + parseJsonRow(result.Observaciones) + "</td>" +
                             "<td class='col-xs-12 col-md-3'>" + parseJsonRow(result.Otros) + "</td>" +
-                            "<td class='col-xs-12 col-md-2'>" + parseJsonDate(result.Fechacreacion) + "</td></tr>");
+                            "<td class='col-xs-12 col-md-2'>" + parseJsonDate(result.Fechacita) + "</td></tr>");
                     });
 
                     var page = $('#hiPaginadoHistorico');
@@ -628,6 +628,8 @@ function LimpiarTab3(condicion)
     document.getElementById('Documento').value = "";
     document.getElementById('Paciente').value = "";
     document.getElementById('Frecuencia').value = "";
+    document.getElementById('FechaCita').value = "";
+    document.getElementById('HoraCita').value = "";
     
 
     $("#Historicos_Diagnostico").val("");
@@ -723,6 +725,9 @@ function HistoricoSelect(id) {
                         var costo = data.Resultado.Historico[0].Costo;
                         var frecuencia = data.Resultado.Historico[0].Frecuencia;
                         var historiaID = data.Resultado.Historico[0].HistoricoId;
+                        // parseJsonDate(data.Resultado[0].Fecnacimiento);
+                        var fecha = parseJsonDate(data.Resultado.Historico[0].Fechacita);
+                        var hora = data.Resultado.Historico[0].Horacita;
 
                         $("#Historicos_Diagnostico").val(diagnostico);
                         $("#Historicos_Observaciones").val(observaciones);
@@ -731,6 +736,8 @@ function HistoricoSelect(id) {
                         document.getElementById('historicoId').value = historiaID;
                         document.getElementById('Historicos_Paquetes').value = paquete;
                         document.getElementById('Historicos_Costo').value = costo;
+                        document.getElementById('FechaCita').value = fecha;
+                        document.getElementById('HoraCita').value = hora;
                     }
 
                     if (data.Resultado.AgenteTermico.length > 0) {
@@ -879,6 +886,8 @@ function SaveHistory() {
     var paquete = document.getElementById('Historicos_Paquetes');
     var costo = document.getElementById('Historicos_Costo');
     var frecuencia = document.getElementById('Frecuencia');
+    var fechaCita = document.getElementById('FechaCita');
+    var horaCita = document.getElementById('HoraCita');
     //Agente Térmico.
     var caliente = document.getElementById('Historicos_checkCaliente');
     var fria = document.getElementById('Historicos_checkFria');
@@ -928,6 +937,8 @@ function SaveHistory() {
         Observaciones: observaciones.value,
         Otros: otros.value,
         Frecuencia: frecuencia.value,
+        Fechacita: fechaCita.value,
+        Horacita: horaCita.value,
         checkCaliente: caliente.checked,
         checkFria: fria.checked,
         checkContraste: contraste.checked,
@@ -1048,7 +1059,8 @@ function ChangeDocument() {
 function Habilitar(condicion) {
 
     document.getElementById('Frecuencia').disabled = condicion;
-
+    document.getElementById('FechaCita').disabled = condicion;
+    document.getElementById('HoraCita').disabled = condicion;
     document.getElementById('Historicos_Diagnostico').disabled = condicion;
     document.getElementById('Historicos_Paquetes').disabled = condicion;
     document.getElementById('Historicos_Costo').disabled = condicion;

@@ -27,7 +27,6 @@ namespace Repository
     
         public virtual DbSet<Departamento> Departamento { get; set; }
         public virtual DbSet<Distrito> Distrito { get; set; }
-        public virtual DbSet<Persona> Persona { get; set; }
         public virtual DbSet<Sexo> Sexo { get; set; }
         public virtual DbSet<Tipodocumento> Tipodocumento { get; set; }
         public virtual DbSet<Historico> Historico { get; set; }
@@ -39,5 +38,6 @@ namespace Repository
         public virtual DbSet<ManiobrasTerapeuticas> ManiobrasTerapeuticas { get; set; }
         public virtual DbSet<Antecedentes> Antecedentes { get; set; }
         public virtual DbSet<Usuario> Usuario { get; set; }
+        public virtual DbSet<Persona> Persona { get; set; }
     }
 }

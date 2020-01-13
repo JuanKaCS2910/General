@@ -712,11 +712,13 @@ namespace Aplication.Services.Logica.Mantenimiento
                         historicoU.HistoricoId = item.HistoricoId;
                         historicoU.PersonaId = item.PersonaId;
                         historicoU.Diagnostico = registro.Diagnostico;
-                        historicoU.Observaciones = registro.Observaciones;
-                        historicoU.Otros = registro.Otros;
+                        historicoU.Observaciones = registro.Observaciones == null ? "" : registro.Observaciones.ToUpper();
+                        historicoU.Otros = registro.Otros == null ? "": registro.Otros.ToUpper();
                         historicoU.Paquetes = registro.Paquetes;
                         historicoU.Costo = registro.Costo;
                         historicoU.Frecuencia1 = registro.Frecuencia;
+                        historicoU.Fechacita = registro.Fechacita;
+                        historicoU.Horacita = registro.Horacita;
 
                         historicoU.Usuariocreacion = item.Usuariocreacion;
                         historicoU.Fechacreacion = item.Fechacreacion;
@@ -871,6 +873,8 @@ namespace Aplication.Services.Logica.Mantenimiento
             hist.Paquetes = registro.Paquetes;
             hist.Costo = registro.Costo;
             hist.Frecuencia1 = registro.Frecuencia;
+            hist.Fechacita = registro.Fechacita;
+            hist.Horacita = registro.Horacita;
             hist.Fechacreacion = DateTime.Now;
             hist.Usuariocreacion = "JUCASTRO";
 
@@ -985,7 +989,9 @@ namespace Aplication.Services.Logica.Mantenimiento
                                  Apellidomaterno = p.Apellidomaterno,
                                  Nrodocumento = p.Nrodocumento,
                                  TipodocumentoId = p.TipodocumentoId,
-                                 PersonaId = p.PersonaId
+                                 PersonaId = p.PersonaId,
+                                 Fechacita = h.Fechacita,
+                                 Horacita = h.Horacita
                              };
 
             List<EPersona> _person = personaSearch(resultado);
@@ -1036,7 +1042,9 @@ namespace Aplication.Services.Logica.Mantenimiento
                                   Otros = h.Otros,
                                   Paquetes = h.Paquetes,
                                   Costo = (decimal)h.Costo,
-                                  Frecuencia = h.Frecuencia
+                                  Frecuencia = h.Frecuencia,
+                                  Fechacita = h.Fechacita,
+                                  Horacita = h.Horacita
                               }).Distinct().ToList();
             return _historico;
         }
@@ -1141,8 +1149,8 @@ namespace Aplication.Services.Logica.Mantenimiento
                               Diagnostico = h.Diagnostico,
                               Observaciones = h.Observaciones,
                               Otros = h.Otros,
-                              Fechacreacion = h.Fechacreacion
-                          }).OrderByDescending(d => d.Fechacreacion).ToList();
+                              Fechacita = h.Fechacita
+                          }).OrderByDescending(d => d.Fechacita).ToList();
             }
             else
             {
@@ -1156,8 +1164,8 @@ namespace Aplication.Services.Logica.Mantenimiento
                               Diagnostico = h.Diagnostico,
                               Observaciones = h.Observaciones,
                               Otros = h.Otros,
-                              Fechacreacion = h.Fechacreacion
-                          }).OrderByDescending(d => d.Fechacreacion).ToList();
+                              Fechacita = h.Fechacita
+                          }).OrderByDescending(d => d.Fechacita).ToList();
             }
 
              
