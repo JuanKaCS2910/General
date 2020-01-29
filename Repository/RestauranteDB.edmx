@@ -1,0 +1,350 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="DBRestauranteModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Departamento">
+          <Key>
+            <PropertyRef Name="DepartamentoId" />
+          </Key>
+          <Property Name="DepartamentoId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Distrito">
+          <Key>
+            <PropertyRef Name="DistritoId" />
+          </Key>
+          <Property Name="DistritoId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DepartamentoId" Type="int" Nullable="false" />
+          <Property Name="Nombre" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Persona">
+          <Key>
+            <PropertyRef Name="PersonaId" />
+          </Key>
+          <Property Name="PersonaId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TipodocumentoId" Type="int" Nullable="false" />
+          <Property Name="Nrodocumento" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="Nombre" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Apellidopaterno" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Apellidomaterno" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Nrotelefono" Type="nvarchar" MaxLength="12" />
+          <Property Name="Fecnacimiento" Type="datetime" />
+          <Property Name="DistritoId" Type="int" Nullable="false" />
+          <Property Name="Direccion" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="SexoId" Type="int" Nullable="false" />
+          <Property Name="Usuariocreacion" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Fechacreacion" Type="datetime" Nullable="false" />
+          <Property Name="Usuariomodificacion" Type="nvarchar" MaxLength="20" />
+          <Property Name="Fechamodificacion" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Sexo">
+          <Key>
+            <PropertyRef Name="SexoId" />
+          </Key>
+          <Property Name="SexoId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Codigo" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="Descripcion" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tipodocumento">
+          <Key>
+            <PropertyRef Name="TipodocumentoId" />
+          </Key>
+          <Property Name="TipodocumentoId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Codigo" Type="char" MaxLength="3" Nullable="false" />
+          <Property Name="Descripcion" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_dbo_Distrito_dbo_Departamento_DepartamentoId">
+          <End Role="Departamento" Type="Self.Departamento" Multiplicity="1" />
+          <End Role="Distrito" Type="Self.Distrito" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Departamento">
+              <PropertyRef Name="DepartamentoId" />
+            </Principal>
+            <Dependent Role="Distrito">
+              <PropertyRef Name="DepartamentoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Persona_dbo_Distrito_DistritoId">
+          <End Role="Distrito" Type="Self.Distrito" Multiplicity="1" />
+          <End Role="Persona" Type="Self.Persona" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Distrito">
+              <PropertyRef Name="DistritoId" />
+            </Principal>
+            <Dependent Role="Persona">
+              <PropertyRef Name="DistritoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Persona_dbo_Sexo_SexoId">
+          <End Role="Sexo" Type="Self.Sexo" Multiplicity="1" />
+          <End Role="Persona" Type="Self.Persona" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sexo">
+              <PropertyRef Name="SexoId" />
+            </Principal>
+            <Dependent Role="Persona">
+              <PropertyRef Name="SexoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Persona_dbo_Tipodocumento_TipodocumentoId">
+          <End Role="Tipodocumento" Type="Self.Tipodocumento" Multiplicity="1" />
+          <End Role="Persona" Type="Self.Persona" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tipodocumento">
+              <PropertyRef Name="TipodocumentoId" />
+            </Principal>
+            <Dependent Role="Persona">
+              <PropertyRef Name="TipodocumentoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DBRestauranteModelStoreContainer">
+          <EntitySet Name="Departamento" EntityType="Self.Departamento" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Distrito" EntityType="Self.Distrito" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Persona" EntityType="Self.Persona" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sexo" EntityType="Self.Sexo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tipodocumento" EntityType="Self.Tipodocumento" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_dbo_Distrito_dbo_Departamento_DepartamentoId" Association="Self.FK_dbo_Distrito_dbo_Departamento_DepartamentoId">
+            <End Role="Departamento" EntitySet="Departamento" />
+            <End Role="Distrito" EntitySet="Distrito" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Persona_dbo_Distrito_DistritoId" Association="Self.FK_dbo_Persona_dbo_Distrito_DistritoId">
+            <End Role="Distrito" EntitySet="Distrito" />
+            <End Role="Persona" EntitySet="Persona" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Persona_dbo_Sexo_SexoId" Association="Self.FK_dbo_Persona_dbo_Sexo_SexoId">
+            <End Role="Sexo" EntitySet="Sexo" />
+            <End Role="Persona" EntitySet="Persona" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Persona_dbo_Tipodocumento_TipodocumentoId" Association="Self.FK_dbo_Persona_dbo_Tipodocumento_TipodocumentoId">
+            <End Role="Tipodocumento" EntitySet="Tipodocumento" />
+            <End Role="Persona" EntitySet="Persona" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DBRestauranteModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Departamento">
+          <Key>
+            <PropertyRef Name="DepartamentoId" />
+          </Key>
+          <Property Name="DepartamentoId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Distrito" Relationship="Self.FK_dbo_Distrito_dbo_Departamento_DepartamentoId" FromRole="Departamento" ToRole="Distrito" />
+        </EntityType>
+        <EntityType Name="Distrito">
+          <Key>
+            <PropertyRef Name="DistritoId" />
+          </Key>
+          <Property Name="DistritoId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DepartamentoId" Type="Int32" Nullable="false" />
+          <Property Name="Nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Departamento" Relationship="Self.FK_dbo_Distrito_dbo_Departamento_DepartamentoId" FromRole="Distrito" ToRole="Departamento" />
+          <NavigationProperty Name="Persona" Relationship="Self.FK_dbo_Persona_dbo_Distrito_DistritoId" FromRole="Distrito" ToRole="Persona" />
+        </EntityType>
+        <EntityType Name="Persona">
+          <Key>
+            <PropertyRef Name="PersonaId" />
+          </Key>
+          <Property Name="PersonaId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TipodocumentoId" Type="Int32" Nullable="false" />
+          <Property Name="Nrodocumento" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Apellidopaterno" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Apellidomaterno" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Nrotelefono" Type="String" MaxLength="12" FixedLength="false" Unicode="true" />
+          <Property Name="Fecnacimiento" Type="DateTime" Precision="3" />
+          <Property Name="DistritoId" Type="Int32" Nullable="false" />
+          <Property Name="Direccion" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SexoId" Type="Int32" Nullable="false" />
+          <Property Name="Usuariocreacion" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Fechacreacion" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Usuariomodificacion" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Fechamodificacion" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Distrito" Relationship="Self.FK_dbo_Persona_dbo_Distrito_DistritoId" FromRole="Persona" ToRole="Distrito" />
+          <NavigationProperty Name="Sexo" Relationship="Self.FK_dbo_Persona_dbo_Sexo_SexoId" FromRole="Persona" ToRole="Sexo" />
+          <NavigationProperty Name="Tipodocumento" Relationship="Self.FK_dbo_Persona_dbo_Tipodocumento_TipodocumentoId" FromRole="Persona" ToRole="Tipodocumento" />
+        </EntityType>
+        <EntityType Name="Sexo">
+          <Key>
+            <PropertyRef Name="SexoId" />
+          </Key>
+          <Property Name="SexoId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Codigo" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Persona" Relationship="Self.FK_dbo_Persona_dbo_Sexo_SexoId" FromRole="Sexo" ToRole="Persona" />
+        </EntityType>
+        <EntityType Name="Tipodocumento">
+          <Key>
+            <PropertyRef Name="TipodocumentoId" />
+          </Key>
+          <Property Name="TipodocumentoId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Codigo" Type="String" MaxLength="3" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Persona" Relationship="Self.FK_dbo_Persona_dbo_Tipodocumento_TipodocumentoId" FromRole="Tipodocumento" ToRole="Persona" />
+        </EntityType>
+        <Association Name="FK_dbo_Distrito_dbo_Departamento_DepartamentoId">
+          <End Role="Departamento" Type="Self.Departamento" Multiplicity="1" />
+          <End Role="Distrito" Type="Self.Distrito" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Departamento">
+              <PropertyRef Name="DepartamentoId" />
+            </Principal>
+            <Dependent Role="Distrito">
+              <PropertyRef Name="DepartamentoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Persona_dbo_Distrito_DistritoId">
+          <End Role="Distrito" Type="Self.Distrito" Multiplicity="1" />
+          <End Role="Persona" Type="Self.Persona" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Distrito">
+              <PropertyRef Name="DistritoId" />
+            </Principal>
+            <Dependent Role="Persona">
+              <PropertyRef Name="DistritoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Persona_dbo_Sexo_SexoId">
+          <End Role="Sexo" Type="Self.Sexo" Multiplicity="1" />
+          <End Role="Persona" Type="Self.Persona" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sexo">
+              <PropertyRef Name="SexoId" />
+            </Principal>
+            <Dependent Role="Persona">
+              <PropertyRef Name="SexoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Persona_dbo_Tipodocumento_TipodocumentoId">
+          <End Role="Tipodocumento" Type="Self.Tipodocumento" Multiplicity="1" />
+          <End Role="Persona" Type="Self.Persona" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tipodocumento">
+              <PropertyRef Name="TipodocumentoId" />
+            </Principal>
+            <Dependent Role="Persona">
+              <PropertyRef Name="TipodocumentoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DBRestauranteEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Departamento" EntityType="Self.Departamento" />
+          <EntitySet Name="Distrito" EntityType="Self.Distrito" />
+          <EntitySet Name="Persona" EntityType="Self.Persona" />
+          <EntitySet Name="Sexo" EntityType="Self.Sexo" />
+          <EntitySet Name="Tipodocumento" EntityType="Self.Tipodocumento" />
+          <AssociationSet Name="FK_dbo_Distrito_dbo_Departamento_DepartamentoId" Association="Self.FK_dbo_Distrito_dbo_Departamento_DepartamentoId">
+            <End Role="Departamento" EntitySet="Departamento" />
+            <End Role="Distrito" EntitySet="Distrito" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Persona_dbo_Distrito_DistritoId" Association="Self.FK_dbo_Persona_dbo_Distrito_DistritoId">
+            <End Role="Distrito" EntitySet="Distrito" />
+            <End Role="Persona" EntitySet="Persona" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Persona_dbo_Sexo_SexoId" Association="Self.FK_dbo_Persona_dbo_Sexo_SexoId">
+            <End Role="Sexo" EntitySet="Sexo" />
+            <End Role="Persona" EntitySet="Persona" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Persona_dbo_Tipodocumento_TipodocumentoId" Association="Self.FK_dbo_Persona_dbo_Tipodocumento_TipodocumentoId">
+            <End Role="Tipodocumento" EntitySet="Tipodocumento" />
+            <End Role="Persona" EntitySet="Persona" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DBRestauranteModelStoreContainer" CdmEntityContainer="DBRestauranteEntities">
+          <EntitySetMapping Name="Departamento">
+            <EntityTypeMapping TypeName="DBRestauranteModel.Departamento">
+              <MappingFragment StoreEntitySet="Departamento">
+                <ScalarProperty Name="DepartamentoId" ColumnName="DepartamentoId" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Distrito">
+            <EntityTypeMapping TypeName="DBRestauranteModel.Distrito">
+              <MappingFragment StoreEntitySet="Distrito">
+                <ScalarProperty Name="DistritoId" ColumnName="DistritoId" />
+                <ScalarProperty Name="DepartamentoId" ColumnName="DepartamentoId" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Persona">
+            <EntityTypeMapping TypeName="DBRestauranteModel.Persona">
+              <MappingFragment StoreEntitySet="Persona">
+                <ScalarProperty Name="PersonaId" ColumnName="PersonaId" />
+                <ScalarProperty Name="TipodocumentoId" ColumnName="TipodocumentoId" />
+                <ScalarProperty Name="Nrodocumento" ColumnName="Nrodocumento" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Apellidopaterno" ColumnName="Apellidopaterno" />
+                <ScalarProperty Name="Apellidomaterno" ColumnName="Apellidomaterno" />
+                <ScalarProperty Name="Nrotelefono" ColumnName="Nrotelefono" />
+                <ScalarProperty Name="Fecnacimiento" ColumnName="Fecnacimiento" />
+                <ScalarProperty Name="DistritoId" ColumnName="DistritoId" />
+                <ScalarProperty Name="Direccion" ColumnName="Direccion" />
+                <ScalarProperty Name="SexoId" ColumnName="SexoId" />
+                <ScalarProperty Name="Usuariocreacion" ColumnName="Usuariocreacion" />
+                <ScalarProperty Name="Fechacreacion" ColumnName="Fechacreacion" />
+                <ScalarProperty Name="Usuariomodificacion" ColumnName="Usuariomodificacion" />
+                <ScalarProperty Name="Fechamodificacion" ColumnName="Fechamodificacion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sexo">
+            <EntityTypeMapping TypeName="DBRestauranteModel.Sexo">
+              <MappingFragment StoreEntitySet="Sexo">
+                <ScalarProperty Name="SexoId" ColumnName="SexoId" />
+                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tipodocumento">
+            <EntityTypeMapping TypeName="DBRestauranteModel.Tipodocumento">
+              <MappingFragment StoreEntitySet="Tipodocumento">
+                <ScalarProperty Name="TipodocumentoId" ColumnName="TipodocumentoId" />
+                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

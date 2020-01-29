@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="833dd8cdb082493caf40eb790b05cfb1" Name="Diagram1">
+        <EntityTypeShape EntityType="DBRestauranteModel.Departamento" Width="1.5" PointX="0.75" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBRestauranteModel.Distrito" Width="1.5" PointX="3" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBRestauranteModel.Persona" Width="1.5" PointX="5.25" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBRestauranteModel.Sexo" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBRestauranteModel.Tipodocumento" Width="1.5" PointX="3" PointY="7.25" IsExpanded="true" />
+        <AssociationConnector Association="DBRestauranteModel.FK_dbo_Distrito_dbo_Departamento_DepartamentoId" ManuallyRouted="false" />
+        <AssociationConnector Association="DBRestauranteModel.FK_dbo_Persona_dbo_Distrito_DistritoId" ManuallyRouted="false" />
+        <AssociationConnector Association="DBRestauranteModel.FK_dbo_Persona_dbo_Sexo_SexoId" ManuallyRouted="false" />
+        <AssociationConnector Association="DBRestauranteModel.FK_dbo_Persona_dbo_Tipodocumento_TipodocumentoId" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

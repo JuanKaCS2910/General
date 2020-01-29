@@ -41,11 +41,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Interfaz\Mantenimiento\IPersonaService.cs" />
+    <Compile Include="Logica\Mantenimiento\PersonaService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="Interfaz\" />
-    <Folder Include="Logica\" />
+    <ProjectReference Include="..\Domain.Entities\Domain.Entities.csproj">
+      <Project>{709314c9-0da3-4b10-8c2d-fe92ec3a923f}</Project>
+      <Name>Domain.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Repository\Repository.csproj">
+      <Project>{0874bba5-5932-40bf-a281-eebec6ad182a}</Project>
+      <Name>Repository</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
