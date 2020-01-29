@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Repository.UnitOfWork
 {
-    public partial class UnitOfWorkReference //: IDisposable
+    public partial class UnitOfWork //: IDisposable
     {
 
         //#region Private
