@@ -54,6 +54,10 @@ body.mini-navbar .nav-header {
     border-left: 4px solid #6A5ACD;
     background: #293846;
 }
+#side-menu > li.active.open {
+    border-left: 4px solid #6A5ACD;
+    background: #293846;
+}
 
 .form-control {
     display: block;
