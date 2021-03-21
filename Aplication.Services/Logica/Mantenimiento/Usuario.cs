@@ -18,21 +18,26 @@ namespace Aplication.Services.Logica.Mantenimiento
         public List<EUsuario> ObtenerPersona(EUsuario data)
         {
             var usuario = oUnitOfWork.UsuarioRepository.Queryable();
-
-            var result = (from u in usuario
-                          where u.CodUsuario == data.CodUsuario
-                             && u.Contrasena == data.Contrasena
-                          select new EUsuario
-                          {
-                              PersonaId = u.PersonaId,
-                              CodUsuario = u.CodUsuario,
-                              Contrasena = u.Contrasena,
-                              Correo = u.Correo
-                          });
-
-            var _result = result.ToList();
+            List<EUsuario> _result = new List<EUsuario>();
+            try
+            {
+                var result = (from u in usuario
+                           where u.CodUsuario == data.CodUsuario
+                              && u.Contrasena == data.Contrasena
+                           select new EUsuario
+                           {
+                               PersonaId = u.PersonaId,
+                               CodUsuario = u.CodUsuario,
+                               Contrasena = u.Contrasena,
+                               Correo = u.Correo
+                           });
+                _result = result.ToList();
+            }
+            catch (System.Exception ex)
+            {
+                
+            }
             return _result;
-
         }
 
     }

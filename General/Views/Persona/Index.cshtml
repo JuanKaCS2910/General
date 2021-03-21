@@ -138,8 +138,8 @@
                                                     Nombre Completo
                                                 </th>
                                                 @*<th class="col-xs-12 col-md-2">
-                                                @Html.DisplayNameFor(model => Model.PersonaGrilla.FirstOrDefault().Nombre)
-                                            </th>*@
+                    @Html.DisplayNameFor(model => Model.PersonaGrilla.FirstOrDefault().Nombre)
+                </th>*@
                                                 <th class="col-xs-12 col-md-2">
                                                     @Html.DisplayNameFor(model => Model.PersonaGrilla.FirstOrDefault().Nrodocumento)
                                                 </th>
@@ -178,8 +178,8 @@
                                                         @Html.DisplayFor(model => person.Apellidopaterno) @Html.DisplayFor(model => person.Apellidomaterno) , @Html.DisplayFor(model => person.Nombre)
                                                     </td>
                                                     @*<td class="col-xs-12 col-md-2">
-                                                    @Html.DisplayFor(model => person.Nombre)
-                                                </td>*@
+                        @Html.DisplayFor(model => person.Nombre)
+                    </td>*@
                                                     <td class="col-xs-12 col-md-2">
                                                         @Html.DisplayFor(model => person.Nrodocumento)
                                                     </td>
@@ -195,31 +195,37 @@
                                                 </tr>
                                             }
                                         </tbody>
-                                        <tfoot>
-                                            <tr class="EstiloCabecera">
-                                                <th class="col-xs-12 col-md-1">
 
-                                                </th>
-                                                <th class="col-xs-12 col-md-3">
-                                                    Nombre Completo
-                                                </th>
-                                                @*<th class="col-xs-12 col-md-2">
-                                                @Html.DisplayNameFor(model => Model.PersonaGrilla.FirstOrDefault().Nombre)
-                                            </th>*@
-                                                <th class="col-xs-12 col-md-2">
-                                                    @Html.DisplayNameFor(model => Model.PersonaGrilla.FirstOrDefault().Nrodocumento)
-                                                </th>
-                                                <th class="col-xs-12 col-md-1">
-                                                    @Html.DisplayNameFor(model => Model.PersonaGrilla.FirstOrDefault().Nrotelefono)
-                                                </th>
-                                                <th class="col-xs-12 col-md-3">
-                                                    @Html.DisplayNameFor(model => Model.PersonaGrilla.FirstOrDefault().Direccion)
-                                                </th>
-                                                <th class="col-xs-12 col-md-2">
-                                                    @Html.DisplayNameFor(model => Model.PersonaGrilla.FirstOrDefault().Fecnacimiento)
-                                                </th>
-                                            </tr>
-                                        </tfoot>
+                                        @if (Model.PersonaGrilla.Count > 0)
+                                        {
+                                            <tfoot>
+                                                <tr class="EstiloCabecera">
+                                                    <th class="col-xs-12 col-md-1">
+
+                                                    </th>
+                                                    <th class="col-xs-12 col-md-3">
+                                                        Nombre Completo
+                                                    </th>
+                                                    @*<th class="col-xs-12 col-md-2">
+                                                        @Html.DisplayNameFor(model => Model.PersonaGrilla.FirstOrDefault().Nombre)
+                                                    </th>*@
+                                                    <th class="col-xs-12 col-md-2">
+                                                        @Html.DisplayNameFor(model => Model.PersonaGrilla.FirstOrDefault().Nrodocumento)
+                                                    </th>
+                                                    <th class="col-xs-12 col-md-1">
+                                                        @Html.DisplayNameFor(model => Model.PersonaGrilla.FirstOrDefault().Nrotelefono)
+                                                    </th>
+                                                    <th class="col-xs-12 col-md-3">
+                                                        @Html.DisplayNameFor(model => Model.PersonaGrilla.FirstOrDefault().Direccion)
+                                                    </th>
+                                                    <th class="col-xs-12 col-md-2">
+                                                        @Html.DisplayNameFor(model => Model.PersonaGrilla.FirstOrDefault().Fecnacimiento)
+                                                    </th>
+                                                </tr>
+                                            </tfoot>
+                                        }
+
+
                                     </table>
                                 </div>
                             </div>
